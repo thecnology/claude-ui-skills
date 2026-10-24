@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>HEXA voděodolný popruh 20 mm · varianta bez skillu</title>
+  <meta name="description" content="Detail produktu HEXA voděodolný popruh 20 mm – kontrolní varianta vytvořená bez UI skillu.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <style type="text/tailwindcss">
+    @theme {
+      --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+      --font-display: "Manrope", ui-sans-serif, system-ui, sans-serif;
+    }
+  </style>
+</head>
+<body class="bg-stone-50 font-sans text-stone-800 antialiased">
+
+  <!-- Horní lišta -->
+  <div class="bg-stone-900 text-xs text-stone-300">
+    <div class="mx-auto flex max-w-7xl items-center justify-between gap-4 px-4 py-2 sm:px-6">
+      <p class="truncate">Odesíláme do 2 pracovních dnů od zaplacení objednávky</p>
+      <div class="hidden items-center gap-5 sm:flex">
+        <a href="tel:+420777000000" class="hover:text-white">+420 777 000 000</a>
+        <a href="mailto:info@example.cz" class="hover:text-white">info@example.cz</a>
+        <span class="text-stone-500">CZ / CZK</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hlavička -->
+  <header class="sticky top-0 z-20 border-b border-stone-200 bg-white/90 backdrop-blur">
+    <div class="mx-auto flex max-w-7xl items-center gap-6 px-4 py-4 sm:px-6">
+      <a href="#" class="font-display text-xl font-extrabold tracking-tight text-stone-900">Popruhárna</a>
+      <nav class="hidden gap-6 text-sm font-medium text-stone-600 md:flex">
+        <a href="#" class="hover:text-stone-900">BioThane</a>
+        <a href="#" class="text-stone-900">Hexagon</a>
+        <a href="#" class="hover:text-stone-900">PawTex</a>
+        <a href="#" class="hover:text-stone-900">Komponenty</a>
+        <a href="#" class="hover:text-stone-900">Hotové výrobky</a>
+      </nav>
+      <div class="ml-auto flex items-center gap-2">
+        <button type="button" class="rounded-full p-2 text-stone-600 hover:bg-stone-100" aria-label="Hledat">
+          <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+        </button>
+        <button type="button" class="rounded-full p-2 text-stone-600 hover:bg-stone-100" aria-label="Přihlášení">
+          <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></svg>
+        </button>
+        <button type="button" class="relative rounded-full p-2 text-stone-600 hover:bg-stone-100" aria-label="Košík">
+          <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 7h12l-1 13H7L6 7Z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg>
+          <span data-cart-count class="absolute -right-0.5 -top-0.5 grid size-5 place-items-center rounded-full bg-stone-900 text-[10px] font-semibold text-white">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <main class="mx-auto max-w-7xl px-4 pb-24 sm:px-6">
+
+    <!-- Drobečková navigace -->
+    <nav aria-label="Drobečková navigace" class="py-5 text-sm text-stone-500">
+      <ol class="flex flex-wrap items-center gap-2">
+        <li><a href="#" class="hover:text-stone-900">Domů</a></li>
+        <li aria-hidden="true">/</li>
+        <li><a href="#" class="hover:text-stone-900">Hexagon</a></li>
+        <li aria-hidden="true">/</li>
+        <li class="text-stone-900">HEXA voděodolný popruh 20 mm</li>
+      </ol>
+    </nav>
+
+    <section class="grid gap-10 lg:grid-cols-12 lg:gap-14">
+
+      <!-- Galerie -->
+      <div class="lg:col-span-7">
+        <div class="relative aspect-square overflow-hidden rounded-3xl bg-gradient-to-br from-white to-stone-200 ring-1 ring-stone-200">
+          <div data-main-art data-art="band" class="absolute inset-0 p-8 sm:p-14"></div>
+          <span class="absolute left-5 top-5 rounded-full bg-white px-3 py-1 text-xs font-semibold text-stone-700 shadow-sm ring-1 ring-stone-200">Novinka</span>
+        </div>
+        <div class="mt-4 grid grid-cols-5 gap-3">
+          <button type="button" data-thumb="band" class="aspect-square overflow-hidden rounded-2xl bg-white p-2 ring-1 ring-stone-200 transition hover:ring-stone-400 aria-[current=true]:ring-2 aria-[current=true]:ring-stone-900" aria-label="Popruh">
+            <div data-art="band" class="size-full"></div>
+          </button>
+          <button type="button" data-thumb="texture" class="aspect-square overflow-hidden rounded-2xl bg-white ring-1 ring-stone-200 transition hover:ring-stone-400 aria-[current=true]:ring-2 aria-[current=true]:ring-stone-900" aria-label="Detail struktury">
+            <div data-art="texture" class="size-full"></div>
+          </button>
+          <button type="button" data-thumb="roll" class="aspect-square overflow-hidden rounded-2xl bg-white p-2 ring-1 ring-stone-200 transition hover:ring-stone-400 aria-[current=true]:ring-2 aria-[current=true]:ring-stone-900" aria-label="Smotaný popruh">
+            <div data-art="roll" class="size-full"></div>
+          </button>
+          <button type="button" data-thumb="leash" class="aspect-square overflow-hidden rounded-2xl bg-white p-2 ring-1 ring-stone-200 transition hover:ring-stone-400 aria-[current=true]:ring-2 aria-[current=true]:ring-stone-900" aria-label="Vodítko">
+            <div data-art="leash" class="size-full"></div>
+          </button>
+          <button type="button" data-thumb="section" class="aspect-square overflow-hidden rounded-2xl bg-white p-1 text-stone-700 ring-1 ring-stone-200 transition hover:ring-stone-400 aria-[current=true]:ring-2 aria-[current=true]:ring-stone-900" aria-label="Řez popruhem">
+            <div data-art="section" class="size-full"></div>
+          </button>
+        </div>
+        <p class="mt-3 text-xs text-stone-500">Ilustrace se přebarvují podle zvolené barvy. Barvy se mohou na různých monitorech mírně lišit.</p>
+      </div>
+
+      <!-- Nákupní box -->
+      <div class="lg:col-span-5">
+        <div class="lg:sticky lg:top-24">
+          <p class="text-sm font-semibold uppercase tracking-wider text-stone-500">Hexagon · kód HEXA-20</p>
+          <h1 class="mt-2 font-display text-3xl font-extrabold leading-tight tracking-tight text-stone-900 sm:text-4xl">HEXA voděodolný popruh 20&nbsp;mm</h1>
+          <p class="mt-3 text-stone-600">Oboustranný popruh s hexagonální strukturou. Lehký, voděodolný a příjemný do ruky – ideální na vodítka, úchyty a obojky.</p>
+
+          <div class="mt-6 flex items-end gap-3">
+            <p class="font-display text-4xl font-extrabold text-stone-900"><span data-price>49 Kč</span></p>
+            <p class="pb-1 text-stone-500">/ metr</p>
+          </div>
+          <p class="mt-1 text-sm text-stone-500"><span data-price-novat>40,50 Kč</span> bez DPH</p>
+
+          <!-- Barva -->
+          <div class="mt-8">
+            <div class="flex items-baseline justify-between">
+              <p class="text-sm font-semibold text-stone-900">Barva: <span data-color-name class="font-normal text-stone-600"></span></p>
+              <p class="text-xs text-stone-500"><span data-color-count></span> odstínů</p>
+            </div>
+            <div data-color-picker
+                 data-swatch-class="size-9 rounded-full bg-[var(--sw)] ring-1 ring-black/10 ring-offset-2 ring-offset-stone-50 transition hover:scale-110 aria-pressed:ring-2 aria-pressed:ring-stone-900"
+                 class="mt-3 flex flex-wrap gap-2.5"></div>
+            <p class="mt-3 text-xs text-stone-500">Nenašli jste svou barvu? <a href="#" class="font-medium text-stone-800 underline underline-offset-2">Napište nám</a>, zkusíme ji sehnat.</p>
+          </div>
+
+          <!-- Množství + košík -->
+          <div class="mt-8 flex flex-wrap items-stretch gap-3">
+            <div class="flex items-center rounded-full bg-white ring-1 ring-stone-300">
+              <button type="button" data-qty-dec class="grid size-12 place-items-center rounded-full text-lg text-stone-600 hover:bg-stone-100" aria-label="Ubrat metr">−</button>
+              <label class="sr-only" for="qty">Počet metrů</label>
+              <input id="qty" data-qty type="number" min="1" max="500" value="1" class="w-12 [appearance:textfield] bg-transparent text-center font-semibold outline-none [&::-webkit-inner-spin-button]:appearance-none">
+              <button type="button" data-qty-inc class="grid size-12 place-items-center rounded-full text-lg text-stone-600 hover:bg-stone-100" aria-label="Přidat metr">+</button>
+            </div>
+            <button type="button" data-add-to-cart class="order-last flex w-full items-center whitespace-nowrap sm:order-none sm:w-auto sm:flex-1 justify-center gap-2 rounded-full bg-stone-900 px-6 py-3 font-semibold text-white shadow-lg shadow-stone-900/20 transition hover:bg-stone-700 active:scale-[.98]">
+              Vložit do košíku · <span data-total></span>
+            </button>
+            <button type="button" data-fav aria-pressed="false" class="group grid size-12 place-items-center rounded-full bg-white text-stone-600 ring-1 ring-stone-300 transition hover:text-rose-600 aria-pressed:text-rose-600 aria-pressed:ring-rose-300" aria-label="Přidat do oblíbených">
+              <svg class="size-5 group-aria-pressed:fill-current" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10Z"/></svg>
+            </button>
+          </div>
+
+          <!-- Dostupnost -->
+          <ul class="mt-6 divide-y divide-stone-200 rounded-2xl bg-white text-sm ring-1 ring-stone-200">
+            <li class="flex items-center gap-3 px-4 py-3">
+              <span class="size-2.5 rounded-full bg-emerald-500 ring-4 ring-emerald-100"></span>
+              <span><strong class="font-semibold text-emerald-700">Skladem</strong> – prodáváme na metry</span>
+            </li>
+            <li class="flex items-center gap-3 px-4 py-3">
+              <svg class="size-5 text-stone-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 7h11v9H3zM14 10h4l3 3v3h-7"/><circle cx="7" cy="18" r="2"/><circle cx="17" cy="18" r="2"/></svg>
+              <span>Odesíláme do 2 pracovních dnů od zaplacení</span>
+            </li>
+            <li class="flex items-center gap-3 px-4 py-3">
+              <svg class="size-5 text-stone-500" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16v16H4z"/><path d="M8 9h8M8 13h5"/></svg>
+              <a href="#" class="underline-offset-2 hover:underline">Přidat poznámku k produktu</a>
+            </li>
+          </ul>
+
+          <!-- Klíčové parametry -->
+          <dl class="mt-6 grid grid-cols-3 gap-3 text-center">
+            <div class="rounded-2xl bg-white p-4 ring-1 ring-stone-200">
+              <dt class="text-xs text-stone-500">Šířka</dt>
+              <dd class="mt-1 font-display text-xl font-bold text-stone-900">20 mm</dd>
+            </div>
+            <div class="rounded-2xl bg-white p-4 ring-1 ring-stone-200">
+              <dt class="text-xs text-stone-500">Tloušťka</dt>
+              <dd class="mt-1 font-display text-xl font-bold text-stone-900">2,6 mm</dd>
+            </div>
+            <div class="rounded-2xl bg-white p-4 ring-1 ring-stone-200">
+              <dt class="text-xs text-stone-500">Nosnost</dt>
+              <dd class="mt-1 font-display text-xl font-bold text-stone-900">450 kg</dd>
+            </div>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <!-- Záložky -->
+    <section data-tabs class="mt-20">
+      <div role="tablist" class="flex gap-1 overflow-x-auto border-b border-stone-200">
+        <button type="button" role="tab" data-tab="popis" aria-selected="true" class="whitespace-nowrap border-b-2 border-transparent px-4 py-3 text-sm font-semibold text-stone-500 hover:text-stone-900 aria-selected:border-stone-900 aria-selected:text-stone-900">Popis produktu</button>
+        <button type="button" role="tab" data-tab="parametry" aria-selected="false" class="whitespace-nowrap border-b-2 border-transparent px-4 py-3 text-sm font-semibold text-stone-500 hover:text-stone-900 aria-selected:border-stone-900 aria-selected:text-stone-900">Parametry</button>
+        <button type="button" role="tab" data-tab="hexa" aria-selected="false" class="whitespace-nowrap border-b-2 border-transparent px-4 py-3 text-sm font-semibold text-stone-500 hover:text-stone-900 aria-selected:border-stone-900 aria-selected:text-stone-900">Co je HEXA</button>
+        <button type="button" role="tab" data-tab="doprava" aria-selected="false" class="whitespace-nowrap border-b-2 border-transparent px-4 py-3 text-sm font-semibold text-stone-500 hover:text-stone-900 aria-selected:border-stone-900 aria-selected:text-stone-900">Doprava a platba</button>
+      </div>
+
+      <div data-panel="popis" role="tabpanel" class="grid gap-10 py-10 md:grid-cols-2">
+        <div class="max-w-prose space-y-4 text-stone-700">
+          <h2 class="font-display text-2xl font-bold text-stone-900">Popruh, který vydrží bláto, vodu i každodenní tahání</h2>
+          <p>HEXA je oboustranný popruh s hexagonální (plástvovou) strukturou. Polyesterové jádro je zalité do PVC, takže se netřepí, nenasává vodu a jednoduše se omyje.</p>
+          <p>Šestiúhelníkový vzor skvěle drží v ruce i na oblečení, takže vodítko neklouže ani za deště. Popruh je přitom lehký a sbalíte ho do kapsy.</p>
+        </div>
+        <ul class="grid gap-3 sm:grid-cols-2">
+          <li class="rounded-2xl bg-white p-5 ring-1 ring-stone-200">
+            <p class="font-semibold text-stone-900">Lehký a netřepí se</p>
+            <p class="mt-1 text-sm text-stone-600">Žádné vytahování vláken, ani po letech používání.</p>
+          </li>
+          <li class="rounded-2xl bg-white p-5 ring-1 ring-stone-200">
+            <p class="font-semibold text-stone-900">Odolný vodě a bakteriím</p>
+            <p class="mt-1 text-sm text-stone-600">Stačí opláchnout, nesmrdí a neplesniví.</p>
+          </li>
+          <li class="rounded-2xl bg-white p-5 ring-1 ring-stone-200">
+            <p class="font-semibold text-stone-900">Pro psí doplňky</p>
+            <p class="mt-1 text-sm text-stone-600">Vodítka, úchyty, obojky i postroje.</p>
+          </li>
+          <li class="rounded-2xl bg-white p-5 ring-1 ring-stone-200">
+            <p class="font-semibold text-stone-900">Drží v ruce</p>
+            <p class="mt-1 text-sm text-stone-600">Hexagonální vzor neklouže v ruce ani na oblečení.</p>
+          </li>
+        </ul>
+      </div>
+
+      <div data-panel="parametry" role="tabpanel" hidden class="py-10">
+        <dl class="max-w-2xl divide-y divide-stone-200 overflow-hidden rounded-2xl bg-white ring-1 ring-stone-200">
+          <div class="grid grid-cols-2 gap-4 px-5 py-3"><dt class="text-stone-500">Materiál</dt><dd class="font-medium">polyesterové jádro s PVC povrchem</dd></div>
+          <div class="grid grid-cols-2 gap-4 px-5 py-3"><dt class="text-stone-500">Šířka</dt><dd class="font-medium">20 mm</dd></div>
+          <div class="grid grid-cols-2 gap-4 px-5 py-3"><dt class="text-stone-500">Tloušťka</dt><dd class="font-medium">2,6 mm</dd></div>
+          <div class="grid grid-cols-2 gap-4 px-5 py-3"><dt class="text-stone-500">Nosnost</dt><dd class="font-medium">450 kg</dd></div>
+          <div class="grid grid-cols-2 gap-4 px-5 py-3"><dt class="text-stone-500">Povrch</dt><dd class="font-medium">oboustranná hexagonální struktura</dd></div>
+          <div class="grid grid-cols-2 gap-4 px-5 py-3"><dt class="text-stone-500">Prodej</dt><dd class="font-medium">na metry</dd></div>
+          <div class="grid grid-cols-2 gap-4 px-5 py-3"><dt class="text-stone-500">Počet barev</dt><dd class="font-medium"><span data-color-count></span></dd></div>
+        </dl>
+      </div>
+
+      <div data-panel="hexa" role="tabpanel" hidden class="grid items-center gap-10 py-10 md:grid-cols-2">
+        <div class="aspect-[3/2] overflow-hidden rounded-3xl bg-white p-6 text-stone-700 ring-1 ring-stone-200">
+          <div data-art="section" class="size-full"></div>
+        </div>
+        <div class="max-w-prose space-y-4 text-stone-700">
+          <h2 class="font-display text-2xl font-bold text-stone-900">Co je HEXA?</h2>
+          <p>HEXA je potahovaný popruh: pevné polyesterové jádro je z obou stran zalité do PVC s reliéfem šestiúhelníků. Díky tomu je voděodolný, hygienický a na dotek příjemně „gripový“.</p>
+          <a href="#" class="inline-flex items-center gap-1 font-semibold text-stone-900 underline underline-offset-4">Přečíst celý článek <span aria-hidden="true">→</span></a>
+        </div>
+      </div>
+
+      <div data-panel="doprava" role="tabpanel" hidden class="grid gap-4 py-10 md:grid-cols-3">
+        <div class="rounded-2xl bg-white p-5 ring-1 ring-stone-200"><p class="font-semibold">Zásilkovna</p><p class="mt-1 text-sm text-stone-600">Výdejní místa a boxy po celé ČR.</p></div>
+        <div class="rounded-2xl bg-white p-5 ring-1 ring-stone-200"><p class="font-semibold">PPL / DPD</p><p class="mt-1 text-sm text-stone-600">Doručení na adresu do druhého dne od odeslání.</p></div>
+        <div class="rounded-2xl bg-white p-5 ring-1 ring-stone-200"><p class="font-semibold">Platba</p><p class="mt-1 text-sm text-stone-600">Kartou online, převodem nebo na dobírku.</p></div>
+      </div>
+    </section>
+
+    <!-- Dobré vědět -->
+    <section class="mt-16">
+      <h2 class="font-display text-xl font-bold text-stone-900">Dobré vědět</h2>
+      <div class="mt-5 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+        <a href="#" class="rounded-2xl bg-white p-5 ring-1 ring-stone-200 transition hover:-translate-y-0.5 hover:shadow-md"><p class="font-semibold">Co je BioThane</p><p class="mt-1 text-sm text-stone-600">Rozdíly mezi materiály a k čemu který použít.</p></a>
+        <a href="#" class="rounded-2xl bg-white p-5 ring-1 ring-stone-200 transition hover:-translate-y-0.5 hover:shadow-md"><p class="font-semibold">Co je PawTex</p><p class="mt-1 text-sm text-stone-600">Měkký popruh pro citlivé tlapky i ruce.</p></a>
+        <a href="#" class="rounded-2xl bg-white p-5 ring-1 ring-stone-200 transition hover:-translate-y-0.5 hover:shadow-md"><p class="font-semibold">Gravírování a UV tisk</p><p class="mt-1 text-sm text-stone-600">Personalizace komponent jménem nebo logem.</p></a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Patička -->
+  <footer class="border-t border-stone-200 bg-white">
+    <div class="mx-auto grid max-w-7xl gap-8 px-4 py-12 text-sm text-stone-600 sm:px-6 md:grid-cols-4">
+      <div>
+        <p class="font-display text-lg font-extrabold text-stone-900">Popruhárna</p>
+        <p class="mt-2">Materiály a komponenty pro výrobu psích doplňků.</p>
+      </div>
+      <div class="space-y-2"><p class="font-semibold text-stone-900">Nákup</p><a href="#" class="block hover:text-stone-900">Obchodní podmínky</a><a href="#" class="block hover:text-stone-900">Reklamace a vrácení</a><a href="#" class="block hover:text-stone-900">Odstoupení od smlouvy</a></div>
+      <div class="space-y-2"><p class="font-semibold text-stone-900">Kontakt</p><p>+420 777 000 000</p><p>info@example.cz</p></div>
+      <div class="space-y-2"><p class="font-semibold text-stone-900">Prototyp</p><a href="/" class="block font-medium text-stone-900 underline underline-offset-2">← Všechny varianty</a><p class="text-xs text-stone-400">Varianta bez skillu (kontrolní)</p></div>
+    </div>
+  </footer>
+
+  <!-- Toast -->
+  <div data-toast data-show="false" role="status" aria-live="polite"
+       class="pointer-events-none fixed inset-x-0 bottom-6 z-50 mx-auto w-fit max-w-[90vw] translate-y-4 rounded-full bg-stone-900 px-5 py-3 text-sm font-medium text-white opacity-0 shadow-xl transition data-[show=true]:translate-y-0 data-[show=true]:opacity-100">
+    <span data-toast-text></span>
+  </div>
+
+  <script src="/assets/hexa.js"></script>
+</body>
+</html>
