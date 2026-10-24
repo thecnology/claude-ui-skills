@@ -1,0 +1,434 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>HEXA voděodolný popruh 20 mm · 49 Kč/m · Popruhárna</title>
+  <meta name="description" content="HEXA voděodolný popruh 20 mm v 23 barvách, prodej na metry za 49 Kč/m. Polyesterové jádro s PVC povrchem, nosnost 450 kg. Varianta skillu design-taste-frontend.">
+  <script>document.documentElement.classList.add('js')</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <style type="text/tailwindcss">
+    @theme {
+      --font-sans: "Bricolage Grotesque", ui-sans-serif, system-ui, sans-serif;
+
+      /* Sand and moss: jedna půda, jeden inkoust, jeden akcent */
+      --color-sand: #ddd6c6;
+      --color-sand-2: #d2cab8;
+      --color-ink: #2a2a26;
+      --color-night: #1e1e1b;
+      --color-muted: #59574e;
+      --color-dim: #aaa496;
+      --color-moss: #4f6238;
+      --color-moss-strong: #3f5a2a;
+
+      /* Pět velikostí, víc ne */
+      --text-small: clamp(0.8125rem, 0.79rem + 0.1vw, 0.875rem);
+      --text-small--line-height: 1.4;
+      --text-body: clamp(1.0625rem, 1rem + 0.25vw, 1.1875rem);
+      --text-body--line-height: 1.5;
+      --text-lead: clamp(1.25rem, 1.1rem + 0.7vw, 1.625rem);
+      --text-lead--line-height: 1.35;
+      --text-head: clamp(2rem, 1.3rem + 3.2vw, 4rem);
+      --text-head--line-height: 0.98;
+      --text-display: clamp(2.6rem, 0.9rem + 6.6vw, 7.4rem);
+      --text-display--line-height: 0.92;
+
+      --spacing-page: clamp(1.25rem, 3.4vw, 3rem);
+
+      --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+      --ease-expo: cubic-bezier(0.16, 1, 0.3, 1);
+
+      --animate-drift: drift 16s cubic-bezier(0.33, 1, 0.68, 1) infinite alternate;
+      @keyframes drift {
+        from { transform: scale(1); }
+        to { transform: scale(1.09) translate(-1.5%, 1%); }
+      }
+    }
+
+    /* Plástev HEXA jako textura vzorníku (žádný přechod, jen opakovaný vzor) */
+    @utility hexgrain {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns=%27http://www.w3.org/2000/svg%27 width=%2712.12%27 height=%2721%27%3E%3Crect width=%27100%25%27 height=%27100%25%27 fill=%27rgba(0%2C0%2C0%2C.2)%27/%3E%3Cpath d=%27M-0.40 -5.77L4.07 -3.18L4.07 1.98L-0.40 4.57L-4.87 1.98L-4.87 -3.18ZM11.72 -5.77L16.20 -3.18L16.20 1.98L11.72 4.57L7.25 1.98L7.25 -3.18ZM5.66 4.73L10.14 7.32L10.14 12.48L5.66 15.07L1.19 12.48L1.19 7.32ZM-0.40 15.23L4.07 17.82L4.07 22.98L-0.40 25.57L-4.87 22.98L-4.87 17.82ZM11.72 15.23L16.20 17.82L16.20 22.98L11.72 25.57L7.25 22.98L7.25 17.82Z%27 fill=%27rgba(255%2C255%2C255%2C.14)%27/%3E%3Cpath d=%27M0.00 -5.74L4.97 -2.87L4.97 2.87L0.00 5.74L-4.97 2.87L-4.97 -2.87ZM12.12 -5.74L17.10 -2.87L17.10 2.87L12.12 5.74L7.15 2.87L7.15 -2.87ZM6.06 4.76L11.03 7.63L11.03 13.37L6.06 16.24L1.09 13.37L1.09 7.63ZM0.00 15.26L4.97 18.13L4.97 23.87L0.00 26.74L-4.97 23.87L-4.97 18.13ZM12.12 15.26L17.10 18.13L17.10 23.87L12.12 26.74L7.15 23.87L7.15 18.13Z%27 fill=%27rgba(255%2C255%2C255%2C.03)%27 stroke=%27rgba(0%2C0%2C0%2C.2)%27 stroke-width=%27.7%27/%3E%3C/svg%3E");
+    }
+
+    @utility no-scrollbar {
+      scrollbar-width: none;
+      &::-webkit-scrollbar { display: none; }
+    }
+
+    /* Barva popruhu se mezi odstíny přelévá: zaregistrovaná proměnná jde animovat */
+    @property --strap { syntax: '<color>'; inherits: true; initial-value: #3b3f45; }
+    @property --strap-ink { syntax: '<color>'; inherits: true; initial-value: #ffffff; }
+
+    @layer base {
+      :root { --field-ink: var(--strap-ink); }
+      html { transition: --strap 600ms var(--ease-out), --strap-ink 600ms var(--ease-out); }
+      ::selection { background: var(--color-moss); color: #fff; }
+      :focus-visible { outline: 3px solid var(--color-moss); outline-offset: 3px; }
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      .js [data-reveal] { opacity: 0; transform: translateY(24px); transition: opacity 700ms var(--ease-out), transform 900ms var(--ease-expo); transition-delay: var(--d, 0ms); }
+      .js [data-reveal].is-in { opacity: 1; transform: none; }
+      .js [data-rise] { animation: rise 900ms var(--ease-expo) both; animation-delay: var(--d, 0ms); }
+      @keyframes rise { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: none; } }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      html { transition: none; }
+      .motion-safe-drift { animation: none !important; }
+    }
+  </style>
+</head>
+<body class="bg-sand font-sans text-body text-ink antialiased">
+  <a href="#nakup" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:bg-sand focus:px-4 focus:py-3 focus:text-ink">Přeskočit na nákup</a>
+
+  <!-- ================= PRVNÍ OBRAZOVKA: vzorník 23 barev ================= -->
+  <header class="bg-night text-sand">
+    <div class="flex items-center justify-between gap-6 px-page pt-5 pb-3 text-small font-medium lg:pt-7">
+      <a href="#" class="text-body font-semibold tracking-tight">Popruhárna</a>
+      <nav aria-label="Hlavní navigace" class="flex items-center gap-5 sm:gap-8">
+        <a href="#" class="hidden decoration-2 underline-offset-4 hover:underline sm:inline">Popruhy</a>
+        <a href="#" class="hidden decoration-2 underline-offset-4 hover:underline sm:inline">Kování</a>
+        <a href="#faq" class="hidden decoration-2 underline-offset-4 hover:underline md:inline">Jak šít</a>
+        <a href="#" class="inline-flex min-h-11 items-center gap-2 bg-sand/10 px-4 transition-colors duration-200 hover:bg-sand/20">Košík <span data-cart-count class="tabular-nums">0</span></a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section id="nakup" aria-labelledby="nazev" class="bg-night pb-10 text-sand lg:pb-12">
+      <nav aria-label="Drobečková navigace" class="px-page text-small text-dim">
+        <ol class="flex flex-wrap items-center gap-x-2 gap-y-1">
+          <li><a href="#" class="hover:text-sand hover:underline">Domů</a></li>
+          <li aria-hidden="true">/</li>
+          <li><a href="#" class="hover:text-sand hover:underline">Popruhy</a></li>
+          <li aria-hidden="true">/</li>
+          <li><a href="#" class="hover:text-sand hover:underline">HEXA</a></li>
+          <li aria-hidden="true">/</li>
+          <li aria-current="page" class="text-sand">HEXA voděodolný popruh 20 mm</li>
+        </ol>
+      </nav>
+
+      <div class="mt-6 grid gap-6 px-page lg:mt-4 lg:grid-cols-12 lg:items-end lg:gap-x-6">
+        <h1 id="nazev" data-rise class="text-display font-semibold tracking-[-0.04em] text-balance lg:col-span-9">HEXA voděodolný popruh 20&nbsp;mm</h1>
+        <div data-rise style="--d:120ms" class="lg:col-span-3 lg:justify-self-end lg:pb-2 lg:text-right">
+          <p class="text-head font-semibold tracking-[-0.04em]"><span data-price>49 Kč</span><span class="text-lead font-medium tracking-normal text-dim"> / m</span></p>
+          <p class="mt-2 text-small text-dim"><span data-price-novat>40,50 Kč</span> bez DPH</p>
+        </div>
+      </div>
+
+      <!-- Vzorník: 23 pruhů popruhu, vybraný se rozsvítí -->
+      <div id="barvy" class="mt-8 lg:mt-6">
+        <h2 class="sr-only">Výběr barvy</h2>
+        <div data-color-picker role="group" aria-label="Barva popruhu, 23 odstínů"
+             data-swatch-class="group flex h-[clamp(12.5rem,31vh,19rem)] w-[clamp(4.25rem,6.4vw,6.5rem)] lg:h-[clamp(15rem,34vh,21rem)] lg:w-auto lg:min-w-0 lg:flex-1 shrink-0 snap-start cursor-pointer flex-col justify-end gap-2.5 text-left outline-none before:block before:w-full before:flex-1 before:origin-bottom before:scale-y-[.82] before:bg-(color:--sw) before:hexgrain before:brightness-[.7] before:transition before:duration-500 before:ease-(--ease-expo) hover:before:brightness-100 hover:before:scale-y-[.9] aria-pressed:before:scale-y-100 aria-pressed:before:brightness-100 focus-visible:before:outline-3 focus-visible:before:outline-offset-4 focus-visible:before:outline-sand"
+             data-swatch-label-class="block h-[2.6em] lg:h-[6.2em] lg:[writing-mode:vertical-rl] lg:rotate-180 lg:self-center lg:whitespace-nowrap text-small leading-tight lowercase text-dim first-letter:uppercase transition-colors duration-200 group-hover:text-sand group-aria-pressed:font-medium group-aria-pressed:text-sand"
+             class="no-scrollbar flex snap-x snap-mandatory scroll-px-page items-end gap-2.5 overflow-x-auto px-page pb-1 lg:gap-2 lg:overflow-visible"></div>
+      </div>
+
+      <div class="mt-4 grid gap-x-6 gap-y-6 px-page lg:mt-5 lg:grid-cols-12 lg:items-end">
+        <div class="lg:col-span-5">
+          <p class="text-lead font-medium" aria-live="polite">Barva <span data-color-name class="inline-block lowercase first-letter:uppercase">ANTRACIT</span><span class="text-dim"> · <span data-color-hex class="tabular-nums">#3B3F45</span> · jedna z <span data-color-count>23</span></span></p>
+          <p class="mt-3 max-w-[36ch] text-body text-sand/90">Oboustranný popruh s plástvovým reliéfem, který nenasaje vodu ani pach. Řežeme ho po metrech v jednom kuse.</p>
+          <p class="mt-3 flex flex-wrap items-center gap-x-3 gap-y-1 text-small">
+            <span class="inline-flex items-center gap-2 font-medium text-sand"><span aria-hidden="true" class="size-2.5 bg-[#8fb46a]"></span>Skladem</span>
+            <span class="text-dim">Odesíláme do 2 pracovních dnů od zaplacení</span>
+          </p>
+        </div>
+
+        <div class="flex flex-wrap items-stretch gap-2.5 lg:col-span-7 lg:justify-end">
+          <div class="flex items-stretch bg-sand/10">
+            <button type="button" data-qty-dec class="grid size-11 place-items-center text-lead transition-[background-color,transform] duration-150 hover:bg-sand/15 active:scale-95 sm:size-13" aria-label="Ubrat metr">−</button>
+            <label for="qty" class="sr-only">Množství v metrech</label>
+            <div class="flex items-center gap-1 px-1">
+              <input id="qty" data-qty type="number" inputmode="numeric" min="1" max="500" value="1" class="w-11 bg-transparent text-center text-body font-medium tabular-nums outline-none [appearance:textfield] [&::-webkit-inner-spin-button]:appearance-none [&::-webkit-outer-spin-button]:appearance-none focus-visible:outline-2 focus-visible:outline-sand">
+              <span class="text-small text-dim" aria-hidden="true">m</span>
+            </div>
+            <button type="button" data-qty-inc class="grid size-11 place-items-center text-lead transition-[background-color,transform] duration-150 hover:bg-sand/15 active:scale-95 sm:size-13" aria-label="Přidat metr">+</button>
+          </div>
+          <button type="button" data-add-to-cart class="order-first inline-flex min-h-13 w-full items-center justify-center gap-3 bg-moss px-7 text-body font-medium text-white transition-[background-color,transform] duration-150 hover:bg-moss-strong active:scale-[.97] sm:order-none sm:w-auto sm:flex-1 lg:flex-none">
+            Vložit do košíku <span aria-hidden="true" class="text-white/60">·</span> <span data-total class="tabular-nums">49 Kč</span>
+          </button>
+          <button type="button" data-fav aria-pressed="false" class="group inline-flex min-h-13 flex-1 items-center justify-center gap-2 whitespace-nowrap bg-sand/10 px-3 text-small transition-[background-color,color,transform] duration-200 hover:bg-sand/20 active:scale-[.97] aria-pressed:bg-sand aria-pressed:text-ink sm:flex-none sm:gap-2.5 sm:px-5 sm:text-body">
+            <svg aria-hidden="true" viewBox="0 0 24 24" class="size-5 fill-none stroke-current stroke-2 group-aria-pressed:fill-current"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10Z"/></svg>
+            <span>Přidat do oblíbených</span>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= GALERIE: řada snímků, jeden zvednutý ================= -->
+    <section aria-labelledby="zblizka" class="px-page pt-28 lg:pt-40">
+      <div class="grid grid-cols-[minmax(0,1fr)] gap-8 lg:grid-cols-12 lg:gap-x-6">
+        <div class="flex flex-col lg:col-span-3">
+          <h2 id="zblizka" data-reveal class="text-head font-semibold tracking-[-0.04em]">Popruh zblízka</h2>
+          <a href="#barvy" data-reveal style="--d:80ms" class="mt-4 self-start text-body font-medium underline decoration-2 underline-offset-4 transition-colors hover:text-moss">Vybrat jinou barvu</a>
+          <div class="mt-auto hidden space-y-5 pt-16 text-body text-muted lg:block">
+            <p data-reveal style="--d:160ms" class="max-w-[30ch]">Snímky se přebarvují podle odstínu, který jste vybrali nahoře.</p>
+            <p data-reveal style="--d:220ms" class="max-w-[30ch]">Kliknutím na menší snímek ho zvětšíte.</p>
+          </div>
+        </div>
+
+        <div class="min-w-0 lg:col-span-9">
+          <div class="flex flex-col gap-6 lg:flex-row lg:items-end lg:gap-4">
+            <figure data-reveal style="--d:80ms" class="shrink-0">
+              <div class="aspect-square w-full overflow-hidden bg-sand-2 text-ink lg:w-[clamp(19rem,25vw,26rem)]">
+                <div data-main-art data-art="band" class="size-full p-6 lg:p-8"></div>
+              </div>
+              <figcaption class="mt-2 flex justify-between gap-4 text-small"><span class="font-medium">HEXA 20 mm</span><span class="text-muted lowercase first-letter:uppercase" data-color-name>ANTRACIT</span></figcaption>
+            </figure>
+
+            <ul class="flex flex-wrap items-end gap-x-1.5 gap-y-5 lg:flex-nowrap lg:gap-x-3" aria-label="Snímky produktu">
+              <li class="shrink-0" data-reveal style="--d:140ms">
+                <button type="button" data-thumb="band" aria-current="true" aria-label="Zobrazit popruh" class="group block text-left">
+                  <span class="block h-[28vw] w-[28vw] overflow-hidden bg-sand-2 p-2 transition-[background-color] duration-200 group-hover:bg-[#c8bfac] group-aria-[current=true]:bg-[#c3baa5] lg:size-[clamp(6.5rem,7.5vw,8rem)]"><span data-art="band" class="block size-full"></span></span>
+                  <span class="mt-2 flex justify-between gap-3 text-small"><span class="font-medium decoration-2 underline-offset-4 group-aria-[current=true]:underline">Popruh</span><span class="text-muted">20 mm</span></span>
+                </button>
+              </li>
+              <li class="shrink-0" data-reveal style="--d:190ms">
+                <button type="button" data-thumb="texture" aria-label="Zobrazit detail plástve" class="group block text-left">
+                  <span class="block h-[28vw] w-[19vw] overflow-hidden bg-sand-2 transition-opacity duration-200 group-hover:opacity-90 lg:h-[clamp(6.5rem,7.5vw,8rem)] lg:w-[clamp(4.25rem,5vw,5.25rem)]"><span data-art="texture" class="block size-full"></span></span>
+                  <span class="mt-2 flex justify-between gap-3 text-small"><span class="font-medium decoration-2 underline-offset-4 group-aria-[current=true]:underline">Plástev</span></span>
+                </button>
+              </li>
+              <li class="shrink-0" data-reveal style="--d:240ms">
+                <button type="button" data-thumb="roll" aria-label="Zobrazit smotaný popruh" class="group block text-left">
+                  <span class="block h-[28vw] w-[28vw] overflow-hidden bg-sand-2 p-2 transition-[background-color] duration-200 group-hover:bg-[#c8bfac] group-aria-[current=true]:bg-[#c3baa5] lg:size-[clamp(6.5rem,7.5vw,8rem)]"><span data-art="roll" class="block size-full"></span></span>
+                  <span class="mt-2 flex justify-between gap-3 text-small"><span class="font-medium decoration-2 underline-offset-4 group-aria-[current=true]:underline">Role</span><span class="text-muted">na metry</span></span>
+                </button>
+              </li>
+              <li class="shrink-0" data-reveal style="--d:290ms">
+                <button type="button" data-thumb="leash" aria-label="Zobrazit vodítko z popruhu" class="group block text-left">
+                  <span class="block h-[28vw] w-[28vw] overflow-hidden bg-sand-2 p-2 transition-[background-color] duration-200 group-hover:bg-[#c8bfac] group-aria-[current=true]:bg-[#c3baa5] lg:size-[clamp(6.5rem,7.5vw,8rem)]"><span data-art="leash" class="block size-full"></span></span>
+                  <span class="mt-2 flex justify-between gap-3 text-small"><span class="font-medium decoration-2 underline-offset-4 group-aria-[current=true]:underline">Vodítko</span><span class="text-muted">ukázka</span></span>
+                </button>
+              </li>
+              <li class="shrink-0" data-reveal style="--d:340ms">
+                <button type="button" data-thumb="section" aria-label="Zobrazit řez popruhem" class="group block text-left">
+                  <span class="block h-[28vw] w-[42vw] overflow-hidden bg-sand-2 p-1 text-ink transition-[background-color] duration-200 group-hover:bg-[#c8bfac] group-aria-[current=true]:bg-[#c3baa5] lg:h-[clamp(6.5rem,7.5vw,8rem)] lg:w-[clamp(9.75rem,11.25vw,12rem)]"><span data-art="section" class="block size-full"></span></span>
+                  <span class="mt-2 flex justify-between gap-3 text-small"><span class="font-medium decoration-2 underline-offset-4 group-aria-[current=true]:underline">Řez</span><span class="text-muted">2,6 mm</span></span>
+                </button>
+              </li>
+            </ul>
+          </div>
+          <div class="mt-6 space-y-2 text-body text-muted lg:hidden">
+            <p>Snímky se přebarvují podle odstínu, který jste vybrali nahoře. Klepnutím na menší snímek ho zvětšíte.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= CO Z NĚJ UŠIJETE: jména v jedné velikosti ================= -->
+    <section aria-labelledby="usijete" class="px-page pt-32 lg:pt-36">
+      <h2 id="usijete" data-reveal class="text-head font-semibold tracking-[-0.04em]">Co z něj ušijete</h2>
+      <div class="mt-10 grid gap-10 md:grid-cols-3 md:gap-x-6 lg:mt-24 lg:grid-cols-12" data-uses>
+        <div data-reveal class="lg:col-span-3">
+          <h3 class="text-lead font-medium">Vodítka</h3>
+          <ul class="mt-5 space-y-1.5 text-lead leading-[1.3] text-muted lg:space-y-1 lg:text-body">
+            <li data-note="Městské vodítko 1,2 m: zhruba 1,6 m popruhu, karabina a jeden kroužek." class="cursor-default transition-colors duration-200 hover:text-ink">Městské vodítko</li>
+            <li data-note="Přepínací vodítko 2 m: počítejte asi 2,6 m popruhu, dvě karabiny a tři kroužky." class="cursor-default transition-colors duration-200 hover:text-ink">Přepínací vodítko</li>
+            <li data-note="Stopovačka 5 až 10 m: HEXA nenasaje rosu, takže v mokré trávě neztěžkne." class="cursor-default transition-colors duration-200 hover:text-ink">Stopovací vodítko</li>
+            <li data-note="Krátké poutko k postroji: 0,5 m stačí na úchyt do ruky u nohy." class="cursor-default transition-colors duration-200 hover:text-ink">Krátké poutko</li>
+            <li data-note="Vodítko pro dva psy: hlavní díl a dvě odbočky, zhruba 2,5 m popruhu." class="cursor-default transition-colors duration-200 hover:text-ink">Vodítko pro dva psy</li>
+            <li data-note="Vodítko k pasu: popruh přes boky a krátký díl s karabinou, kolem 2 m." class="cursor-default transition-colors duration-200 hover:text-ink">Vodítko k pasu</li>
+          </ul>
+          <p class="mt-5 max-w-[34ch] text-body text-muted lg:hidden">Na běžné vodítko spotřebujete dva až tři metry.</p>
+        </div>
+        <div data-reveal style="--d:80ms" class="lg:col-span-3">
+          <h3 class="text-lead font-medium">Obojky a postroje</h3>
+          <ul class="mt-5 space-y-1.5 text-lead leading-[1.3] text-muted lg:space-y-1 lg:text-body">
+            <li data-note="Obojek s plastovou přezkou: obvod krku plus 15 cm na přezku a přeložení." class="cursor-default transition-colors duration-200 hover:text-ink">Obojek s klapkou</li>
+            <li data-note="Obojek s kovovou přezkou a dírkami: popruh se dá dírkovat, okraje se netřepí." class="cursor-default transition-colors duration-200 hover:text-ink">Obojek s přezkou</li>
+            <li data-note="Polostahovací obojek: kolem 0,7 m popruhu a dva kroužky 20 mm." class="cursor-default transition-colors duration-200 hover:text-ink">Polostahovací obojek</li>
+            <li data-note="Postroj Y: tři díly a spojka na hrudi, pro střední psy asi 1,5 m." class="cursor-default transition-colors duration-200 hover:text-ink">Postroj typu Y</li>
+            <li data-note="Obojek pro štěně: jeden metr vystačí na dva, než pes doroste." class="cursor-default transition-colors duration-200 hover:text-ink">Obojek pro štěně</li>
+            <li data-note="Bezpečnostní pás do auta: krátký díl s karabinou do zámku pásu." class="cursor-default transition-colors duration-200 hover:text-ink">Pás do auta</li>
+          </ul>
+          <p class="mt-5 max-w-[34ch] text-body text-muted lg:hidden">Na obojek stačí metr, na postroj kolem metru a půl.</p>
+        </div>
+        <div data-reveal style="--d:160ms" class="lg:col-span-3">
+          <h3 class="text-lead font-medium">Drobnosti</h3>
+          <ul class="mt-5 space-y-1.5 text-lead leading-[1.3] text-muted lg:space-y-1 lg:text-body">
+            <li data-note="Poutko na sáčky: 15 cm popruhu a jeden patentek." class="cursor-default transition-colors duration-200 hover:text-ink">Poutko na sáčky</li>
+            <li data-note="Úchyt na pamlskovník: drží na opasku i v dešti." class="cursor-default transition-colors duration-200 hover:text-ink">Úchyt na pamlskovník</li>
+            <li data-note="Klíčenka: zbytek z vodítka, karabinka a jeden nýt." class="cursor-default transition-colors duration-200 hover:text-ink">Klíčenka</li>
+            <li data-note="Přetahovadlo: dva pruhy spletené k sobě, omyjete pod kohoutkem." class="cursor-default transition-colors duration-200 hover:text-ink">Přetahovadlo</li>
+            <li data-note="Ucho na tašku: plástev drží v dlani i s plným nákupem." class="cursor-default transition-colors duration-200 hover:text-ink">Ucho na tašku</li>
+            <li data-note="Jmenovka k obojku: popruh s gravírovaným štítkem na dva nýty." class="cursor-default transition-colors duration-200 hover:text-ink">Jmenovka</li>
+          </ul>
+          <p class="mt-5 max-w-[34ch] text-body text-muted lg:hidden">Zbytky z vodítek se hodí na poutka a klíčenky.</p>
+        </div>
+        <div class="hidden lg:col-span-3 lg:block">
+          <p data-uses-note aria-live="polite" class="max-w-[30ch] text-body text-ink">Najeďte na výrobek a uvidíte, kolik popruhu na něj zhruba spotřebujete.</p>
+          <div class="mt-10 aspect-square w-full max-w-[16rem] overflow-hidden bg-sand-2 p-4">
+            <div data-art="leash" class="size-full"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= POPIS A PARAMETRY ================= -->
+    <section aria-labelledby="popis" class="px-page pt-32 lg:pt-56">
+      <div class="grid gap-8 lg:grid-cols-[34%_1fr] lg:gap-0">
+        <div class="lg:pr-10">
+          <h2 id="popis" data-reveal class="text-head font-semibold tracking-[-0.04em]">Popis</h2>
+          <dl class="mt-8 grid grid-cols-3 gap-4 lg:mt-12 lg:grid-cols-1 lg:gap-6">
+            <div data-reveal style="--d:80ms"><dt class="text-small text-muted">Šířka</dt><dd class="text-lead font-medium">20 mm</dd></div>
+            <div data-reveal style="--d:140ms"><dt class="text-small text-muted">Tloušťka</dt><dd class="text-lead font-medium">2,6 mm</dd></div>
+            <div data-reveal style="--d:200ms"><dt class="text-small text-muted">Nosnost</dt><dd class="text-lead font-medium">450 kg</dd></div>
+          </dl>
+        </div>
+        <div class="lg:w-[90%]">
+          <p data-reveal style="--d:60ms" class="max-w-[52ch] text-lead">HEXA je potahovaný popruh. Pevné polyesterové jádro je z obou stran zalité do PVC s reliéfem drobných šestiúhelníků, takže nenasaje vodu, netřepí se na řezu a bláto z něj spláchnete pod kohoutkem.</p>
+          <div class="mt-8 grid gap-6 text-body md:grid-cols-2 md:gap-14">
+            <p data-reveal style="--d:120ms" class="max-w-[46ch]">Plástev drží v dlani i v mokru, vodítko tedy neklouže ani v rukavici. Povrch je stejný z líce i z rubu, proto nemusíte hlídat, kterou stranou popruh přišijete nebo přenýtujete.</p>
+            <p data-reveal style="--d:180ms" class="max-w-[46ch]">Šířka 20 mm sedí na běžné kování: přezky, karabiny, D-kroužky i šrouby Chicago. Při nosnosti 450 kg unese vodítko i pro silného tahače a pořád zůstává lehké a ohebné.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-20 grid gap-8 lg:mt-32 lg:grid-cols-[34%_1fr] lg:gap-0">
+        <h3 data-reveal class="text-lead font-medium lg:pr-10">Parametry</h3>
+        <div class="grid gap-10 md:grid-cols-2 md:gap-16 lg:w-[90%]">
+          <dl data-reveal style="--d:80ms" class="space-y-3 text-body">
+            <div class="flex justify-between gap-6"><dt class="text-muted">Materiál</dt><dd class="text-right font-medium">polyesterové jádro s PVC povrchem</dd></div>
+            <div class="flex justify-between gap-6 bg-sand-2/60 -mx-3 px-3 py-1"><dt class="text-muted">Šířka</dt><dd class="font-medium tabular-nums">20 mm</dd></div>
+            <div class="flex justify-between gap-6"><dt class="text-muted">Tloušťka</dt><dd class="font-medium tabular-nums">2,6 mm</dd></div>
+            <div class="flex justify-between gap-6 bg-sand-2/60 -mx-3 px-3 py-1"><dt class="text-muted">Nosnost</dt><dd class="font-medium tabular-nums">450 kg</dd></div>
+            <div class="flex justify-between gap-6"><dt class="text-muted">Povrch</dt><dd class="text-right font-medium">plástev z obou stran</dd></div>
+            <div class="flex justify-between gap-6 bg-sand-2/60 -mx-3 px-3 py-1"><dt class="text-muted">Odstínů</dt><dd class="font-medium tabular-nums"><span data-color-count>23</span></dd></div>
+          </dl>
+          <dl data-reveal style="--d:160ms" class="space-y-3 text-body">
+            <div class="flex justify-between gap-6"><dt class="text-muted">Cena</dt><dd class="font-medium tabular-nums"><span data-price>49 Kč</span> / m</dd></div>
+            <div class="flex justify-between gap-6 bg-sand-2/60 -mx-3 px-3 py-1"><dt class="text-muted">Bez DPH</dt><dd class="font-medium tabular-nums"><span data-price-novat>40,50 Kč</span> / m</dd></div>
+            <div class="flex justify-between gap-6"><dt class="text-muted">Prodej</dt><dd class="font-medium">po celých metrech</dd></div>
+            <div class="flex justify-between gap-6 bg-sand-2/60 -mx-3 px-3 py-1"><dt class="text-muted">Dostupnost</dt><dd class="font-medium">Skladem</dd></div>
+            <div class="flex justify-between gap-6"><dt class="text-muted">Odeslání</dt><dd class="text-right font-medium">do 2 pracovních dnů od zaplacení</dd></div>
+            <div class="flex justify-between gap-6 bg-sand-2/60 -mx-3 px-3 py-1"><dt class="text-muted">Kód</dt><dd class="font-medium">HEXA-20</dd></div>
+          </dl>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= CO JE HEXA: celé pole v barvě popruhu ================= -->
+    <section aria-labelledby="hexa" class="mt-32 bg-(--strap) py-24 text-(--field-ink) lg:mt-56 lg:py-36">
+      <div class="grid gap-12 px-page lg:grid-cols-12 lg:gap-x-6">
+        <div class="lg:col-span-5">
+          <h2 id="hexa" data-reveal class="text-head font-semibold tracking-[-0.04em]">Co je HEXA</h2>
+          <p data-reveal style="--d:80ms" class="mt-8 max-w-[34ch] text-lead">Jméno dostal podle šestiúhelníku, řecky hexagon. Ten se na obou stranách popruhu opakuje jako plástev.</p>
+          <div class="mt-8 space-y-5 text-body">
+            <p data-reveal style="--d:140ms" class="max-w-[46ch]">Pod reliéfem je tkaný polyesterový pás, který nese zátěž. PVC povrch ho uzavírá ze všech stran, takže voda, pot ani pach se dovnitř nedostanou a hrany se po střihu nerozpletou.</p>
+            <p data-reveal style="--d:200ms" class="max-w-[46ch]">Oproti hladkým potahovaným popruhům plástev drží v ruce, neklouže po oblečení a drobné škrábance na ní nejsou vidět.</p>
+          </div>
+        </div>
+
+        <div data-tabs class="lg:col-span-6 lg:col-start-7" data-reveal style="--d:120ms">
+          <div role="tablist" aria-label="Pohled na popruh" class="flex flex-wrap gap-1.5">
+            <button type="button" role="tab" id="tab-plastev" aria-controls="panel-plastev" data-tab="plastev" aria-selected="true" class="min-h-11 px-4 text-body font-medium transition-colors duration-200 hover:bg-black/10 aria-selected:bg-(--field-ink) aria-selected:text-(--strap)">Plástev</button>
+            <button type="button" role="tab" id="tab-rez" aria-controls="panel-rez" data-tab="rez" aria-selected="false" class="min-h-11 px-4 text-body font-medium transition-colors duration-200 hover:bg-black/10 aria-selected:bg-(--field-ink) aria-selected:text-(--strap)">Řez</button>
+            <button type="button" role="tab" id="tab-role" aria-controls="panel-role" data-tab="role" aria-selected="false" class="min-h-11 px-4 text-body font-medium transition-colors duration-200 hover:bg-black/10 aria-selected:bg-(--field-ink) aria-selected:text-(--strap)">Role</button>
+          </div>
+          <div id="panel-plastev" role="tabpanel" aria-labelledby="tab-plastev" data-panel="plastev" class="mt-4 aspect-[4/3] overflow-hidden">
+            <div data-art="texture" class="motion-safe-drift size-full animate-drift motion-reduce:animate-none"></div>
+          </div>
+          <div id="panel-rez" role="tabpanel" aria-labelledby="tab-rez" data-panel="rez" hidden class="mt-4 aspect-[4/3] overflow-hidden bg-sand p-4 text-ink sm:p-8">
+            <div data-art="section" class="size-full"></div>
+          </div>
+          <div id="panel-role" role="tabpanel" aria-labelledby="tab-role" data-panel="role" hidden class="mt-4 aspect-[4/3] overflow-hidden bg-sand p-4 sm:p-8">
+            <div data-art="roll" class="size-full"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ================= OTÁZKY: odpovědi jako souvislý text ================= -->
+    <section id="faq" aria-labelledby="otazky" class="px-page pt-32 lg:pt-48">
+      <div class="grid gap-8 lg:grid-cols-12 lg:gap-x-6">
+        <h2 id="otazky" data-reveal class="text-head font-semibold tracking-[-0.04em] lg:col-span-3">Časté otázky</h2>
+        <div class="text-body leading-[1.55] lg:col-span-8 lg:col-start-5 md:columns-2 md:gap-14">
+          <p data-reveal class="mb-5 break-inside-avoid"><strong class="font-medium">Jak popruh zakončit?</strong> Stačí ostrý nůž nebo pevné nůžky. Jádro je zalité v PVC, takže konec není třeba zatavovat; rohy můžete jen zaoblit.</p>
+          <p data-reveal style="--d:60ms" class="mb-5 break-inside-avoid"><strong class="font-medium">Dá se šít na domácím stroji?</strong> Ano, s jehlou na kůži nebo džínovinu a polyesterovou nití. Na namáhaná místa doporučujeme nýty nebo šrouby Chicago.</p>
+          <p data-reveal style="--d:120ms" class="mb-5 break-inside-avoid"><strong class="font-medium">Kolik metrů potřebuji na vodítko?</strong> Na přepínací vodítko 2 m počítejte zhruba 2,6 m, na obojek obvod krku a 15 cm navíc na přezku.</p>
+          <p data-reveal style="--d:180ms" class="mb-5 break-inside-avoid"><strong class="font-medium">Prodáváte i kratší kusy?</strong> Řežeme po celých metrech. Když objednáte tři metry, dostanete jeden souvislý kus, ne tři metrové.</p>
+          <p data-reveal class="mb-5 break-inside-avoid"><strong class="font-medium">Jak se popruh čistí?</strong> Opláchněte ho vodou, při větší špíně s trochou saponátu, a nechte uschnout. Nenasákne, takže schne za pár minut.</p>
+          <p data-reveal style="--d:60ms" class="mb-5 break-inside-avoid"><strong class="font-medium">Jaké kování k němu sedí?</strong> Všechno na šířku 20 mm: přezky, karabiny, D-kroužky, posuvné průvlečky i stahovací kroužky.</p>
+          <p data-reveal style="--d:120ms" class="mb-5 break-inside-avoid"><strong class="font-medium">Odpovídá barva na monitoru skutečnosti?</strong> Mírně se může lišit podle displeje. Když váháte mezi dvěma odstíny, napište nám a popíšeme rozdíl.</p>
+          <p data-reveal style="--d:180ms" class="mb-5 break-inside-avoid"><strong class="font-medium">Kdy objednávku odešlete?</strong> Odesíláme do 2 pracovních dnů od zaplacení. Popruh je skladem ve všech 23 barvách.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ================= PATIČKA: jedna tichá řádka ================= -->
+  <footer class="mt-[22svh] px-page pb-8 text-small">
+    <div class="grid gap-2 md:grid-cols-[1fr_auto_1fr] md:items-baseline md:gap-6">
+      <p class="text-muted">Popruhárna · materiály pro psí doplňky</p>
+      <nav aria-label="Patička" class="flex flex-wrap gap-x-6 gap-y-1 font-medium">
+        <a href="/" class="underline decoration-2 underline-offset-4 hover:text-moss">← Všechny varianty</a>
+        <a href="#" class="hover:underline hover:decoration-2 hover:underline-offset-4">Obchodní podmínky</a>
+        <a href="mailto:info@example.cz" class="hover:underline hover:decoration-2 hover:underline-offset-4">info@example.cz</a>
+      </nav>
+      <p class="text-muted md:text-right">Varianta skillu design-taste-frontend · 2026</p>
+    </div>
+  </footer>
+
+  <!-- Hlášení po vložení do košíku -->
+  <div data-toast data-show="false" role="status" aria-live="polite"
+       class="pointer-events-none fixed bottom-5 left-1/2 z-50 w-max max-w-[calc(100vw-2.5rem)] -translate-x-1/2 translate-y-6 bg-moss px-5 py-4 text-body text-white opacity-0 transition duration-300 ease-(--ease-out) data-[show=true]:translate-y-0 data-[show=true]:opacity-100">
+    <span data-toast-text></span>
+  </div>
+
+  <script src="/assets/hexa.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Výchozí odstín: Caribic, ať je vzorník od začátku rozsvícený
+      const start = window.HEXA && HEXA.colors.find((c) => c.name === 'CARIBIC');
+      if (start) HEXA.setColor(start);
+      const picker = document.querySelector('[data-color-picker]');
+      const lit = picker && picker.querySelector('[aria-pressed="true"]');
+      if (lit && picker.scrollWidth > picker.clientWidth) picker.scrollLeft = lit.offsetLeft - picker.offsetLeft - 20;
+
+      // Text na poli v barvě popruhu: vybrat inkoust s lepším kontrastem (WCAG)
+      const lum = (hex) => {
+        const v = parseInt(hex.slice(1), 16);
+        return [v >> 16 & 255, v >> 8 & 255, v & 255]
+          .map((c) => { c /= 255; return c <= 0.03928 ? c / 12.92 : ((c + 0.055) / 1.055) ** 2.4; })
+          .reduce((a, c, i) => a + c * [0.2126, 0.7152, 0.0722][i], 0);
+      };
+      const setFieldInk = (hex) => {
+        const L = lum(hex);
+        const ink = (1.05 / (L + 0.05)) >= ((L + 0.05) / (lum('#141412') + 0.05)) ? '#ffffff' : '#141412';
+        document.documentElement.style.setProperty('--field-ink', ink);
+      };
+      if (start) setFieldInk(start.hex);
+      document.addEventListener('click', (e) => {
+        const b = e.target.closest('[data-swatch]');
+        if (b) setFieldInk(HEXA.colors.find((c) => c.name === b.dataset.swatch).hex);
+      });
+
+      // Vstupy sekcí, jednou, bez scroll listeneru
+      // Co je vidět hned po načtení, se ukáže bez čekání; animuje se jen to, k čemu se teprve doroluje
+      const els = [...document.querySelectorAll('[data-reveal]')].filter((el) => {
+        if (el.getBoundingClientRect().top < innerHeight) { el.style.transition = 'none'; el.classList.add('is-in'); return false; }
+        return true;
+      });
+      if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver((entries) => {
+          for (const e of entries) if (e.isIntersecting) { e.target.classList.add('is-in'); io.unobserve(e.target); }
+        }, { rootMargin: '0px 0px -10% 0px', threshold: 0.08 });
+        els.forEach((el) => io.observe(el));
+      } else els.forEach((el) => el.classList.add('is-in'));
+
+      // Co z něj ušijete: poznámka ke spotřebě v pevném místě
+      const note = document.querySelector('[data-uses-note]');
+      const fallback = note && note.textContent;
+      document.querySelectorAll('[data-uses] [data-note]').forEach((li) => {
+        li.addEventListener('mouseenter', () => { note.textContent = li.dataset.note; });
+        li.addEventListener('mouseleave', () => { note.textContent = fallback; });
+      });
+    });
+  </script>
+</body>
+</html>
