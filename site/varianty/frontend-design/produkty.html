@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Popruhy na metry – Popruhárna</title>
+  <meta name="description" content="Popruhy HEXA, BioThane, Pawtex a kožené řemeny na metry. Filtrujte podle materiálu, šířky a barvy. Varianta skillu frontend-design.">
+  <link rel="icon" href="data:,">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <style type="text/tailwindcss">
+    /*
+      Směr navazuje na detail: dílna výrobce vodítek. Každý popruh leží
+      na řezací podložce, filtr barev je vzorník ústřižků na tyčce,
+      akcent je žluť svinovacího metru.
+    */
+    @theme {
+      --font-sans: "Archivo", ui-sans-serif, system-ui, sans-serif;
+      --color-papir: #eef0ec;
+      --color-papir-2: #f7f8f5;
+      --color-linka: #d3d9d3;
+      --color-mat: #3d5a52;
+      --color-mat-deep: #2a413b;
+      --color-ink: #1b2421;
+      --color-krida: #53605b;
+      --color-metr: #f2c230;
+      --color-sklad: #23784a;
+    }
+
+    @layer base {
+      html { -webkit-text-size-adjust: 100%; }
+      body { font-stretch: 100%; }
+      :focus-visible { outline: 2px solid var(--color-ink); outline-offset: 3px; }
+      .on-dark :focus-visible { outline-color: var(--color-metr); }
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after { transition-duration: 0s !important; animation: none !important; }
+      }
+    }
+
+    /* Řezací podložka: hlavní mřížka po 10 %, jemná po 2 %. */
+    @utility mat-grid {
+      background-color: var(--color-mat);
+      background-image:
+        linear-gradient(rgba(255,255,255,.16) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.16) 1px, transparent 1px),
+        linear-gradient(rgba(255,255,255,.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,.06) 1px, transparent 1px),
+        linear-gradient(45deg, transparent calc(50% - .5px), rgba(255,255,255,.08) calc(50% - .5px), rgba(255,255,255,.08) calc(50% + .5px), transparent calc(50% + .5px));
+      background-size: 10% 10%, 10% 10%, 2% 2%, 2% 2%, 100% 100%;
+      background-position: -1px -1px;
+    }
+
+    /* Pravítko na horní hraně podložky. */
+    @utility mat-ruler {
+      background-image:
+        repeating-linear-gradient(90deg, rgba(255,255,255,.55) 0 1px, transparent 1px 10%),
+        repeating-linear-gradient(90deg, rgba(255,255,255,.35) 0 1px, transparent 1px 2%);
+      background-size: 100% 10px, 100% 5px;
+      background-repeat: no-repeat;
+    }
+
+    /* Tyčka vzorníku: prochází otvorem každé řady ústřižků (výška řady 56 px + mezera 16 px). */
+    @utility swatch-rod {
+      background-image: repeating-linear-gradient(180deg, transparent 0 6px, #7f8a86 6px 7px, #b9c1bd 7px 9px, #6f7a76 9px 10px, transparent 10px 72px);
+    }
+
+    /* Ústřižek popruhu: barva, plástvová textura, stínování hran a proražený otvor. */
+    @utility strap-stub {
+      background-color: var(--sw);
+      background-image:
+        linear-gradient(90deg, rgba(0,0,0,.22), transparent 28%, transparent 72%, rgba(0,0,0,.22)),
+        url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='8.66' height='15'%3E%3Cpath d='M0.00 -4.30L3.72 -2.15L3.72 2.15L0.00 4.30L-3.72 2.15L-3.72 -2.15ZM8.66 -4.30L12.38 -2.15L12.38 2.15L8.66 4.30L4.94 2.15L4.94 -2.15ZM4.33 3.20L8.05 5.35L8.05 9.65L4.33 11.80L0.61 9.65L0.61 5.35ZM0.00 10.70L3.72 12.85L3.72 17.15L0.00 19.30L-3.72 17.15L-3.72 12.85ZM8.66 10.70L12.38 12.85L12.38 17.15L8.66 19.30L4.94 17.15L4.94 12.85Z' fill='rgba(255,255,255,.07)' stroke='rgba(0,0,0,.24)' stroke-width='.6'/%3E%3C/svg%3E");
+      background-size: 100% 100%, 8.66px 15px;
+      -webkit-mask: radial-gradient(circle at 50% 8px, transparent 3px, #000 3.6px);
+      mask: radial-gradient(circle at 50% 8px, transparent 3px, #000 3.6px);
+      box-shadow: inset 0 -2px 0 rgba(0,0,0,.18);
+    }
+  </style>
+</head>
+<body class="bg-papir font-sans text-ink antialiased">
+
+  <a href="#obsah" class="sr-only rounded-md bg-ink px-4 py-2 text-papir focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50">Přeskočit na obsah</a>
+
+  <!-- Hlavička -->
+  <header class="border-b border-linka bg-papir">
+    <div class="mx-auto flex max-w-[1240px] items-center gap-8 px-5 py-4 sm:px-8">
+      <a href="domu.html" class="text-[1.375rem] font-[850] tracking-[-0.02em] [font-stretch:125%]">Popruhárna</a>
+      <nav aria-label="Hlavní nabídka" class="hidden text-[0.9375rem] text-krida lg:block">
+        <ul class="flex gap-7">
+          <li><a href="produkty.html" class="font-semibold text-ink underline decoration-2 underline-offset-[6px]" aria-current="page">Produkty</a></li>
+          <li><a href="produkty.html?material=biothane" class="hover:text-ink">BioThane</a></li>
+          <li><a href="produkty.html?material=hexa" class="hover:text-ink">Hexagon</a></li>
+          <li><a href="produkty.html?material=pawtex" class="hover:text-ink">PawTex</a></li>
+        </ul>
+      </nav>
+      <div class="ml-auto flex items-center gap-1">
+        <a href="kosik.html" class="flex items-center gap-2 rounded-md px-3 py-2 text-[0.9375rem] font-semibold">
+          <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 8h14l-1.2 12H6.2L5 8Z"/><path d="M9 8a3 3 0 0 1 6 0"/></svg>
+          Košík
+          <span class="grid min-w-6 place-items-center rounded-full bg-metr px-1.5 py-0.5 text-xs font-bold tabular-nums text-ink"><span data-cart-count>0</span><span class="sr-only">&nbsp;položek</span></span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main id="obsah" class="mx-auto max-w-[1240px] px-5 sm:px-8">
+
+    <nav aria-label="Drobečková navigace" class="py-5 text-sm text-krida">
+      <ol class="flex flex-wrap items-center gap-x-2 gap-y-1">
+        <li><a href="domu.html" class="hover:text-ink hover:underline">Domů</a></li>
+        <li aria-hidden="true" class="text-linka">/</li>
+        <li><span aria-current="page" class="text-ink">Produkty</span></li>
+      </ol>
+    </nav>
+
+    <!-- Titulek a řazení -->
+    <div class="flex flex-wrap items-end justify-between gap-x-10 gap-y-5 border-b border-linka pb-7">
+      <div>
+        <h1 class="text-[2.375rem] font-[820] leading-[1.02] tracking-[-0.015em] [font-stretch:118%] sm:text-[3rem] xl:text-[3.375rem]">Popruhy na metry</h1>
+        <p class="mt-3 max-w-[56ch] text-[1.0625rem] leading-relaxed text-krida">HEXA, BioThane, Pawtex a kůže. Všechny ceny jsou za jeden metr, stříháme vcelku z jedné role.</p>
+      </div>
+      <div class="flex w-full items-center justify-between gap-4 sm:w-auto sm:justify-end">
+        <p class="text-[0.9375rem] text-krida" aria-live="polite"><span data-result-count class="font-semibold tabular-nums text-ink">9</span> <span data-result-label>produktů</span></p>
+        <label class="flex items-center gap-2 text-[0.9375rem]">
+          <span class="text-krida">Řadit</span>
+          <span class="relative">
+            <select data-sort class="h-11 appearance-none rounded-md border border-krida/60 bg-papir-2 pl-3 pr-9 font-semibold text-ink hover:border-ink"></select>
+            <svg class="pointer-events-none absolute right-3 top-1/2 size-4 -translate-y-1/2 text-krida" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+          </span>
+        </label>
+      </div>
+    </div>
+
+    <div class="grid gap-8 pb-24 pt-7 lg:grid-cols-[264px_minmax(0,1fr)] lg:gap-12">
+
+      <!-- Filtry -->
+      <aside aria-label="Filtry" class="lg:sticky lg:top-6 lg:self-start">
+        <button type="button" data-filter-toggle aria-controls="filtry"
+                class="group flex h-12 w-full items-center justify-between rounded-md border border-krida/60 bg-papir-2 px-4 font-semibold hover:border-ink lg:hidden">
+          <span class="flex items-center gap-2">
+            <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M4 6h16M7 12h10M10 18h4"/></svg>
+            Filtry
+            <span class="grid min-w-6 place-items-center rounded-full bg-ink px-1.5 py-0.5 text-xs font-bold tabular-nums text-papir"><span data-filter-active-count>0</span><span class="sr-only">&nbsp;zvolených</span></span>
+          </span>
+          <svg class="size-4 text-krida transition-transform group-aria-expanded:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+        </button>
+
+        <div id="filtry" data-filter-panel class="hidden data-[open=true]:block lg:block">
+          <div class="mt-3 divide-y divide-linka rounded-md border border-linka bg-papir-2 px-5 lg:mt-0 lg:rounded-none lg:border-x-0 lg:border-b-0 lg:border-t-[3px] lg:border-t-ink lg:bg-transparent lg:px-0">
+
+            <fieldset data-filter="material" class="py-5">
+              <legend class="float-left mb-3 w-full text-[0.9375rem] font-semibold">Materiál</legend>
+              <div data-filter-options class="clear-left grid grid-cols-2 gap-2 sm:grid-cols-4 lg:grid-cols-2">
+                <template>
+                  <label class="flex h-10 cursor-pointer items-center justify-center rounded-md border border-krida/50 bg-papir-2 px-3 text-[0.9375rem] font-medium hover:border-ink has-checked:border-ink has-checked:bg-ink has-checked:text-papir has-focus-visible:outline-2 has-focus-visible:outline-offset-2 has-focus-visible:outline-ink">
+                    <input data-option type="checkbox" class="sr-only">
+                    <span data-option-label></span>
+                  </label>
+                </template>
+              </div>
+            </fieldset>
+
+            <fieldset data-filter="width" class="py-5">
+              <legend class="float-left mb-3 w-full text-[0.9375rem] font-semibold">Šířka</legend>
+              <div data-filter-options class="clear-left grid grid-cols-4 gap-2">
+                <template>
+                  <label class="flex h-10 cursor-pointer items-center justify-center rounded-md border border-krida/50 bg-papir-2 text-[0.9375rem] font-medium tabular-nums hover:border-ink has-checked:border-ink has-checked:bg-ink has-checked:text-papir has-focus-visible:outline-2 has-focus-visible:outline-offset-2 has-focus-visible:outline-ink">
+                    <input data-option type="checkbox" class="sr-only">
+                    <span data-option-label></span>
+                  </label>
+                </template>
+              </div>
+            </fieldset>
+
+            <fieldset data-filter="color" class="py-5">
+              <legend class="float-left mb-3 w-full text-[0.9375rem] font-semibold">Barva</legend>
+              <div data-filter-options class="swatch-rod clear-left grid auto-rows-[56px] grid-cols-12 gap-x-1 gap-y-4 pb-3 lg:grid-cols-8">
+                <template>
+                  <label class="group relative block h-[56px] cursor-pointer has-focus-visible:outline-2 has-focus-visible:outline-offset-2 has-focus-visible:outline-ink">
+                    <input data-option type="checkbox" class="sr-only">
+                    <span data-option-swatch class="strap-stub block h-[52px] w-full rounded-b-full transition-[height] duration-150 ease-out group-hover:h-[55px] group-has-checked:h-[60px]"></span>
+                    <span class="absolute inset-x-0 top-[64px] h-[3px] rounded-full bg-ink opacity-0 group-has-checked:opacity-100" aria-hidden="true"></span>
+                    <span data-option-label class="pointer-events-none absolute bottom-[calc(100%+4px)] left-1/2 z-10 hidden -translate-x-1/2 whitespace-nowrap rounded bg-ink px-2 py-1 text-xs lowercase text-papir group-hover:block group-has-focus-visible:block"></span>
+                  </label>
+                </template>
+              </div>
+              <p class="mt-2 text-[0.8125rem] text-krida">Zvolený ústřižek se prodlouží a podtrhne.</p>
+            </fieldset>
+
+            <div class="py-5">
+              <button type="button" data-filter-reset class="text-[0.9375rem] font-semibold underline decoration-2 underline-offset-4 hover:decoration-metr">Zrušit filtry</button>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Mřížka produktů -->
+      <section aria-label="Produkty">
+        <div data-product-list role="list" class="grid gap-x-6 gap-y-7 sm:grid-cols-2 sm:gap-y-10 xl:grid-cols-3">
+          <template data-product-card>
+            <a data-field="url" role="listitem" class="group grid grid-cols-[124px_minmax(0,1fr)] content-start gap-x-4 rounded-[10px] focus-visible:outline-offset-4 sm:flex sm:h-full sm:flex-col">
+                <div class="mat-grid relative row-span-3 aspect-square self-start overflow-hidden sm:aspect-[4/3] rounded-[10px] shadow-[inset_0_0_0_1px_rgba(0,0,0,.25)]">
+                  <div class="mat-ruler absolute inset-x-0 top-0 h-2.5" aria-hidden="true"></div>
+                  <div data-art="band" class="absolute inset-0 px-[8%] pb-[4%] pt-[10%] sm:px-[14%] sm:pt-[8%]"></div>
+                </div>
+                <h2 class="text-[1.0625rem] font-[780] leading-snug sm:mt-4 sm:min-h-[2lh] sm:text-[1.1875rem] [font-stretch:110%] group-hover:underline group-hover:decoration-2 group-hover:underline-offset-4" data-field="name"></h2>
+                <dl class="mt-2 grid grid-cols-1 text-[0.875rem] sm:mt-3 sm:grid-cols-3 sm:border-y sm:border-linka">
+                  <div class="flex gap-1.5 sm:block sm:py-2 sm:pr-2"><dt class="text-krida">Materiál</dt><dd class="font-medium" data-field="material"></dd></div>
+                  <div class="flex gap-1.5 sm:block sm:border-l sm:border-linka sm:px-3 sm:py-2"><dt class="text-krida">Šířka</dt><dd class="font-medium tabular-nums" data-field="width"></dd></div>
+                  <div class="flex gap-1.5 sm:block sm:border-l sm:border-linka sm:px-3 sm:py-2"><dt class="text-krida">Barvy</dt><dd class="font-medium tabular-nums" data-field="color-count"></dd></div>
+                </dl>
+                <div class="col-start-2 flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1 pt-2.5 sm:mt-auto sm:pt-3">
+                  <p class="text-[1.375rem] font-[800] leading-none sm:text-[1.625rem] tabular-nums [font-stretch:112%]"><span data-field="price"></span> <span class="text-base font-semibold text-krida [font-stretch:100%]" data-field="unit"></span></p>
+                  <p class="text-[0.8125rem] text-krida"><span data-field="price-novat"></span> bez DPH</p>
+                </div>
+            </a>
+          </template>
+        </div>
+
+        <!-- Bez výsledků: prázdná podložka -->
+        <div data-empty hidden class="on-dark mat-grid relative overflow-hidden rounded-[10px] px-6 pb-12 pt-16 text-center text-[#e6ece8] shadow-[inset_0_0_0_1px_rgba(0,0,0,.25)] sm:px-10">
+          <div class="mat-ruler absolute inset-x-0 top-0 h-2.5" aria-hidden="true"></div>
+          <h2 class="text-[1.75rem] font-[800] leading-tight text-white [font-stretch:112%]">Žádný produkt neodpovídá filtru</h2>
+          <p class="mx-auto mt-3 max-w-[44ch] text-[1.0625rem] leading-relaxed">Zkuste ubrat některou z voleb, nebo zrušte všechny filtry a začněte znovu.</p>
+          <button type="button" data-filter-reset class="mt-7 h-14 rounded-md border-2 border-ink bg-metr px-8 text-[1.0625rem] font-bold text-ink hover:bg-[#f5cd52] active:translate-y-px">Zrušit filtry</button>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- Patička -->
+  <footer class="on-dark bg-mat-deep text-[#d9e2de]">
+    <div class="mx-auto grid max-w-[1240px] gap-10 px-5 py-14 text-[0.9375rem] sm:grid-cols-2 sm:px-8 lg:grid-cols-[2fr_1fr_1fr_1.4fr]">
+      <div>
+        <p class="text-xl font-[850] text-white [font-stretch:125%]">Popruhárna</p>
+        <p class="mt-3 max-w-[36ch] text-[#b9c7c1]">Popruhy, kování a nitě pro všechny, kdo šijí vodítka a obojky doma i v dílně.</p>
+      </div>
+      <div>
+        <h2 class="font-semibold text-white">Nákup</h2>
+        <ul class="mt-3 space-y-2">
+          <li><a href="#" class="hover:text-white hover:underline">Doprava a platba</a></li>
+          <li><a href="#" class="hover:text-white hover:underline">Obchodní podmínky</a></li>
+          <li><a href="#" class="hover:text-white hover:underline">Reklamace</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2 class="font-semibold text-white">Kontakt</h2>
+        <ul class="mt-3 space-y-2">
+          <li><a href="tel:+420777000000" class="hover:text-white hover:underline">+420 777 000 000</a></li>
+          <li><a href="mailto:dilna@popruharna.example" class="hover:text-white hover:underline">dilna@popruharna.example</a></li>
+        </ul>
+      </div>
+      <div>
+        <h2 class="font-semibold text-white">Prototyp</h2>
+        <p class="mt-3"><a href="/" class="font-semibold text-white underline underline-offset-4 hover:decoration-metr">← Všechny varianty</a></p>
+        <p class="mt-2 text-[0.8125rem] text-[#a9b9b2]">Varianta skillu frontend-design. Popruhárna je fiktivní obchod.</p>
+      </div>
+    </div>
+  </footer>
+
+  <script src="/assets/hexa.js"></script>
+</body>
+</html>

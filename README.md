@@ -22,7 +22,8 @@ složku `site/`, nic se nesestavuje.
 site/
   index.html                 přehled a prohlížeč všech variant (seznamy VARIANTY a STRANKY)
   assets/hexa.js             sdílená data produktu, barvy, SVG ilustrace a interakce
-  varianty/<skill>/index.html   jedna stránka = jeden skill
+  varianty/<skill>/index.html      detail produktu (jedna složka = jeden skill)
+  varianty/<skill>/produkty.html   seznam produktů s filtry a řazením
 nginx/default.conf
 docker-compose.yml
 ```
@@ -52,3 +53,33 @@ Zadání pro skill (pro férové porovnání stejné pro všechny):
 > (vzor: `site/varianty/bez-skillu/index.html`).
 
 Varianta `bez-skillu` je kontrolní: stejné zadání bez jakéhokoli skillu.
+
+## Zadání stránky Produkty
+
+Stránku `site/varianty/<skill>/produkty.html` vytvořil u každé varianty tentýž skill
+jako její detail, a to podle zadání níže (stejného pro všechny). Varianta `bez-skillu`
+vznikla bez skillu. Katalog, filtrování a řazení obstarává `assets/hexa.js`. Jeho
+`data-*` kontrakt je popsaný v komentáři „Seznam produktů“ v tomto souboru.
+
+> Vytvoř samostatnou HTML stránku `produkty.html` se seznamem produktů e-shopu Popruhárna
+> (popruhy HEXA, BioThane, Pawtex a kožené řemeny, 9 produktů). Styl pouze Tailwind CSS
+> (`<script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>`), fonty dle
+> uvážení. Vizuální jazyk (barvy, typografie, tvary, komponenty) navazuje na detail produktu
+> téže varianty (`index.html` ve stejné složce). Obsah:
+> - hlavička: logo → `domu.html`, položka Produkty jako aktuální stránka, ikona košíku
+>   s počtem položek (`data-cart-count`) → `kosik.html`;
+> - titulek stránky;
+> - filtry podle materiálu, šířky a barvy, na mobilu sbalitelné;
+> - řazení: Doporučené, Cena vzestupně, Cena sestupně; počet výsledků;
+> - mřížka karet produktů: náhled popruhu, název, materiál, šířka, počet barev, cena za metr
+>   s DPH („49 Kč / m“) i bez DPH („40,50 Kč bez DPH“); karta vede na detail `index.html`;
+> - stav bez výsledků „Žádný produkt neodpovídá filtru“ s tlačítkem Zrušit filtry;
+> - patička.
+>
+> Data, filtrování a řazení obstarává `/assets/hexa.js`. Stránka dodá jen markup podle
+> kontraktu `data-*` z komentáře „Seznam produktů“ v hexa.js (kontejner `data-product-list`
+> se šablonou karty `<template data-product-card>`, skupiny `data-filter`, `data-sort`,
+> `data-result-count`, `data-empty`, `data-filter-reset`, `data-filter-toggle`/`data-filter-panel`).
+> Parametr `?material=hexa|biothane|pawtex|kuze` předvolí materiál. Stránka nesmí na 390 px
+> ani 1440 px vodorovně přetékat a konzole má být bez chyb (včetně favicon, např.
+> `<link rel="icon" href="data:,">`).

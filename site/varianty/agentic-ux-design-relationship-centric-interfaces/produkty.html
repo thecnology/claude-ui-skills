@@ -1,0 +1,337 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Popruhy na metry · Popruhárna – váš dílenský parťák</title>
+  <meta name="description" content="Katalog popruhů HEXA, BioThane, Pawtex a kožených řemenů – varianta skillu agentic-ux-design-relationship-centric-interfaces: obchod, který si pamatuje vaše barvy a projekty.">
+  <link rel="icon" href="data:,">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;0,9..144,700;1,9..144,400;1,9..144,600&family=Instrument+Sans:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <style type="text/tailwindcss">
+    @theme {
+      --font-sans: "Instrument Sans", ui-sans-serif, system-ui, sans-serif;
+      --font-display: "Fraunces", ui-serif, Georgia, serif;
+      --font-mono: "JetBrains Mono", ui-monospace, monospace;
+      --color-paper: #f5f0e6;
+      --color-card: #fffcf6;
+      --color-ink: #1d2924;
+      --color-ink-soft: #4a5751;
+      --color-line: #e2d9c8;
+      --color-moss: #335c45;
+      --color-moss-soft: #dfe9df;
+      --color-clay: #b4532c;
+      --color-memo: #f2cf6b;
+      --color-memo-soft: #fbf0cc;
+    }
+    @custom-variant mem-none (&:where(body[data-memory="none"] *));
+  </style>
+</head>
+<body data-memory="some" class="bg-paper font-sans text-ink antialiased selection:bg-memo">
+
+  <a href="#obsah" class="sr-only focus:not-sr-only focus:fixed focus:left-3 focus:top-3 focus:z-[60] focus:rounded-lg focus:bg-ink focus:px-4 focus:py-2 focus:text-paper">Přeskočit na obsah</a>
+
+  <!-- ===== Hlavička ===== -->
+  <header class="sticky top-0 z-30 border-b border-line bg-paper/90 backdrop-blur">
+    <div class="mx-auto flex max-w-7xl items-center gap-4 px-4 py-3 sm:px-6 lg:gap-8">
+      <a href="domu.html" class="flex items-center gap-2 font-display text-xl font-semibold tracking-tight">
+        <svg class="size-7 text-moss" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 2 28 9v14l-12 7L4 23V9z" fill="currentColor"/><path d="M16 9l6 3.5v7L16 23l-6-3.5v-7z" fill="var(--color-memo)"/></svg>
+        Popruhárna
+      </a>
+      <nav aria-label="Hlavní kategorie" class="hidden gap-6 text-sm font-medium text-ink-soft lg:flex">
+        <a href="produkty.html" class="text-ink underline decoration-memo decoration-4 underline-offset-[6px]" aria-current="page">Produkty</a>
+        <a href="produkty.html?material=biothane" class="hover:text-ink">BioThane</a>
+        <a href="produkty.html?material=hexa" class="hover:text-ink">Hexagon</a>
+        <a href="produkty.html?material=pawtex" class="hover:text-ink">PawTex</a>
+      </nav>
+      <div class="ml-auto flex items-center gap-2">
+        <a href="#pamet" class="group flex items-center gap-2 rounded-full border border-line bg-card py-1 pl-1 pr-3 text-sm font-medium transition hover:border-ink/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-moss">
+          <span data-avatar class="grid size-8 place-items-center rounded-full bg-memo font-display text-sm font-semibold">K</span>
+          <span class="hidden text-left leading-tight sm:block">
+            <span data-greet-short class="block">Klára</span>
+            <span class="block font-mono text-[11px] text-ink-soft">co si pamatujeme</span>
+          </span>
+          <span class="sm:hidden">Paměť</span>
+        </a>
+        <a href="kosik.html" class="relative grid size-10 place-items-center rounded-full text-ink-soft hover:bg-card hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-moss" aria-label="Košík">
+          <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 7h14l-1.2 13H6.2L5 7Z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg>
+          <span data-cart-count class="absolute -right-0.5 -top-0.5 grid size-5 place-items-center rounded-full bg-clay text-[10px] font-semibold text-white">0</span>
+        </a>
+      </div>
+    </div>
+    <!-- Mobilní kategorie -->
+    <nav aria-label="Kategorie" class="mx-auto flex max-w-7xl gap-2 overflow-x-auto px-4 pb-3 text-sm font-medium sm:px-6 lg:hidden">
+      <a href="produkty.html" aria-current="page" class="shrink-0 rounded-full bg-ink px-3.5 py-1.5 text-paper">Produkty</a>
+      <a href="produkty.html?material=biothane" class="shrink-0 rounded-full border border-line bg-card px-3.5 py-1.5 text-ink-soft">BioThane</a>
+      <a href="produkty.html?material=hexa" class="shrink-0 rounded-full border border-line bg-card px-3.5 py-1.5 text-ink-soft">Hexagon</a>
+      <a href="produkty.html?material=pawtex" class="shrink-0 rounded-full border border-line bg-card px-3.5 py-1.5 text-ink-soft">PawTex</a>
+    </nav>
+  </header>
+
+  <main id="obsah" class="mx-auto max-w-7xl px-4 pb-20 sm:px-6">
+
+    <!-- Drobečková navigace -->
+    <nav aria-label="Drobečková navigace" class="pt-5 text-sm text-ink-soft">
+      <ol class="flex flex-wrap items-center gap-x-2 gap-y-1">
+        <li><a href="domu.html" class="hover:text-ink hover:underline">Domů</a></li>
+        <li aria-hidden="true" class="text-line">/</li>
+        <li aria-current="page" class="font-medium text-ink">Produkty</li>
+      </ol>
+    </nav>
+
+    <!-- Titulek -->
+    <div class="mt-4 flex flex-wrap items-end justify-between gap-4">
+      <div>
+        <p class="font-mono text-xs uppercase tracking-[.14em] text-clay">Katalog · prodáváme na metry</p>
+        <h1 class="mt-1 font-display text-[2.4rem] font-semibold leading-[1.05] tracking-tight sm:text-5xl">Popruhy <em class="font-normal">a řemeny</em></h1>
+        <p class="mt-2 max-w-2xl text-ink-soft">HEXA, BioThane, Pawtex a kůže pro vodítka, obojky a postroje. Vyberte materiál, šířku a barvu – ostatní dopočítáme spolu na detailu.</p>
+      </div>
+    </div>
+
+    <!-- ===== Vztahový pruh: navázání na minulou návštěvu ===== -->
+    <section id="pamet" aria-labelledby="rel-title" class="mt-6 scroll-mt-24 overflow-hidden rounded-3xl bg-ink text-paper">
+      <div class="grid gap-5 p-5 sm:p-7 lg:grid-cols-[1fr_auto] lg:items-center">
+        <div class="min-w-0">
+          <p class="flex flex-wrap items-center gap-2 font-mono text-[11px] uppercase tracking-[.14em] text-memo">
+            <span class="inline-block size-1.5 rounded-full bg-memo"></span>
+            <span data-rel-kicker>Navazujeme na minulou návštěvu</span>
+          </p>
+          <h2 id="rel-title" data-rel-title class="mt-2 font-display text-2xl font-semibold leading-tight sm:text-3xl">Vítejte zpět, Kláro.</h2>
+          <p data-rel-text class="mt-2 max-w-2xl text-paper/80">Minule jste rozpracovala projekt „Vodítka na jarmark“. Vaše oblíbené barvy máte níže po ruce – jedním klepnutím podle nich vyfiltrujete katalog.</p>
+          <div data-rel-colors-wrap class="mt-4">
+            <p class="text-xs text-paper/60">Vaše barvy z minula · klepnutím filtrujete</p>
+            <ul data-rel-colors class="mt-2 flex flex-wrap gap-2 text-xs"></ul>
+          </div>
+        </div>
+        <div class="flex flex-wrap gap-2 lg:flex-col lg:items-stretch">
+          <a data-rel-project href="index.html#planovac" class="rounded-full bg-memo px-5 py-2.5 text-center text-sm font-semibold text-ink hover:bg-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-memo">Pokračovat v projektu →</a>
+          <button type="button" data-forget class="rounded-full border border-paper/30 px-5 py-2.5 text-sm font-medium hover:bg-paper/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-memo">Zapomenout, co víte</button>
+          <button type="button" data-restore hidden class="rounded-full border border-paper/30 px-5 py-2.5 text-sm font-medium hover:bg-paper/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-memo">Obnovit ukázkovou zákaznici</button>
+        </div>
+      </div>
+      <p class="border-t border-paper/15 px-5 py-3 text-xs text-paper/60 sm:px-7">
+        Proč to tu je: pamatujeme si jen barvy, které jste koupila, a rozpracované projekty – výhradně v tomto prohlížeči. Řazení katalogu kvůli tomu skrytě neměníme.
+      </p>
+    </section>
+
+    <!-- ===== Katalog ===== -->
+    <div class="mt-8 grid gap-6 lg:grid-cols-[17rem_minmax(0,1fr)] lg:gap-10">
+
+      <!-- Filtry -->
+      <aside aria-label="Filtry" class="min-w-0">
+        <button type="button" data-filter-toggle aria-controls="filtry" class="flex w-full items-center justify-between gap-3 rounded-2xl border border-line bg-card px-4 py-3 text-sm font-semibold transition hover:border-ink/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-moss aria-expanded:border-ink lg:hidden">
+          <span class="flex items-center gap-2">
+            <svg class="size-5 text-moss" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 6h16M7 12h10M10 18h4"/></svg>
+            Filtry
+            <span class="rounded-full bg-memo px-2 py-0.5 font-mono text-[11px]" aria-label="aktivní filtry"><span data-filter-active-count>0</span></span>
+          </span>
+          <span class="flex items-center gap-1 text-xs font-medium text-ink-soft">
+            <span class="in-aria-expanded:hidden">Zobrazit</span><span class="hidden in-aria-expanded:inline">Skrýt</span>
+            <svg class="size-4 transition in-aria-expanded:rotate-180" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+          </span>
+        </button>
+
+        <div id="filtry" data-filter-panel class="mt-3 hidden data-[open=true]:block lg:sticky lg:top-24 lg:mt-0 lg:block">
+          <div class="rounded-3xl border border-line bg-card p-4 sm:p-5">
+            <div class="flex items-baseline justify-between gap-3">
+              <h2 class="font-display text-lg font-semibold">Filtry</h2>
+              <button type="button" data-filter-reset class="text-xs font-medium text-moss underline underline-offset-2 hover:text-ink">Zrušit vše</button>
+            </div>
+
+            <!-- Materiál -->
+            <fieldset data-filter="material" class="mt-4">
+              <legend class="text-sm font-semibold">Materiál</legend>
+              <div data-filter-options class="mt-2 grid grid-cols-2 gap-2">
+                <template>
+                  <label class="cursor-pointer">
+                    <input data-option type="checkbox" class="peer sr-only">
+                    <span data-option-label class="block rounded-full border border-line bg-paper px-3 py-2 text-center text-sm transition hover:border-ink/40 peer-checked:border-ink peer-checked:bg-ink peer-checked:text-paper peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-moss"></span>
+                  </label>
+                </template>
+              </div>
+            </fieldset>
+
+            <!-- Šířka -->
+            <fieldset data-filter="width" class="mt-5 border-t border-line pt-4">
+              <legend class="text-sm font-semibold">Šířka</legend>
+              <div data-filter-options class="mt-2 flex flex-wrap gap-2">
+                <template>
+                  <label class="cursor-pointer">
+                    <input data-option type="checkbox" class="peer sr-only">
+                    <span data-option-label class="block rounded-full border border-line bg-paper px-3.5 py-2 font-mono text-xs transition hover:border-ink/40 peer-checked:border-ink peer-checked:bg-ink peer-checked:text-paper peer-focus-visible:outline-2 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-moss"></span>
+                  </label>
+                </template>
+              </div>
+            </fieldset>
+
+            <!-- Barva -->
+            <fieldset data-filter="color" class="mt-5 border-t border-line pt-4">
+              <legend class="sr-only">Barva</legend>
+              <div class="flex items-baseline justify-between gap-2" aria-hidden="true">
+                <p class="text-sm font-semibold">Barva</p>
+                <p class="text-[11px] text-ink-soft mem-none:hidden"><span class="inline-block size-2 rounded-full bg-memo align-middle ring-1 ring-ink/30"></span> = už jste kupovala</p>
+              </div>
+              <div data-filter-options class="mt-2 grid grid-cols-2 gap-x-2 gap-y-1">
+                <template>
+                  <label class="group relative flex cursor-pointer items-center gap-2 rounded-xl px-1.5 py-1 transition hover:bg-paper has-[:checked]:bg-paper has-[:checked]:ring-1 has-[:checked]:ring-ink">
+                    <input data-option type="checkbox" class="peer sr-only">
+                    <span data-option-swatch class="relative size-6 shrink-0 rounded-full bg-[var(--sw)] ring-1 ring-ink/15 ring-offset-2 ring-offset-card peer-checked:ring-2 peer-checked:ring-ink peer-focus-visible:outline-2 peer-focus-visible:outline-offset-4 peer-focus-visible:outline-moss"></span>
+                    <span data-option-label class="min-w-0 truncate text-[11px] font-medium tracking-wide text-ink-soft peer-checked:text-ink"></span>
+                    <span class="absolute left-5 top-0.5 hidden size-2.5 rounded-full bg-memo ring-2 ring-card group-data-[mine]:block mem-none:hidden" aria-hidden="true"></span>
+                  </label>
+                </template>
+              </div>
+            </fieldset>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Výsledky -->
+      <section aria-labelledby="vysledky-title" class="min-w-0">
+        <h2 id="vysledky-title" class="sr-only">Výsledky</h2>
+        <div class="flex flex-wrap items-center justify-between gap-3 rounded-2xl border border-line bg-card px-4 py-3">
+          <p class="text-sm text-ink-soft" aria-live="polite">
+            <strong data-result-count class="font-display text-xl font-semibold text-ink">9</strong>
+            <span data-result-label>produktů</span>
+          </p>
+          <label class="flex items-center gap-2 text-sm">
+            <span class="text-ink-soft">Řadit</span>
+            <span class="relative">
+              <select data-sort class="appearance-none rounded-full border border-line bg-paper py-2 pl-4 pr-9 text-sm font-semibold text-ink hover:border-ink/40 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-moss"></select>
+              <svg class="pointer-events-none absolute right-3 top-1/2 size-4 -translate-y-1/2 text-ink-soft" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+            </span>
+          </label>
+        </div>
+
+        <!-- Mřížka karet -->
+        <div data-product-list class="mt-5 grid gap-4 sm:grid-cols-2 xl:grid-cols-3">
+          <template data-product-card>
+            <a data-field="url" href="index.html" class="group flex flex-col overflow-hidden rounded-3xl border border-line bg-card transition hover:-translate-y-0.5 hover:border-ink/30 hover:shadow-xl hover:shadow-ink/5 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-moss">
+              <div class="relative aspect-[4/3] overflow-hidden border-b border-line bg-[color-mix(in_oklab,var(--strap)_12%,#fffcf6)]">
+                <div class="absolute inset-0 bg-[radial-gradient(rgb(29_41_36/.08)_1.2px,transparent_1.4px)] bg-[length:18px_18px]" aria-hidden="true"></div>
+                <div data-art="band" class="absolute inset-0 p-5 transition duration-500 group-hover:scale-[1.04] group-hover:-rotate-2"></div>
+                <span data-field="material" class="absolute left-3 top-3 rounded-full bg-card/90 px-2.5 py-1 font-mono text-[10px] font-medium uppercase tracking-[.14em] text-ink shadow-sm ring-1 ring-line"></span>
+              </div>
+              <div class="flex flex-1 flex-col p-4 sm:p-5">
+                <h3 data-field="name" class="font-display text-lg font-semibold leading-snug tracking-tight group-hover:underline group-hover:decoration-memo group-hover:decoration-2 group-hover:underline-offset-4"></h3>
+                <p class="mt-2 flex flex-wrap items-center gap-x-3 gap-y-1 text-xs text-ink-soft">
+                  <span class="inline-flex items-center gap-1"><svg class="size-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M4 12h16M4 8v8M20 8v8"/></svg>šířka <span data-field="width" class="font-medium text-ink"></span></span>
+                  <span class="inline-flex items-center gap-1.5"><span class="size-3 rounded-full bg-[var(--strap)] ring-1 ring-ink/20" aria-hidden="true"></span><span data-field="color-count" class="font-medium text-ink"></span> barev</span>
+                </p>
+                <div class="mt-auto pt-4"><div class="flex items-end justify-between gap-3 border-t border-dashed border-line pt-3">
+                  <div>
+                    <p class="font-display text-2xl font-semibold leading-none"><span data-field="price"></span> <span data-field="unit" class="font-sans text-sm font-normal text-ink-soft"></span></p>
+                    <p class="mt-1 text-xs text-ink-soft"><span data-field="price-novat"></span> bez DPH</p>
+                  </div>
+                  <span class="grid size-10 shrink-0 place-items-center rounded-full bg-clay text-white shadow-lg shadow-clay/25 transition group-hover:bg-[#9a4624]" aria-hidden="true">
+                    <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                  </span>
+                </div></div>
+              </div>
+            </a>
+          </template>
+        </div>
+
+        <!-- Prázdný stav -->
+        <div data-empty hidden class="mt-5 flex flex-col items-center rounded-3xl border-2 border-dashed border-line bg-card px-6 py-14 text-center">
+          <svg class="size-12 text-moss" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 2 28 9v14l-12 7L4 23V9z" fill="none" stroke="currentColor" stroke-width="2"/><path d="M12 12l8 8M20 12l-8 8" stroke="var(--color-clay)" stroke-width="2.2" stroke-linecap="round"/></svg>
+          <p class="mt-4 font-display text-2xl font-semibold">Žádný produkt neodpovídá filtru</p>
+          <p class="mt-2 max-w-md text-sm text-ink-soft">Tahle kombinace materiálu, šířky a barvy u nás zatím není. Zkuste ubrat jeden z filtrů – nebo začněte znovu.</p>
+          <button type="button" data-filter-reset class="mt-6 rounded-full bg-clay px-6 py-3 font-semibold text-white shadow-lg shadow-clay/25 transition hover:bg-[#9a4624] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-clay active:scale-[.98]">Zrušit filtry</button>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <!-- ===== Patička ===== -->
+  <footer class="border-t border-line bg-ink text-paper/80">
+    <div class="mx-auto grid max-w-7xl gap-8 px-4 py-12 text-sm sm:px-6 md:grid-cols-4">
+      <div>
+        <p class="font-display text-xl font-semibold text-paper">Popruhárna</p>
+        <p class="mt-2">Materiály a komponenty pro výrobu psích doplňků. Obchod, který si pamatuje, co tvoříte.</p>
+      </div>
+      <div class="space-y-2"><p class="font-semibold text-paper">Nákup</p><a href="#" class="block hover:text-memo">Obchodní podmínky</a><a href="#" class="block hover:text-memo">Doprava a platba</a><a href="#" class="block hover:text-memo">Reklamace a vrácení</a></div>
+      <div class="space-y-2"><p class="font-semibold text-paper">Vaše data</p><a href="#pamet" class="block hover:text-memo">Co si o vás pamatujeme</a><p class="text-xs text-paper/60">Paměť je uložená jen ve vašem prohlížeči (localStorage). Nic neodchází na server.</p></div>
+      <div class="space-y-2"><p class="font-semibold text-paper">Prototyp</p><a href="/" class="block font-semibold text-memo underline underline-offset-4">← Všechny varianty</a><p class="text-xs text-paper/60">Varianta skillu agentic-ux-design-relationship-centric-interfaces. Zákaznice Klára a její historie jsou fiktivní.</p></div>
+    </div>
+  </footer>
+
+  <script src="/assets/hexa.js"></script>
+  <script>
+  /* Drobná vztahová vrstva: čte stejnou paměť jako detail (localStorage),
+     nabízí rychlé filtry podle oblíbených barev a ovládání zapomnění.
+     Filtrování, řazení i karty zůstávají plně na hexa.js. */
+  (function () {
+    'use strict';
+    const KEY = 'popruharna:vztah:v1';
+    const $ = (s, r = document) => r.querySelector(s);
+    const $$ = (s, r = document) => Array.from(r.querySelectorAll(s));
+    const demo = { name: 'Klára', colors: [{ name: 'PETROL' }, { name: 'ORANGE' }, { name: 'PASTEL PINK' }, { name: 'BLACK' }], project: { title: 'Vodítka na jarmark' } };
+    const blank = () => ({ name: null, workshop: null, since: null, visits: 0, trust: 1, colors: [], project: null, evolution: [], history: [], viewed: [], feedback: { hit: 0, miss: 0 }, rejected: [], fav: false, tipDeclined: false });
+
+    let mem;
+    try { mem = JSON.parse(localStorage.getItem(KEY)) || demo; } catch (e) { mem = demo; }
+    const colors = (mem.colors || []).map((c) => c.name).filter(Boolean);
+    const known = !!(mem.name || colors.length || mem.project);
+
+    function paint() {
+      document.body.dataset.memory = known ? 'some' : 'none';
+      const name = mem.name || 'Host';
+      $('[data-avatar]').textContent = name.charAt(0);
+      $('[data-greet-short]').textContent = name;
+      $('[data-forget]').hidden = !known;
+      $('[data-restore]').hidden = known;
+      $('[data-rel-project]').hidden = !mem.project;
+      $('[data-rel-colors-wrap]').hidden = !colors.length;
+      if (!known) {
+        $('[data-rel-kicker]').textContent = 'Paměť je prázdná';
+        $('[data-rel-title]').textContent = 'Zatím se neznáme.';
+        $('[data-rel-text]').textContent = 'Nic si o vás nepamatujeme. Až u nás nakoupíte, nabídneme vám tu vaše barvy a rozpracované projekty – jen v tomto prohlížeči.';
+        return;
+      }
+      if (mem.name) $('[data-rel-title]').textContent = `Vítejte zpět, ${mem.name === 'Klára' ? 'Kláro' : mem.name}.`;
+      $('[data-rel-text]').textContent = mem.project
+        ? `Minule jste rozpracovala projekt „${mem.project.title}“. Vaše oblíbené barvy máte níže po ruce – jedním klepnutím podle nich vyfiltrujete katalog.`
+        : 'Vaše oblíbené barvy máte níže po ruce – jedním klepnutím podle nich vyfiltrujete katalog.';
+      const hex = (n) => ((window.HEXA && HEXA.colors.find((c) => c.name === n)) || {}).hex || '#999';
+      $('[data-rel-colors]').innerHTML = colors.map((n) => `<li><button type="button" data-mem-color="${n}" aria-pressed="false" class="flex items-center gap-2 rounded-full border border-paper/25 py-1 pl-1 pr-3 font-medium transition hover:bg-paper/10 aria-pressed:border-memo aria-pressed:bg-memo aria-pressed:text-ink"><span class="size-5 rounded-full ring-1 ring-paper/40" style="background:${hex(n)}"></span>${n}</button></li>`).join('');
+    }
+
+    // Zvýraznit „vaše“ barvy ve filtru a synchronizovat stav rychlých filtrů.
+    function sync() {
+      $$('input[name="filter-color"]').forEach((i) => {
+        const label = i.closest('label');
+        if (label) label.toggleAttribute('data-mine', colors.includes(i.value));
+        $$(`[data-mem-color="${CSS.escape(i.value)}"]`).forEach((b) => b.setAttribute('aria-pressed', String(i.checked)));
+      });
+    }
+
+    function start() {
+      paint();
+      sync();
+      document.addEventListener('change', sync);
+      document.addEventListener('click', (e) => {
+        const chip = e.target.closest('[data-mem-color]');
+        if (chip) {
+          const input = $(`input[name="filter-color"][value="${CSS.escape(chip.dataset.memColor)}"]`);
+          if (input) input.click(); // nativní klik → change → hexa.js přefiltruje
+        }
+        if (e.target.closest('[data-filter-reset]')) setTimeout(sync);
+        if (e.target.closest('[data-forget]')) {
+          try { localStorage.setItem(KEY, JSON.stringify(blank())); } catch (err) {}
+          location.reload();
+        }
+        if (e.target.closest('[data-restore]')) {
+          try { localStorage.removeItem(KEY); } catch (err) {}
+          location.reload();
+        }
+      });
+    }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', start);
+    else start();
+  })();
+  </script>
+</body>
+</html>

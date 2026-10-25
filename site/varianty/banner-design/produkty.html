@@ -1,0 +1,333 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Popruhy na metry – všechny produkty · Popruhárna · varianta banner-design</title>
+  <meta name="description" content="Popruhy HEXA, BioThane, Pawtex a kožené řemeny na metry. Filtrujte podle materiálu, šířky a barvy. Varianta seznamu produktů ve stylu Bold Typography (skill banner-design).">
+  <link rel="icon" href="data:,">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Archivo:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <style type="text/tailwindcss">
+    @theme {
+      --font-sans: "Archivo", ui-sans-serif, system-ui, sans-serif;
+      --font-display: "Anton", "Archivo", ui-sans-serif, sans-serif;
+      --color-paper: #f2eee4;
+      --color-paper-2: #e4ddcd;
+      --color-ink: #121212;
+      --color-sticker: #f7d117;
+      --animate-marquee: marquee 38s linear infinite;
+      @keyframes marquee {
+        from { transform: translateX(0); }
+        to { transform: translateX(-50%); }
+      }
+    }
+    @layer base {
+      :root { --strap: #3b3f45; --strap-ink: #ffffff; }
+      :focus-visible { outline: 3px solid var(--color-ink); outline-offset: 3px; }
+      .on-dark :focus-visible { outline-color: #fff; }
+      .on-strap :focus-visible { outline-color: var(--strap-ink); }
+    }
+    @utility hex-dots {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='52' height='90' viewBox='0 0 52 90'%3E%3Cg fill='none' stroke='%23121212' stroke-opacity='.09' stroke-width='2'%3E%3Cpath d='M26 2 48 15v26L26 54 4 41V15z'/%3E%3Cpath d='M0 47 0 47M52 47'/%3E%3C/g%3E%3C/svg%3E");
+      background-size: 52px 90px;
+    }
+    @utility hex-dots-light {
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='52' height='90' viewBox='0 0 52 90'%3E%3Cg fill='none' stroke='%23f2eee4' stroke-opacity='.08' stroke-width='2'%3E%3Cpath d='M26 2 48 15v26L26 54 4 41V15z'/%3E%3C/g%3E%3C/svg%3E");
+      background-size: 52px 90px;
+    }
+  </style>
+</head>
+<body class="bg-paper font-sans text-ink antialiased selection:bg-ink selection:text-paper">
+
+  <a href="#vypis" class="sr-only z-[60] bg-ink px-4 py-3 font-bold text-white focus:not-sr-only focus:fixed focus:left-3 focus:top-3">Přeskočit na produkty</a>
+
+  <!-- Běžící banner (ticker) -->
+  <div class="on-dark overflow-hidden border-b-2 border-ink bg-ink text-paper">
+    <p class="sr-only">Prodej na metry · 4 materiály · Šířky 16 až 25 mm · Odesíláme do 2 pracovních dnů od zaplacení</p>
+    <div aria-hidden="true" class="flex w-max motion-safe:animate-marquee">
+      <div class="flex shrink-0 items-center gap-8 whitespace-nowrap py-2 pr-8 font-display text-sm uppercase tracking-wider">
+        <span>Prodej na metry</span><span class="text-sticker">⬢</span>
+        <span>HEXA · BioThane · Pawtex · Kůže</span><span class="text-sticker">⬢</span>
+        <span>Šířky 16–25 mm</span><span class="text-sticker">⬢</span>
+        <span>Odesíláme do 2 pracovních dnů od zaplacení</span><span class="text-sticker">⬢</span>
+        <span>Až 23 barev</span><span class="text-sticker">⬢</span>
+      </div>
+      <div class="flex shrink-0 items-center gap-8 whitespace-nowrap py-2 pr-8 font-display text-sm uppercase tracking-wider">
+        <span>Prodej na metry</span><span class="text-sticker">⬢</span>
+        <span>HEXA · BioThane · Pawtex · Kůže</span><span class="text-sticker">⬢</span>
+        <span>Šířky 16–25 mm</span><span class="text-sticker">⬢</span>
+        <span>Odesíláme do 2 pracovních dnů od zaplacení</span><span class="text-sticker">⬢</span>
+        <span>Až 23 barev</span><span class="text-sticker">⬢</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Hlavička -->
+  <header class="sticky top-0 z-30 border-b-2 border-ink bg-paper/95 backdrop-blur">
+    <div class="mx-auto flex max-w-[1360px] items-center gap-6 px-4 py-3 sm:px-8">
+      <a href="domu.html" class="flex items-center gap-2" aria-label="Popruhárna – úvod">
+        <svg class="size-8" viewBox="0 0 32 32" aria-hidden="true"><path d="M16 2 28.1 9v14L16 30 3.9 23V9z" fill="var(--strap)" stroke="#121212" stroke-width="2.5" stroke-linejoin="round"/></svg>
+        <span class="font-display text-2xl uppercase leading-none tracking-wide">Popruhárna</span>
+      </a>
+      <nav aria-label="Hlavní menu" class="hidden gap-1 text-sm font-semibold uppercase tracking-wide lg:flex">
+        <a href="produkty.html" aria-current="page" class="bg-ink px-3 py-2 text-paper">Produkty</a>
+        <a href="produkty.html?material=biothane" class="px-3 py-2 hover:bg-ink hover:text-paper">BioThane</a>
+        <a href="produkty.html?material=hexa" class="px-3 py-2 hover:bg-ink hover:text-paper">Hexagon</a>
+        <a href="produkty.html?material=pawtex" class="px-3 py-2 hover:bg-ink hover:text-paper">PawTex</a>
+      </nav>
+      <div class="ml-auto flex items-center gap-2">
+        <a href="kosik.html" class="relative flex h-11 items-center gap-2 border-2 border-ink bg-ink px-3 font-bold text-paper shadow-[3px_3px_0_var(--strap)] hover:-translate-y-0.5" aria-label="Košík, počet položek">
+          <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M6 7h12l-1 13H7L6 7Z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg>
+          <span data-cart-count class="tabular-nums">0</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main id="obsah">
+
+    <!-- Drobečková navigace -->
+    <nav aria-label="Drobečková navigace" class="mx-auto max-w-[1360px] px-4 py-4 text-sm sm:px-8">
+      <ol class="flex flex-wrap items-center gap-x-2 gap-y-1 font-semibold uppercase tracking-wide text-ink/70">
+        <li><a href="domu.html" class="underline-offset-4 hover:text-ink hover:underline">Domů</a></li>
+        <li aria-hidden="true" class="text-ink/40">/</li>
+        <li aria-current="page" class="text-ink">Produkty</li>
+      </ol>
+    </nav>
+
+    <!-- HERO BANNER -->
+    <section aria-labelledby="titulek" class="on-dark relative isolate overflow-hidden border-y-2 border-ink bg-ink text-paper hex-dots-light">
+      <div class="mx-auto grid max-w-[1360px] items-end gap-10 px-4 pb-10 pt-8 sm:px-8 md:pb-14 md:pt-12 lg:grid-cols-12 lg:gap-8">
+        <div class="lg:col-span-7">
+          <p class="inline-flex flex-wrap items-center gap-2 text-xs font-bold uppercase tracking-[.18em]">
+            <span class="bg-sticker px-2.5 py-1.5 text-ink">Katalog</span>
+            <span class="bg-paper px-2.5 py-1.5 text-ink">9 produktů · 4 materiály</span>
+          </p>
+          <h1 id="titulek" class="mt-4">
+            <span class="block font-display text-[clamp(5rem,17vw,13.5rem)] uppercase leading-[.8] tracking-tight">Popruhy</span>
+            <span class="mt-3 inline-block -rotate-2 bg-paper px-3 py-1 font-display text-[clamp(2.25rem,5.4vw,4.5rem)] uppercase leading-[1] text-ink shadow-[6px_6px_0_var(--color-sticker)]">na&nbsp;metry</span>
+          </h1>
+          <p class="mt-7 max-w-lg text-lg leading-snug text-paper/85">
+            Voděodolné HEXA, BioThane, měkký Pawtex i kožené řemeny. Vyberte materiál, šířku a barvu – nastříháme přesně tolik, kolik ušijete.
+          </p>
+        </div>
+
+        <!-- Materiálové mini-bannery -->
+        <div class="lg:col-span-5">
+          <p class="mb-3 text-xs font-bold uppercase tracking-[.18em] text-paper/75">Rovnou na materiál</p>
+          <ul class="grid grid-cols-2 gap-3">
+            <li>
+              <a href="produkty.html?material=hexa" style="--strap:#1f4fbf" class="on-strap group flex aspect-[4/3] flex-col justify-between border-2 border-paper bg-[var(--strap)] p-3 text-white shadow-[5px_5px_0_#f2eee4] transition hover:-translate-y-0.5 sm:p-4">
+                <span class="text-xs font-bold uppercase tracking-wider">od 49 Kč / m</span>
+                <span class="flex items-end justify-between gap-2 font-display text-[clamp(1.75rem,4vw,2.75rem)] uppercase leading-none">HEXA <span aria-hidden="true" class="text-2xl transition group-hover:translate-x-1">→</span></span>
+              </a>
+            </li>
+            <li>
+              <a href="produkty.html?material=biothane" style="--strap:#d0202a" class="on-strap group flex aspect-[4/3] flex-col justify-between border-2 border-paper bg-[var(--strap)] p-3 text-white shadow-[5px_5px_0_#f2eee4] transition hover:-translate-y-0.5 sm:p-4">
+                <span class="text-xs font-bold uppercase tracking-wider">od 39 Kč / m</span>
+                <span class="flex items-end justify-between gap-2 font-display text-[clamp(1.75rem,4vw,2.75rem)] uppercase leading-none">BioThane <span aria-hidden="true" class="text-2xl transition group-hover:translate-x-1">→</span></span>
+              </a>
+            </li>
+            <li>
+              <a href="produkty.html?material=pawtex" style="--strap:#f4b8c8;--strap-ink:#121212" class="on-strap group flex aspect-[4/3] flex-col justify-between border-2 border-paper bg-[var(--strap)] p-3 text-ink shadow-[5px_5px_0_#f2eee4] transition hover:-translate-y-0.5 sm:p-4">
+                <span class="text-xs font-bold uppercase tracking-wider">od 35 Kč / m</span>
+                <span class="flex items-end justify-between gap-2 font-display text-[clamp(1.75rem,4vw,2.75rem)] uppercase leading-none">Pawtex <span aria-hidden="true" class="text-2xl transition group-hover:translate-x-1">→</span></span>
+              </a>
+            </li>
+            <li>
+              <a href="produkty.html?material=kuze" style="--strap:#8a3b23" class="on-strap group flex aspect-[4/3] flex-col justify-between border-2 border-paper bg-[var(--strap)] p-3 text-white shadow-[5px_5px_0_#f2eee4] transition hover:-translate-y-0.5 sm:p-4">
+                <span class="text-xs font-bold uppercase tracking-wider">od 89 Kč / m</span>
+                <span class="flex items-end justify-between gap-2 font-display text-[clamp(1.75rem,4vw,2.75rem)] uppercase leading-none">Kůže <span aria-hidden="true" class="text-2xl transition group-hover:translate-x-1">→</span></span>
+              </a>
+            </li>
+          </div>
+        </div>
+      </div>
+      <!-- Barevný pruh -->
+      <div aria-hidden="true" class="flex h-3 border-t-2 border-ink">
+        <span class="flex-1 bg-[#1f4fbf]"></span><span class="flex-1 bg-[#00a3a6]"></span><span class="flex-1 bg-[#2e8b3d]"></span><span class="flex-1 bg-[#f7d117]"></span><span class="flex-1 bg-[#f26a1b]"></span><span class="flex-1 bg-[#d0202a]"></span><span class="flex-1 bg-[#c2187a]"></span><span class="flex-1 bg-[#a58bd1]"></span><span class="flex-1 bg-[#f4b8c8]"></span><span class="flex-1 bg-[#8a3b23]"></span>
+      </div>
+    </section>
+
+    <!-- VÝPIS: filtry + mřížka -->
+    <section id="vypis" aria-labelledby="vypis-h" class="mx-auto max-w-[1360px] scroll-mt-20 px-4 py-10 sm:px-8 md:py-14">
+      <h2 id="vypis-h" class="sr-only">Seznam produktů</h2>
+
+      <div class="grid gap-6 lg:grid-cols-[290px_minmax(0,1fr)] lg:gap-x-10">
+
+        <!-- Lišta: počet, filtry (mobil), řazení -->
+        <div class="flex flex-wrap items-end justify-between gap-4 border-b-2 border-ink pb-4 lg:col-start-2 lg:row-start-1">
+          <p class="font-display text-4xl uppercase leading-none sm:text-5xl" aria-live="polite">
+            <span data-result-count class="tabular-nums">9</span> <span data-result-label>produktů</span>
+          </p>
+          <div class="flex w-full flex-wrap items-stretch gap-3 sm:w-auto">
+            <button type="button" data-filter-toggle aria-controls="filtry" aria-expanded="false"
+                    class="flex min-h-12 flex-1 items-center justify-center gap-2 border-2 border-ink bg-ink px-4 font-display text-lg uppercase tracking-wide text-white shadow-[4px_4px_0_var(--color-sticker),4px_4px_0_2px_#121212] transition active:translate-y-0.5 sm:flex-none lg:hidden">
+              <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M4 6h16M7 12h10M10 18h4"/></svg>
+              Filtry
+              <span class="grid min-w-6 place-items-center bg-sticker px-1.5 text-base leading-6 text-ink"><span data-filter-active-count>0</span></span>
+            </button>
+            <label class="relative flex min-h-12 flex-1 items-center border-2 border-ink bg-white sm:flex-none">
+              <span class="pl-3 pr-1 text-xs font-bold uppercase tracking-wider text-ink/70">Řadit</span>
+              <select data-sort class="min-h-11 w-full cursor-pointer appearance-none bg-transparent py-2 pl-1 pr-10 font-display text-lg uppercase tracking-wide outline-none sm:w-auto"></select>
+              <svg class="pointer-events-none absolute right-3 size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+            </label>
+          </div>
+        </div>
+
+        <!-- Filtry -->
+        <aside id="filtry" data-filter-panel aria-label="Filtry" class="hidden data-[open=true]:block lg:col-start-1 lg:row-span-2 lg:row-start-1 lg:block">
+          <div class="border-2 border-ink bg-white lg:sticky lg:top-24">
+            <div class="flex items-center justify-between gap-3 border-b-2 border-ink bg-ink px-5 py-3 text-white">
+              <p class="font-display text-2xl uppercase tracking-wide">Filtry</p>
+              <button type="button" data-filter-reset class="text-sm font-bold uppercase tracking-wider underline underline-offset-4 hover:text-sticker">Zrušit vše</button>
+            </div>
+
+            <fieldset data-filter="material" class="border-b-2 border-ink/10 px-5 py-5">
+              <legend class="float-left mb-3 w-full font-display text-xl uppercase tracking-wide">Materiál</legend>
+              <div data-filter-options class="clear-left flex flex-wrap gap-2">
+                <template>
+                  <label class="cursor-pointer">
+                    <input data-option type="checkbox" class="peer sr-only">
+                    <span data-option-label class="inline-flex min-h-11 items-center border-2 border-ink px-3.5 font-display text-lg uppercase tracking-wide transition hover:bg-paper-2 peer-checked:bg-ink peer-checked:text-white peer-checked:shadow-[3px_3px_0_var(--color-sticker)] peer-focus-visible:outline-3 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-ink"></span>
+                  </label>
+                </template>
+              </div>
+            </fieldset>
+
+            <fieldset data-filter="width" class="border-b-2 border-ink/10 px-5 py-5">
+              <legend class="float-left mb-3 w-full font-display text-xl uppercase tracking-wide">Šířka</legend>
+              <div data-filter-options class="clear-left grid grid-cols-3 gap-2">
+                <template>
+                  <label class="cursor-pointer">
+                    <input data-option type="checkbox" class="peer sr-only">
+                    <span data-option-label class="flex min-h-11 items-center justify-center border-2 border-ink px-2 font-display text-lg uppercase tabular-nums transition hover:bg-paper-2 peer-checked:bg-ink peer-checked:text-white peer-checked:shadow-[3px_3px_0_var(--color-sticker)] peer-focus-visible:outline-3 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-ink"></span>
+                  </label>
+                </template>
+              </div>
+            </fieldset>
+
+            <fieldset data-filter="color" class="px-5 py-5">
+              <legend class="float-left mb-3 w-full font-display text-xl uppercase tracking-wide">Barva</legend>
+              <div data-filter-options class="clear-left grid grid-cols-[repeat(auto-fill,minmax(2.75rem,1fr))] gap-2">
+                <template>
+                  <label class="group relative block cursor-pointer">
+                    <input data-option type="checkbox" class="peer sr-only">
+                    <span data-option-swatch aria-hidden="true" class="relative block aspect-square border-2 border-ink/20 bg-[var(--sw)] transition group-hover:-translate-y-0.5 group-hover:border-ink peer-checked:border-ink peer-checked:shadow-[3px_3px_0_#121212] peer-checked:after:absolute peer-checked:after:inset-1.5 peer-checked:after:border-2 peer-checked:after:border-white peer-checked:after:content-[''] peer-focus-visible:outline-3 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-ink"></span>
+                    <span data-option-label class="mt-1 block truncate text-center text-[10px] font-bold uppercase leading-tight tracking-wide text-ink/70 peer-checked:text-ink"></span>
+                  </label>
+                </template>
+              </div>
+            </fieldset>
+
+            <div class="border-t-2 border-ink p-4 lg:hidden">
+              <button type="button" data-filter-toggle class="flex min-h-12 w-full items-center justify-center gap-2 border-2 border-ink bg-ink px-4 font-display text-lg uppercase tracking-wide text-white">
+                Zobrazit <span data-result-count>9</span> <span data-result-label>produktů</span>
+              </button>
+            </div>
+          </div>
+        </aside>
+
+        <!-- Mřížka karet -->
+        <div class="lg:col-start-2 lg:row-start-2">
+          <div data-product-list class="grid gap-x-5 gap-y-7 sm:grid-cols-2 xl:grid-cols-3">
+            <template data-product-card>
+              <a data-field="url" href="index.html" class="group relative flex flex-col border-2 border-ink bg-white transition hover:-translate-y-1 hover:shadow-[8px_8px_0_var(--strap),8px_8px_0_2px_#121212] focus-visible:shadow-[8px_8px_0_var(--strap),8px_8px_0_2px_#121212]">
+                <!-- Náhled jako mini banner -->
+                <div class="relative aspect-[4/3] overflow-hidden border-b-2 border-ink bg-paper hex-dots">
+                  <div data-art="band" aria-hidden="true" class="absolute inset-0 p-5 transition duration-300 group-hover:scale-105 group-hover:-rotate-2 [&_svg]:size-full"></div>
+                  <span data-field="material" class="absolute left-0 top-0 bg-ink px-3 py-1.5 font-display text-sm uppercase tracking-wider text-white"></span>
+                  <span class="absolute bottom-3 right-3 grid size-20 rotate-[9deg] place-items-center rounded-full border-2 border-ink bg-sticker text-center text-ink shadow-[3px_3px_0_#121212] transition group-hover:rotate-[16deg]">
+                    <span class="leading-none">
+                      <span data-field="color-count" class="block font-display text-3xl"></span>
+                      <span class="mt-0.5 block text-[10px] font-bold uppercase tracking-wider">barev</span>
+                    </span>
+                  </span>
+                  <span aria-hidden="true" class="absolute inset-x-0 bottom-0 h-2 bg-[var(--strap)]"></span>
+                </div>
+                <!-- Text -->
+                <div class="flex flex-1 flex-col p-5">
+                  <h3 data-field="name" class="font-display text-[1.75rem] uppercase leading-[.98] tracking-wide"></h3>
+                  <dl class="mt-4 grid grid-cols-2 border-2 border-ink/15 text-sm">
+                    <div class="border-r-2 border-ink/15 px-3 py-2">
+                      <dt class="text-[11px] font-bold uppercase tracking-wider text-ink/70">Šířka</dt>
+                      <dd data-field="width" class="font-bold"></dd>
+                    </div>
+                    <div class="px-3 py-2">
+                      <dt class="text-[11px] font-bold uppercase tracking-wider text-ink/70">Barvy</dt>
+                      <dd class="font-bold"><span data-field="color-count"></span> odstínů</dd>
+                    </div>
+                  </dl>
+                  <div class="mt-auto flex items-end justify-between gap-3 pt-5">
+                    <div>
+                      <p class="font-display text-4xl leading-none"><span data-field="price"></span> <span data-field="unit" class="text-2xl text-ink/70"></span></p>
+                      <p class="mt-1.5 text-sm text-ink/75"><span data-field="price-novat"></span> bez DPH</p>
+                    </div>
+                    <span aria-hidden="true" class="grid size-12 shrink-0 place-items-center border-2 border-ink bg-ink text-white transition group-hover:bg-[var(--strap)] group-hover:text-[var(--strap-ink)]">
+                      <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12h14M13 6l6 6-6 6"/></svg>
+                    </span>
+                  </div>
+                </div>
+              </a>
+            </template>
+          </div>
+
+          <!-- Prázdný stav jako banner -->
+          <div data-empty hidden class="relative overflow-hidden border-2 border-ink bg-paper-2 px-6 py-12 text-center hex-dots sm:px-10 sm:py-16">
+            <p aria-hidden="true" class="font-display text-[clamp(4.5rem,12vw,9rem)] uppercase leading-[.85] text-ink/15">Nic&nbsp;tu</p>
+            <p class="relative mx-auto -mt-6 inline-block -rotate-2 border-2 border-ink bg-white px-5 py-3 font-display text-[clamp(1.6rem,3.4vw,2.5rem)] uppercase leading-tight shadow-[6px_6px_0_#121212]">Žádný produkt neodpovídá filtru</p>
+            <p class="mx-auto mt-6 max-w-md text-ink/75">Zkuste ubrat některou z voleb – nebo začněte znovu se všemi devíti produkty.</p>
+            <button type="button" data-filter-reset class="mt-7 inline-flex min-h-14 items-center gap-3 border-2 border-ink bg-ink px-6 py-3 font-display text-xl uppercase tracking-wide text-white shadow-[5px_5px_0_var(--color-sticker),5px_5px_0_2px_#121212] transition hover:-translate-y-0.5 active:translate-y-0.5 active:shadow-none">
+              <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg>
+              Zrušit filtry
+            </button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Info banner -->
+    <section aria-labelledby="info-h" class="border-y-2 border-ink bg-paper-2">
+      <div class="mx-auto grid max-w-[1360px] gap-px bg-ink/15 px-0 sm:px-8 md:grid-cols-3">
+        <div class="bg-paper-2 px-4 py-8 sm:px-6">
+          <h2 id="info-h" class="font-display text-3xl uppercase leading-none">Na metry</h2>
+          <p class="mt-2 text-ink/75">Prodáváme v celých metrech, max. 500 m od jedné barvy.</p>
+        </div>
+        <div class="bg-paper-2 px-4 py-8 sm:px-6">
+          <p class="font-display text-3xl uppercase leading-none">Do 2 dnů</p>
+          <p class="mt-2 text-ink/75">Odesíláme do 2 pracovních dnů od zaplacení – Zásilkovnou i kurýrem.</p>
+        </div>
+        <div class="bg-paper-2 px-4 py-8 sm:px-6">
+          <p class="font-display text-3xl uppercase leading-none">Vzorník</p>
+          <p class="mt-2 text-ink/75">Odstín na monitoru se může lišit. Nenašli jste barvu? <a href="#" class="font-semibold text-ink underline underline-offset-2">Napište nám</a>.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Patička -->
+  <footer class="on-dark border-t-2 border-ink bg-ink text-paper">
+    <div class="mx-auto max-w-[1360px] px-4 pt-14 sm:px-8">
+      <div class="grid gap-10 text-paper/80 md:grid-cols-4">
+        <div class="md:col-span-1">
+          <p class="font-display text-2xl uppercase text-paper">Popruhárna</p>
+          <p class="mt-2">Materiály a komponenty pro výrobu psích doplňků. Fiktivní obchod.</p>
+        </div>
+        <div class="space-y-2"><p class="font-display text-lg uppercase text-paper">Nákup</p><a href="#" class="block hover:text-white hover:underline">Obchodní podmínky</a><a href="#" class="block hover:text-white hover:underline">Reklamace a vrácení</a><a href="#" class="block hover:text-white hover:underline">Doprava a platba</a></div>
+        <div class="space-y-2"><p class="font-display text-lg uppercase text-paper">Kontakt</p><p>+420 777 000 000</p><p>info@popruharna.example</p></div>
+        <div class="space-y-2">
+          <p class="font-display text-lg uppercase text-paper">Prototyp</p>
+          <a href="/" class="inline-block font-bold text-white underline underline-offset-4">← Všechny varianty</a>
+          <p class="text-sm text-paper/70">Varianta skillu <strong class="text-paper">banner-design</strong> (art direction: Bold Typography).</p>
+        </div>
+      </div>
+      <p aria-hidden="true" class="mt-12 select-none overflow-hidden whitespace-nowrap font-display text-[clamp(4rem,17vw,15rem)] uppercase leading-[.95] text-paper/10">Popruhárna</p>
+    </div>
+  </footer>
+
+  <script src="/assets/hexa.js"></script>
+</body>
+</html>

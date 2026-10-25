@@ -384,6 +384,218 @@
     $$('[data-panel]', group).forEach((p) => (p.hidden = p.dataset.panel !== name));
   }
 
+  /* ---------- Seznam produktů (produkty.html) ----------
+   *
+   * Kontrakt data-* (vše kromě [data-product-list] a šablony karty je nepovinné):
+   *
+   * [data-product-list]            kontejner mřížky; hexa.js do něj vkládá karty za šablonu.
+   *                                Při nulovém počtu výsledků dostane atribut hidden.
+   *   <template data-product-card>  markup jedné karty s jedním kořenovým prvkem. Kořen klonu
+   *                                dostane data-sku a CSS proměnné --strap / --strap-ink
+   *                                (první barva produktu). Uvnitř klonu hexa.js plní:
+   *     [data-field=name]          „HEXA voděodolný popruh 20 mm“
+   *     [data-field=material]      „HEXA“, „BioThane“, „Pawtex“, „Kůže“
+   *     [data-field=width]         „20 mm“
+   *     [data-field=price]         cena za metr s DPH, „49 Kč“
+   *     [data-field=price-novat]   cena za metr bez DPH, „40,50 Kč“ (text „bez DPH“ patří do markupu)
+   *     [data-field=color-count]   počet barev, „23“
+   *     [data-field=unit]          „/ m“
+   *     [data-field=url]           odkaz na detail: nastaví se href (index.html téže varianty);
+   *                                může být i sám kořen karty
+   *     [data-art]                 ilustrace (band, texture, roll, leash) obarvená přes --strap
+   *
+   * Filtry – skupina [data-filter=material|width|color] obsahuje [data-filter-options],
+   * do kterého hexa.js vygeneruje volby z katalogu (materiál v pořadí katalogu, šířky
+   * vzestupně, barvy v pořadí palety). Vzhled volby určuje nepovinná
+   * <template> uvnitř [data-filter-options] s jedním kořenem (typicky <label>):
+   *     <input data-option type="checkbox|radio">  hexa.js doplní name, value, id
+   *     [data-option-label]        popisek („HEXA“, „16 mm“, „GOLD“)
+   *     [data-option-swatch]       dostane CSS proměnnou --sw = barva (jen skupina color)
+   *   Bez šablony vznikne prostý <label><input type="checkbox"> popisek</label>.
+   *   U radio skupiny hexa.js přidá na začátek volbu „Vše“ (value="").
+   *   Volby v rámci skupiny se sčítají (OR), mezi skupinami platí AND.
+   *   URL ?material=<klíč> (hexa, biothane, pawtex, kuze) předvolí materiál, neznámá hodnota se ignoruje.
+   *
+   * [data-sort]                    <select> s hodnotami recommended | price-asc | price-desc
+   *                                (prázdný select hexa.js naplní: Doporučené, Cena vzestupně,
+   *                                Cena sestupně), nebo kontejner s radio inputy stejných hodnot.
+   *                                Doporučené = pořadí katalogu.
+   * [data-result-count]            počet zobrazených produktů, „3“
+   * [data-result-label]            správný tvar slova: „produkt“ / „produkty“ / „produktů“
+   * [data-filter-active-count]     počet zaškrtnutých voleb filtrů (pro tlačítko na mobilu)
+   * [data-empty]                   stav bez výsledků („Žádný produkt neodpovídá filtru“);
+   *                                hexa.js mu přepíná atribut hidden
+   * [data-filter-reset]            tlačítko: zruší všechny filtry (řazení zůstane)
+   * [data-filter-toggle]           tlačítko na mobilu: přepne aria-expanded na sobě a
+   *                                data-open="true|false" na [data-filter-panel]
+   *                                (panel stylujte např. hidden data-[open=true]:block lg:block)
+   */
+
+  const SORTS = [
+    ['recommended', 'Doporučené'],
+    ['price-asc', 'Cena vzestupně'],
+    ['price-desc', 'Cena sestupně'],
+  ];
+
+  const unique = (arr) => arr.filter((v, i) => arr.indexOf(v) === i);
+
+  const filterGroups = {
+    material: {
+      options: () => unique(catalog.map((p) => p.material)).map((m) => ({ value: m, label: MATERIALS[m] })),
+      match: (p, vals) => vals.includes(p.material),
+    },
+    width: {
+      options: () => unique(catalog.map((p) => p.width)).sort((a, b) => a - b).map((w) => ({ value: String(w), label: `${w} mm` })),
+      match: (p, vals) => vals.includes(String(p.width)),
+    },
+    color: {
+      options: () => colors.filter((c) => catalog.some((p) => p.colors.includes(c.name))).map((c) => ({ value: c.name, label: c.name, hex: c.hex })),
+      match: (p, vals) => vals.some((v) => p.colors.includes(v)),
+    },
+  };
+
+  function plural(n) {
+    if (n === 1) return 'produkt';
+    return n >= 2 && n <= 4 ? 'produkty' : 'produktů';
+  }
+
+  function fillCard(card, p) {
+    const c = colors.find((x) => x.name === p.colors[0]);
+    card.setAttribute('data-sku', p.sku);
+    card.style.setProperty('--strap', c.hex);
+    card.style.setProperty('--strap-ink', isLight(c.hex) ? '#111111' : '#ffffff');
+    const values = {
+      name: p.name,
+      material: p.materialName,
+      width: `${p.width} mm`,
+      price: formatCzk(p.price),
+      'price-novat': formatCzk(p.priceNoVat),
+      'color-count': String(p.colors.length),
+      unit: `/ ${p.unit || 'm'}`,
+    };
+    [card, ...$$('[data-field]', card)].forEach((el) => {
+      const f = el.getAttribute('data-field');
+      if (f === 'url') el.setAttribute('href', p.url);
+      else if (f in values) el.textContent = values[f];
+    });
+    [card, ...$$('[data-art]', card)].filter((el) => el.hasAttribute('data-art')).forEach(renderArt);
+    return card;
+  }
+
+  function mountFilterOptions(group, key) {
+    const box = group.querySelector('[data-filter-options]');
+    if (!box || !filterGroups[key]) return;
+    const tpl = box.querySelector('template');
+    const proto = tpl && tpl.content.firstElementChild;
+    const type = (proto && proto.querySelector('input[data-option], input') || {}).type === 'radio' ? 'radio' : 'checkbox';
+    const opts = filterGroups[key].options();
+    if (type === 'radio') opts.unshift({ value: '', label: 'Vše' });
+    box.querySelectorAll(':scope > :not(template)').forEach((el) => el.remove());
+    opts.forEach((o, i) => {
+      let el;
+      if (proto) {
+        el = proto.cloneNode(true);
+      } else {
+        el = document.createElement('label');
+        el.innerHTML = '<input data-option type="checkbox"> <span data-option-label></span>';
+      }
+      const input = el.matches('input') ? el : el.querySelector('input[data-option], input');
+      const id = `filter-${key}-${i}`;
+      input.setAttribute('data-option', '');
+      input.type = type;
+      input.name = `filter-${key}`;
+      input.value = o.value;
+      input.id = id;
+      input.checked = type === 'radio' && o.value === '';
+      const label = el.matches('label') ? el : el.querySelector('label');
+      if (label && !label.contains(input)) label.htmlFor = id;
+      [el, ...$$('[data-option-label]', el)].filter((x) => x.hasAttribute('data-option-label')).forEach((x) => (x.textContent = o.label));
+      [el, ...$$('[data-option-swatch]', el)].filter((x) => x.hasAttribute('data-option-swatch')).forEach((x) => {
+        if (o.hex) x.style.setProperty('--sw', o.hex);
+        else x.hidden = true;
+      });
+      box.appendChild(el);
+    });
+  }
+
+  function mountProductList(list) {
+    const tpl = list.querySelector('template[data-product-card]');
+    if (!tpl || !tpl.content.firstElementChild) return;
+    const cards = new Map(catalog.map((p) => [p.sku, fillCard(tpl.content.firstElementChild.cloneNode(true), p)]));
+    const groups = $$('[data-filter]').filter((g) => filterGroups[g.dataset.filter]);
+    groups.forEach((g) => mountFilterOptions(g, g.dataset.filter));
+
+    $$('select[data-sort]').forEach((s) => {
+      if (!s.options.length) s.innerHTML = SORTS.map(([v, l]) => `<option value="${v}">${l}</option>`).join('');
+    });
+
+    const checked = (g) => $$('input[data-option]:checked', g).map((i) => i.value).filter(Boolean);
+
+    // ?material=… předvolí materiál (bez ohledu na velikost písmen); neznámá hodnota se ignoruje.
+    const preset = (new URLSearchParams(location.search).get('material') || '').trim().toLowerCase();
+    if (preset && MATERIALS[preset]) {
+      groups.filter((g) => g.dataset.filter === 'material').forEach((g) => {
+        $$('input[data-option]', g).forEach((i) => {
+          if (i.value === preset) i.checked = true;
+          else if (i.type === 'checkbox') i.checked = false;
+        });
+      });
+    }
+
+    const sortValue = (el) => (el.matches('select') ? el.value : (el.querySelector('input:checked') || {}).value);
+    let sort = (document.querySelector('[data-sort]') && sortValue(document.querySelector('[data-sort]'))) || 'recommended';
+
+    function render() {
+      const active = {};
+      groups.forEach((g) => {
+        const vals = checked(g);
+        if (vals.length) active[g.dataset.filter] = (active[g.dataset.filter] || []).concat(vals);
+      });
+      let items = catalog.filter((p) => Object.keys(active).every((k) => filterGroups[k].match(p, active[k])));
+      if (sort === 'price-asc') items = items.slice().sort((a, b) => a.price - b.price);
+      if (sort === 'price-desc') items = items.slice().sort((a, b) => b.price - a.price);
+
+      cards.forEach((card) => card.remove());
+      items.forEach((p) => list.appendChild(cards.get(p.sku)));
+
+      const n = items.length;
+      list.hidden = n === 0;
+      $$('[data-empty]').forEach((el) => (el.hidden = n > 0));
+      $$('[data-result-count]').forEach((el) => (el.textContent = n));
+      $$('[data-result-label]').forEach((el) => (el.textContent = plural(n)));
+      const activeCount = Object.values(active).reduce((s, v) => s + v.length, 0);
+      $$('[data-filter-active-count]').forEach((el) => (el.textContent = activeCount));
+    }
+
+    groups.forEach((g) => g.addEventListener('change', (e) => e.target.matches('input[data-option]') && render()));
+    $$('[data-sort]').forEach((el) => el.addEventListener('change', () => {
+      sort = sortValue(el) || 'recommended';
+      // Víc ovladačů řazení (např. mobil a desktop) drží stejnou hodnotu.
+      $$('[data-sort]').forEach((o) => {
+        if (o.matches('select')) o.value = sort;
+        else $$('input', o).forEach((i) => (i.checked = i.value === sort));
+      });
+      render();
+    }));
+    $$('[data-filter-toggle]').forEach((t) => t.setAttribute('aria-expanded', 'false'));
+    $$('[data-filter-panel]').forEach((p) => p.setAttribute('data-open', 'false'));
+
+    document.addEventListener('click', (e) => {
+      if (e.target.closest('[data-filter-reset]')) {
+        groups.forEach((g) => $$('input[data-option]', g).forEach((i) => (i.checked = i.type === 'radio' && i.value === '')));
+        render();
+      }
+      const toggle = e.target.closest('[data-filter-toggle]');
+      if (toggle) {
+        const open = toggle.getAttribute('aria-expanded') !== 'true';
+        $$('[data-filter-toggle]').forEach((t) => t.setAttribute('aria-expanded', String(open)));
+        $$('[data-filter-panel]').forEach((p) => p.setAttribute('data-open', String(open)));
+      }
+    });
+
+    render();
+  }
+
   function init() {
     $$('[data-art]').forEach(renderArt);
     $$('[data-color-picker]').forEach(mountPicker);
@@ -432,6 +644,7 @@
       if (first) selectTab(g, first.dataset.tab);
     });
     $$('[data-thumb]').forEach((x, i) => x.setAttribute('aria-current', String(i === 0)));
+    $$('[data-product-list]').forEach(mountProductList);
   }
 
   window.HEXA = { product, colors, catalog, cart, art, formatCzk, setColor };

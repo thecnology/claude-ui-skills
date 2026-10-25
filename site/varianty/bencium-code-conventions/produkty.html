@@ -1,0 +1,353 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Popruhy a řemeny na metry · Popruhárna</title>
+  <meta name="description" content="Katalog popruhů HEXA, BioThane, Pawtex a kožených řemenů na metry. Filtrujte podle materiálu, šířky a barvy. Varianta skillu bencium-code-conventions.">
+  <link rel="icon" href="data:,">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600;700&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <!--
+    Stejné design tokeny ve stylu shadcn/ui jako detail produktu (index.html).
+    Komponenty používají jen tokeny – žádné „magické“ barvy.
+  -->
+  <style type="text/tailwindcss">
+    @theme {
+      --font-sans: "Geist", ui-sans-serif, system-ui, sans-serif;
+      --font-mono: "Geist Mono", ui-monospace, SFMono-Regular, monospace;
+
+      --color-background: #ffffff;
+      --color-foreground: #09090b;
+      --color-card: #ffffff;
+      --color-muted: #f4f4f5;
+      --color-muted-foreground: #63636b;
+      --color-border: #e4e4e7;
+      --color-input: #e4e4e7;
+      --color-ring: #18181b;
+      --color-primary: #18181b;
+      --color-primary-foreground: #fafafa;
+      --color-success: #15803d;
+      --color-success-muted: #dcfce7;
+      --color-destructive: #dc2626;
+
+      --radius-lg: 0.625rem;
+      --radius-xl: 0.875rem;
+    }
+
+    @layer base {
+      html { scroll-behavior: smooth; }
+      ::selection { background: #18181b; color: #fff; }
+      :focus-visible { outline: 2px solid var(--color-ring); outline-offset: 2px; }
+      @media (prefers-reduced-motion: reduce) {
+        *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+      }
+    }
+  </style>
+  <style>
+    /* loading state: skeleton karty zmizí, jakmile hexa.js vloží první kartu */
+    [data-product-list]:has(> [data-sku]) > [data-skeleton] { display: none; }
+  </style>
+</head>
+<body class="min-h-dvh bg-muted/40 font-sans text-foreground antialiased">
+
+  <a href="#obsah" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-lg focus:bg-primary focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-primary-foreground">Přeskočit na obsah</a>
+
+  <!-- ============ site-header ============ -->
+  <header class="sticky top-0 z-30 border-b border-border bg-background/85 backdrop-blur supports-[backdrop-filter]:bg-background/70">
+    <div class="mx-auto flex h-16 max-w-6xl items-center gap-4 px-4 sm:px-6">
+      <a href="domu.html" class="flex items-center gap-2 font-semibold tracking-tight">
+        <span class="grid size-8 place-items-center rounded-lg bg-primary text-primary-foreground">
+          <!-- phosphor: hexagon -->
+          <svg class="size-4" viewBox="0 0 256 256" fill="none" stroke="currentColor" stroke-width="20" stroke-linejoin="round" aria-hidden="true"><path d="M128 24 218 76v104l-90 52-90-52V76Z"/></svg>
+        </span>
+        <span>Popruhárna</span>
+      </a>
+
+      <nav aria-label="Hlavní navigace" class="ml-4 hidden items-center gap-1 text-sm lg:flex">
+        <a href="produkty.html" aria-current="page" class="rounded-md bg-muted px-3 py-2 font-medium text-foreground">Produkty</a>
+        <a href="produkty.html?material=biothane" class="rounded-md px-3 py-2 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground">BioThane</a>
+        <a href="produkty.html?material=hexa" class="rounded-md px-3 py-2 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground">Hexagon</a>
+        <a href="produkty.html?material=pawtex" class="rounded-md px-3 py-2 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground">PawTex</a>
+      </nav>
+
+      <div class="ml-auto flex items-center gap-2">
+        <!-- command-search (shadcn Command trigger) -->
+        <label class="hidden h-9 w-56 items-center gap-2 rounded-lg border border-input bg-background px-3 text-sm text-muted-foreground shadow-xs focus-within:ring-2 focus-within:ring-ring md:flex">
+          <svg class="size-4 shrink-0" viewBox="0 0 256 256" fill="none" stroke="currentColor" stroke-width="20" stroke-linecap="round" aria-hidden="true"><circle cx="112" cy="112" r="72"/><path d="m163 163 53 53"/></svg>
+          <span class="sr-only">Hledat v obchodě</span>
+          <input type="search" placeholder="Hledat materiál…" class="w-full min-w-0 bg-transparent text-foreground outline-none placeholder:text-muted-foreground">
+          <kbd class="pointer-events-none rounded border border-border bg-muted px-1.5 font-mono text-[10px] font-medium">⌘K</kbd>
+        </label>
+        <button type="button" class="grid size-9 place-items-center rounded-lg text-muted-foreground transition-colors hover:bg-muted hover:text-foreground md:hidden" aria-label="Hledat">
+          <svg class="size-5" viewBox="0 0 256 256" fill="none" stroke="currentColor" stroke-width="20" stroke-linecap="round" aria-hidden="true"><circle cx="112" cy="112" r="72"/><path d="m163 163 53 53"/></svg>
+        </button>
+        <button type="button" class="grid size-9 place-items-center rounded-lg text-muted-foreground transition-colors hover:bg-muted hover:text-foreground" aria-label="Můj účet">
+          <svg class="size-5" viewBox="0 0 256 256" fill="none" stroke="currentColor" stroke-width="20" stroke-linecap="round" aria-hidden="true"><circle cx="128" cy="96" r="64"/><path d="M32 216c19-33 55-56 96-56s77 23 96 56"/></svg>
+        </button>
+        <a href="kosik.html" class="relative inline-flex h-9 items-center gap-2 rounded-lg border border-input bg-background px-3 text-sm font-medium shadow-xs transition-colors hover:bg-muted">
+          <svg class="size-4" viewBox="0 0 256 256" fill="none" stroke="currentColor" stroke-width="20" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M40 72h176l-14 136H54Z"/><path d="M88 96V72a40 40 0 0 1 80 0v24"/></svg>
+          <span class="hidden sm:inline">Košík</span>
+          <span class="sr-only">, počet položek:</span>
+          <span data-cart-count class="grid min-w-5 place-items-center rounded-full bg-primary px-1.5 font-mono text-[11px] leading-5 text-primary-foreground">0</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main id="obsah" class="mx-auto max-w-6xl px-4 pb-20 sm:px-6">
+
+    <!-- ============ breadcrumb ============ -->
+    <nav aria-label="Drobečková navigace" class="py-5">
+      <ol class="flex flex-wrap items-center gap-1.5 text-sm text-muted-foreground">
+        <li><a href="domu.html" class="transition-colors hover:text-foreground">Domů</a></li>
+        <li aria-hidden="true"><svg class="size-3.5" viewBox="0 0 256 256" fill="none" stroke="currentColor" stroke-width="24" stroke-linecap="round" stroke-linejoin="round"><path d="m96 48 80 80-80 80"/></svg></li>
+        <li><span aria-current="page" class="font-medium text-foreground">Produkty</span></li>
+      </ol>
+    </nav>
+
+    <!-- ============ page-header ============ -->
+    <header class="flex flex-col gap-3 pb-6 sm:pb-8">
+      <div class="flex flex-wrap items-center gap-2">
+        <span class="inline-flex items-center gap-1.5 rounded-md bg-success-muted px-2 py-0.5 text-xs font-medium text-success">
+          <svg class="size-3.5" viewBox="0 0 256 256" fill="none" stroke="currentColor" stroke-width="28" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m48 136 48 48 112-112"/></svg>
+          Vše skladem
+        </span>
+        <span class="inline-flex items-center rounded-md border border-border bg-background px-2 py-0.5 text-xs font-medium text-muted-foreground">Prodej na metry</span>
+      </div>
+      <h1 class="text-balance text-3xl font-semibold tracking-tight sm:text-4xl">Popruhy a řemeny na metry</h1>
+      <p class="max-w-2xl text-pretty text-muted-foreground">Voděodolné HEXA a BioThane, měkký Pawtex i kožené řemeny. Vyberte materiál, šířku a barvu – řežeme po celých metrech podle vaší objednávky.</p>
+    </header>
+
+    <div class="grid gap-6 lg:grid-cols-[16.5rem_minmax(0,1fr)] lg:gap-8">
+
+      <!-- ============ filter-sidebar ============ -->
+      <aside aria-label="Filtry" class="lg:sticky lg:top-24 lg:self-start">
+        <div data-filter-panel id="filtry" class="hidden data-[open=true]:block lg:block">
+          <div class="flex flex-col rounded-xl border border-border bg-card shadow-xs">
+            <div class="flex items-center justify-between gap-2 border-b border-border px-4 py-3">
+              <h2 class="text-sm font-semibold">Filtry</h2>
+              <button type="button" data-filter-reset class="rounded-md px-2 py-1 text-xs font-medium text-muted-foreground transition-colors hover:bg-muted hover:text-foreground">Zrušit vše</button>
+            </div>
+
+            <!-- filter: materiál (checkbox) -->
+            <div class="border-b border-border px-4 py-4">
+            <fieldset data-filter="material">
+              <legend class="mb-3 text-xs font-medium uppercase tracking-wide text-muted-foreground">Materiál</legend>
+              <div data-filter-options class="flex flex-col gap-0.5">
+                <template>
+                  <label class="group/opt flex cursor-pointer items-center gap-3 rounded-md px-2 py-1.5 text-sm transition-colors hover:bg-muted">
+                    <span class="relative grid size-4 shrink-0 place-items-center">
+                      <input data-option type="checkbox" class="peer size-4 cursor-pointer appearance-none rounded-[4px] border border-input bg-background shadow-xs transition checked:border-primary checked:bg-primary focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring">
+                      <svg class="pointer-events-none absolute size-3 text-primary-foreground opacity-0 peer-checked:opacity-100" viewBox="0 0 256 256" fill="none" stroke="currentColor" stroke-width="32" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m48 136 48 48 112-112"/></svg>
+                    </span>
+                    <span data-option-label class="font-medium"></span>
+                  </label>
+                </template>
+                <!-- skeleton (loading state) -->
+                <span class="my-1 h-5 animate-pulse rounded bg-muted"></span>
+                <span class="my-1 h-5 animate-pulse rounded bg-muted"></span>
+                <span class="my-1 h-5 animate-pulse rounded bg-muted"></span>
+                <span class="my-1 h-5 animate-pulse rounded bg-muted"></span>
+              </div>
+            </fieldset>
+            </div>
+
+            <!-- filter: šířka (toggle chips) -->
+            <div class="border-b border-border px-4 py-4">
+            <fieldset data-filter="width">
+              <legend class="mb-3 text-xs font-medium uppercase tracking-wide text-muted-foreground">Šířka</legend>
+              <div data-filter-options class="grid grid-cols-4 gap-1.5">
+                <template>
+                  <label class="cursor-pointer">
+                    <input data-option type="checkbox" class="peer sr-only">
+                    <span data-option-label class="flex h-8 items-center justify-center whitespace-nowrap rounded-lg border border-input bg-background px-1 font-mono text-xs font-medium tabular-nums shadow-xs transition-colors hover:bg-muted peer-checked:border-primary peer-checked:bg-primary peer-checked:text-primary-foreground peer-focus-visible:ring-2 peer-focus-visible:ring-ring peer-focus-visible:ring-offset-2"></span>
+                  </label>
+                </template>
+                <span class="h-8 animate-pulse rounded-lg bg-muted"></span>
+                <span class="h-8 animate-pulse rounded-lg bg-muted"></span>
+                <span class="h-8 animate-pulse rounded-lg bg-muted"></span>
+              </div>
+            </fieldset>
+            </div>
+
+            <!-- filter: barva (swatch + název) -->
+            <div class="px-4 py-4">
+            <fieldset data-filter="color">
+              <legend class="mb-3 text-xs font-medium uppercase tracking-wide text-muted-foreground">Barva</legend>
+              <div data-filter-options class="grid grid-cols-2 gap-x-1 gap-y-0.5 sm:grid-cols-3 lg:grid-cols-2">
+                <template>
+                  <label class="flex min-w-0 cursor-pointer items-center gap-2 rounded-md px-1.5 py-1 transition-colors hover:bg-muted has-[:checked]:bg-muted">
+                    <input data-option type="checkbox" class="peer sr-only">
+                    <span data-option-swatch class="grid size-5 shrink-0 place-items-center rounded-md border border-black/10 bg-[var(--sw)] shadow-xs transition peer-checked:ring-2 peer-checked:ring-foreground peer-checked:ring-offset-1 peer-checked:ring-offset-card peer-focus-visible:ring-2 peer-focus-visible:ring-ring" aria-hidden="true"></span>
+                    <span data-option-label class="truncate font-mono text-[11px] uppercase tracking-wide text-muted-foreground peer-checked:font-medium peer-checked:text-foreground"></span>
+                  </label>
+                </template>
+                <span class="h-6 animate-pulse rounded-md bg-muted"></span><span class="h-6 animate-pulse rounded-md bg-muted"></span>
+                <span class="h-6 animate-pulse rounded-md bg-muted"></span><span class="h-6 animate-pulse rounded-md bg-muted"></span>
+              </div>
+            </fieldset>
+            </div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- ============ product-results ============ -->
+      <section aria-labelledby="vysledky" class="flex min-w-0 flex-col gap-4">
+        <h2 id="vysledky" class="sr-only">Výsledky</h2>
+
+        <!-- toolbar -->
+        <div class="flex flex-wrap items-center gap-2 rounded-xl border border-border bg-card p-2 shadow-xs sm:gap-3">
+          <button type="button" data-filter-toggle aria-controls="filtry" class="group/tog inline-flex h-9 items-center gap-2 rounded-lg border border-input bg-background px-3 text-sm font-medium shadow-xs transition-colors hover:bg-muted aria-expanded:bg-muted lg:hidden">
+            <svg class="size-4" viewBox="0 0 256 256" fill="none" stroke="currentColor" stroke-width="20" stroke-linecap="round" aria-hidden="true"><path d="M40 80h176M72 128h112M104 176h48"/></svg>
+            Filtry
+            <span data-filter-active-count class="grid min-w-5 place-items-center rounded-full bg-muted px-1.5 font-mono text-[11px] leading-5 text-muted-foreground group-aria-expanded/tog:bg-background">0</span>
+          </button>
+
+          <p class="px-1 text-sm text-muted-foreground" aria-live="polite">
+            <span data-result-count class="font-mono font-medium text-foreground tabular-nums">9</span>
+            <span data-result-label>produktů</span>
+          </p>
+
+          <label class="ml-auto flex items-center gap-2 text-sm">
+            <span class="hidden text-muted-foreground sm:inline">Řadit:</span>
+            <span class="sr-only sm:hidden">Řadit</span>
+            <span class="relative">
+              <select data-sort class="h-9 cursor-pointer appearance-none rounded-lg border border-input bg-background py-0 pl-3 pr-9 text-sm font-medium shadow-xs outline-none transition-colors hover:bg-muted focus-visible:ring-2 focus-visible:ring-ring"></select>
+              <svg class="pointer-events-none absolute right-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" viewBox="0 0 256 256" fill="none" stroke="currentColor" stroke-width="22" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m72 104 56 56 56-56"/></svg>
+            </span>
+          </label>
+        </div>
+
+        <!-- product-grid -->
+        <div data-product-list class="grid gap-3 sm:grid-cols-2 sm:gap-4 xl:grid-cols-3">
+          <template data-product-card>
+            <a data-field="url" href="index.html" class="group grid grid-cols-[7.5rem_minmax(0,1fr)] overflow-hidden rounded-xl border border-border bg-card shadow-xs transition hover:-translate-y-0.5 hover:border-foreground/20 hover:shadow-md active:translate-y-0 sm:flex sm:flex-col">
+              <!-- náhled -->
+              <div class="relative border-r border-border bg-muted sm:aspect-[4/3] sm:border-r-0 sm:border-b">
+                <div class="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,white,transparent_60%),linear-gradient(to_bottom,var(--color-muted),white)]" aria-hidden="true"></div>
+                <div class="absolute inset-0 [background-image:radial-gradient(var(--color-border)_1px,transparent_1px)] [background-size:14px_14px] opacity-70" aria-hidden="true"></div>
+                <div data-art="band" class="relative size-full p-2 transition-transform duration-300 group-hover:scale-[1.04] sm:p-5">
+                  <div class="size-full animate-pulse rounded-lg bg-muted"></div>
+                </div>
+                <span data-field="material" class="absolute left-2 top-2 hidden rounded-md border border-border bg-background/90 px-2 py-0.5 text-xs font-medium shadow-xs sm:inline-flex sm:left-3 sm:top-3"></span>
+              </div>
+
+              <!-- obsah karty -->
+              <div class="flex min-w-0 flex-1 flex-col gap-3 p-3 sm:p-4">
+                <div class="flex flex-col gap-1">
+                  <p class="flex items-center gap-1.5 text-xs font-medium text-muted-foreground sm:hidden">
+                    <span class="size-2.5 rounded-full border border-black/10 bg-[var(--strap)]" aria-hidden="true"></span>
+                    <span data-field="material"></span>
+                  </p>
+                  <h3 data-field="name" class="text-pretty font-semibold leading-snug tracking-tight"></h3>
+                </div>
+
+                <dl class="grid grid-cols-2 gap-2 text-xs">
+                  <div class="flex flex-col gap-0.5 rounded-md bg-muted/60 px-2 py-1.5">
+                    <dt class="text-muted-foreground">Šířka</dt>
+                    <dd data-field="width" class="font-mono font-medium tabular-nums"></dd>
+                  </div>
+                  <div class="flex flex-col gap-0.5 rounded-md bg-muted/60 px-2 py-1.5">
+                    <dt class="text-muted-foreground">Barvy</dt>
+                    <dd class="flex items-center gap-1.5 font-mono font-medium tabular-nums">
+                      <span class="size-2.5 shrink-0 rounded-full border border-black/10 bg-[var(--strap)]" aria-hidden="true"></span>
+                      <span data-field="color-count"></span>
+                    </dd>
+                  </div>
+                </dl>
+
+                <div class="mt-auto flex items-end justify-between gap-2 border-t border-border pt-3">
+                  <div class="min-w-0">
+                    <p class="flex items-baseline gap-1">
+                      <span data-field="price" class="text-lg font-semibold tracking-tight tabular-nums sm:text-xl"></span>
+                      <span data-field="unit" class="text-sm text-muted-foreground"></span>
+                    </p>
+                    <p class="text-xs text-muted-foreground"><span data-field="price-novat" class="tabular-nums"></span> bez DPH</p>
+                  </div>
+                  <span class="grid size-8 shrink-0 place-items-center rounded-lg border border-input bg-background text-muted-foreground shadow-xs transition-colors group-hover:border-primary group-hover:bg-primary group-hover:text-primary-foreground" aria-hidden="true">
+                    <svg class="size-4" viewBox="0 0 256 256" fill="none" stroke="currentColor" stroke-width="22" stroke-linecap="round" stroke-linejoin="round"><path d="M40 128h176M144 56l72 72-72 72"/></svg>
+                  </span>
+                </div>
+              </div>
+            </a>
+          </template>
+
+          <!-- skeleton karty (loading state, skryje je CSS po načtení katalogu) -->
+          <div data-skeleton aria-hidden="true" class="grid grid-cols-[7.5rem_minmax(0,1fr)] overflow-hidden rounded-xl border border-border bg-card shadow-xs sm:flex sm:flex-col">
+            <div class="aspect-square animate-pulse bg-muted sm:aspect-[4/3]"></div>
+            <div class="flex flex-col gap-3 p-3 sm:p-4"><div class="h-5 w-3/4 animate-pulse rounded bg-muted"></div><div class="h-10 animate-pulse rounded-md bg-muted"></div><div class="h-8 w-1/2 animate-pulse rounded bg-muted"></div></div>
+          </div>
+          <div data-skeleton aria-hidden="true" class="grid grid-cols-[7.5rem_minmax(0,1fr)] overflow-hidden rounded-xl border border-border bg-card shadow-xs sm:flex sm:flex-col">
+            <div class="aspect-square animate-pulse bg-muted sm:aspect-[4/3]"></div>
+            <div class="flex flex-col gap-3 p-3 sm:p-4"><div class="h-5 w-3/4 animate-pulse rounded bg-muted"></div><div class="h-10 animate-pulse rounded-md bg-muted"></div><div class="h-8 w-1/2 animate-pulse rounded bg-muted"></div></div>
+          </div>
+          <div data-skeleton aria-hidden="true" class="grid grid-cols-[7.5rem_minmax(0,1fr)] overflow-hidden rounded-xl border border-border bg-card shadow-xs sm:flex sm:flex-col">
+            <div class="aspect-square animate-pulse bg-muted sm:aspect-[4/3]"></div>
+            <div class="flex flex-col gap-3 p-3 sm:p-4"><div class="h-5 w-3/4 animate-pulse rounded bg-muted"></div><div class="h-10 animate-pulse rounded-md bg-muted"></div><div class="h-8 w-1/2 animate-pulse rounded bg-muted"></div></div>
+          </div>
+        </div>
+
+        <!-- empty-state -->
+        <div data-empty hidden role="status" class="flex flex-col items-center gap-4 rounded-xl border border-dashed border-border bg-card px-6 py-14 text-center shadow-xs">
+          <span class="grid size-12 place-items-center rounded-xl border border-border bg-muted/60 text-muted-foreground">
+            <svg class="size-6" viewBox="0 0 256 256" fill="none" stroke="currentColor" stroke-width="18" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M128 24 218 76v104l-90 52-90-52V76Z"/><path d="m100 100 56 56M156 100l-56 56"/></svg>
+          </span>
+          <div class="flex flex-col gap-1">
+            <p class="text-lg font-semibold tracking-tight">Žádný produkt neodpovídá filtru</p>
+            <p class="max-w-sm text-pretty text-sm text-muted-foreground">Zkuste ubrat některou z vybraných možností, nebo filtry zrušte a začněte znovu.</p>
+          </div>
+          <button type="button" data-filter-reset class="inline-flex h-10 items-center justify-center gap-2 rounded-lg bg-primary px-5 text-sm font-medium text-primary-foreground shadow-sm transition hover:bg-primary/90 active:scale-[.98]">
+            <svg class="size-4" viewBox="0 0 256 256" fill="none" stroke="currentColor" stroke-width="22" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M64 64l128 128M192 64 64 192"/></svg>
+            Zrušit filtry
+          </button>
+        </div>
+
+        <p class="flex items-start gap-2 text-xs text-muted-foreground">
+          <svg class="mt-px size-4 shrink-0" viewBox="0 0 256 256" fill="none" stroke="currentColor" stroke-width="20" stroke-linecap="round" aria-hidden="true"><circle cx="128" cy="128" r="96"/><path d="M128 120v56M128 84v1"/></svg>
+          Ceny jsou za 1 metr včetně 21 % DPH. Náhled ukazuje první barvu z nabídky, ostatní vyberete na detailu produktu.
+        </p>
+      </section>
+    </div>
+  </main>
+
+  <!-- ============ site-footer ============ -->
+  <footer class="border-t border-border bg-background">
+    <div class="mx-auto grid max-w-6xl gap-8 px-4 py-12 text-sm sm:grid-cols-2 sm:px-6 lg:grid-cols-4">
+      <div class="flex flex-col gap-3">
+        <p class="flex items-center gap-2 font-semibold">
+          <span class="grid size-7 place-items-center rounded-md bg-primary text-primary-foreground">
+            <svg class="size-3.5" viewBox="0 0 256 256" fill="none" stroke="currentColor" stroke-width="22" stroke-linejoin="round" aria-hidden="true"><path d="M128 24 218 76v104l-90 52-90-52V76Z"/></svg>
+          </span>
+          Popruhárna
+        </p>
+        <p class="text-muted-foreground">Materiály a komponenty pro výrobu psích doplňků. Řežeme na metry od roku 2016.</p>
+      </div>
+      <nav aria-label="Nákup" class="flex flex-col gap-2">
+        <p class="font-medium">Nákup</p>
+        <a href="#" class="text-muted-foreground transition-colors hover:text-foreground">Doprava a platba</a>
+        <a href="#" class="text-muted-foreground transition-colors hover:text-foreground">Obchodní podmínky</a>
+        <a href="#" class="text-muted-foreground transition-colors hover:text-foreground">Reklamace a vrácení</a>
+      </nav>
+      <div class="flex flex-col gap-2">
+        <p class="font-medium">Kontakt</p>
+        <a href="tel:+420777000000" class="font-mono text-muted-foreground transition-colors hover:text-foreground">+420 777 000 000</a>
+        <a href="mailto:info@popruharna.example" class="text-muted-foreground transition-colors hover:text-foreground">info@popruharna.example</a>
+        <p class="text-muted-foreground">Po–Pá 8:00–16:00</p>
+      </div>
+      <div class="flex flex-col gap-2">
+        <p class="font-medium">Prototyp</p>
+        <a href="/" class="inline-flex h-9 items-center self-start rounded-lg border border-input bg-background px-3 font-medium shadow-xs transition-colors hover:bg-muted">← Všechny varianty</a>
+        <p class="text-xs text-muted-foreground">Varianta skillu <code class="rounded bg-muted px-1 py-0.5 font-mono">bencium-code-conventions</code>.</p>
+      </div>
+    </div>
+    <div class="border-t border-border">
+      <p class="mx-auto max-w-6xl px-4 py-4 text-xs text-muted-foreground sm:px-6">© 2026 Popruhárna (fiktivní obchod). Ceny jsou uvedeny včetně DPH.</p>
+    </div>
+  </footer>
+
+  <script src="/assets/hexa.js"></script>
+</body>
+</html>
