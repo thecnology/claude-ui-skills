@@ -98,11 +98,17 @@
       <div class="ml-auto flex items-center gap-1">
         <a href="kosik.html" class="flex items-center gap-2 rounded-md px-3 py-2 text-[0.9375rem] font-semibold">
           <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 8h14l-1.2 12H6.2L5 8Z"/><path d="M9 8a3 3 0 0 1 6 0"/></svg>
-          Košík
-          <span class="grid min-w-6 place-items-center rounded-full bg-metr px-1.5 py-0.5 text-xs font-bold tabular-nums text-ink"><span data-cart-count>0</span><span class="sr-only">&nbsp;položek</span></span>
+          Košík<span class="sr-only">, počet položek:</span>
+          <span class="grid min-w-6 place-items-center rounded-full bg-metr px-1.5 py-0.5 text-xs font-bold tabular-nums text-ink"><span data-cart-count>0</span></span>
         </a>
       </div>
     </div>
+    <nav aria-label="Hlavní nabídka (mobil)" class="mx-auto flex max-w-[1240px] gap-6 overflow-x-auto px-5 pb-3 text-[0.9375rem] text-krida sm:px-8 lg:hidden">
+      <a href="produkty.html" aria-current="page" class="shrink-0 font-semibold text-ink underline decoration-2 underline-offset-[6px]">Produkty</a>
+      <a href="produkty.html?material=biothane" class="shrink-0 hover:text-ink">BioThane</a>
+      <a href="produkty.html?material=hexa" class="shrink-0 hover:text-ink">Hexagon</a>
+      <a href="produkty.html?material=pawtex" class="shrink-0 hover:text-ink">PawTex</a>
+    </nav>
   </header>
 
   <main id="obsah" class="mx-auto max-w-[1240px] px-5 sm:px-8">
@@ -200,10 +206,10 @@
       <section aria-label="Produkty">
         <div data-product-list role="list" class="grid gap-x-6 gap-y-7 sm:grid-cols-2 sm:gap-y-10 xl:grid-cols-3">
           <template data-product-card>
-            <a data-field="url" role="listitem" class="group grid grid-cols-[124px_minmax(0,1fr)] content-start gap-x-4 rounded-[10px] focus-visible:outline-offset-4 sm:flex sm:h-full sm:flex-col">
+            <div role="listitem"><a data-field="url" class="group grid grid-cols-[124px_minmax(0,1fr)] content-start gap-x-4 rounded-[10px] focus-visible:outline-offset-4 sm:flex sm:h-full sm:flex-col">
                 <div class="mat-grid relative row-span-3 aspect-square self-start overflow-hidden sm:aspect-[4/3] rounded-[10px] shadow-[inset_0_0_0_1px_rgba(0,0,0,.25)]">
                   <div class="mat-ruler absolute inset-x-0 top-0 h-2.5" aria-hidden="true"></div>
-                  <div data-art="band" class="absolute inset-0 px-[8%] pb-[4%] pt-[10%] sm:px-[14%] sm:pt-[8%]"></div>
+                  <div data-art="band" aria-hidden="true" class="absolute inset-0 px-[8%] pb-[4%] pt-[10%] sm:px-[14%] sm:pt-[8%]"></div>
                 </div>
                 <h2 class="text-[1.0625rem] font-[780] leading-snug sm:mt-4 sm:min-h-[2lh] sm:text-[1.1875rem] [font-stretch:110%] group-hover:underline group-hover:decoration-2 group-hover:underline-offset-4" data-field="name"></h2>
                 <dl class="mt-2 grid grid-cols-1 text-[0.875rem] sm:mt-3 sm:grid-cols-3 sm:border-y sm:border-linka">
@@ -215,7 +221,7 @@
                   <p class="text-[1.375rem] font-[800] leading-none sm:text-[1.625rem] tabular-nums [font-stretch:112%]"><span data-field="price"></span> <span class="text-base font-semibold text-krida [font-stretch:100%]" data-field="unit"></span></p>
                   <p class="text-[0.8125rem] text-krida"><span data-field="price-novat"></span> bez DPH</p>
                 </div>
-            </a>
+            </a></div>
           </template>
         </div>
 

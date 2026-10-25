@@ -89,12 +89,18 @@
         </button>
         <a href="kosik.html" class="relative inline-flex h-9 items-center gap-2 rounded-lg border border-input bg-background px-3 text-sm font-medium shadow-xs transition-colors hover:bg-muted">
           <svg class="size-4" viewBox="0 0 256 256" fill="none" stroke="currentColor" stroke-width="20" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M40 72h176l-14 136H54Z"/><path d="M88 96V72a40 40 0 0 1 80 0v24"/></svg>
-          <span class="hidden sm:inline">Košík</span>
+          <span class="sr-only sm:not-sr-only">Košík</span>
           <span class="sr-only">, počet položek:</span>
           <span data-cart-count class="grid min-w-5 place-items-center rounded-full bg-primary px-1.5 font-mono text-[11px] leading-5 text-primary-foreground">0</span>
         </a>
       </div>
     </div>
+    <nav aria-label="Hlavní navigace (mobil)" class="mx-auto flex max-w-6xl gap-1 overflow-x-auto px-4 pb-3 text-sm sm:px-6 lg:hidden">
+      <a href="produkty.html" aria-current="page" class="shrink-0 rounded-md bg-muted px-3 py-2 font-medium text-foreground">Produkty</a>
+      <a href="produkty.html?material=biothane" class="shrink-0 rounded-md px-3 py-2 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground">BioThane</a>
+      <a href="produkty.html?material=hexa" class="shrink-0 rounded-md px-3 py-2 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground">Hexagon</a>
+      <a href="produkty.html?material=pawtex" class="shrink-0 rounded-md px-3 py-2 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground">PawTex</a>
+    </nav>
   </header>
 
   <main id="obsah" class="mx-auto max-w-6xl px-4 pb-20 sm:px-6">
@@ -124,7 +130,12 @@
     <div class="grid gap-6 lg:grid-cols-[16.5rem_minmax(0,1fr)] lg:gap-8">
 
       <!-- ============ filter-sidebar ============ -->
-      <aside aria-label="Filtry" class="lg:sticky lg:top-24 lg:self-start">
+      <aside aria-label="Filtry" class="flex flex-col gap-3 lg:sticky lg:top-24 lg:self-start">
+        <button type="button" data-filter-toggle aria-controls="filtry" class="group/tog inline-flex h-9 items-center gap-2 rounded-lg border border-input bg-background px-3 text-sm font-medium shadow-xs transition-colors hover:bg-muted aria-expanded:bg-muted lg:hidden self-start">
+          <svg class="size-4" viewBox="0 0 256 256" fill="none" stroke="currentColor" stroke-width="20" stroke-linecap="round" aria-hidden="true"><path d="M40 80h176M72 128h112M104 176h48"/></svg>
+          Filtry
+          <span data-filter-active-count class="grid min-w-5 place-items-center rounded-full bg-muted px-1.5 font-mono text-[11px] leading-5 text-muted-foreground group-aria-expanded/tog:bg-background">0</span>
+        </button>
         <div data-filter-panel id="filtry" class="hidden data-[open=true]:block lg:block">
           <div class="flex flex-col rounded-xl border border-border bg-card shadow-xs">
             <div class="flex items-center justify-between gap-2 border-b border-border px-4 py-3">
@@ -182,7 +193,7 @@
                   <label class="flex min-w-0 cursor-pointer items-center gap-2 rounded-md px-1.5 py-1 transition-colors hover:bg-muted has-[:checked]:bg-muted">
                     <input data-option type="checkbox" class="peer sr-only">
                     <span data-option-swatch class="grid size-5 shrink-0 place-items-center rounded-md border border-black/10 bg-[var(--sw)] shadow-xs transition peer-checked:ring-2 peer-checked:ring-foreground peer-checked:ring-offset-1 peer-checked:ring-offset-card peer-focus-visible:ring-2 peer-focus-visible:ring-ring" aria-hidden="true"></span>
-                    <span data-option-label class="truncate font-mono text-[11px] uppercase tracking-wide text-muted-foreground peer-checked:font-medium peer-checked:text-foreground"></span>
+                    <span data-option-label class="min-w-0 break-words leading-tight font-mono text-[11px] uppercase tracking-wide text-muted-foreground peer-checked:font-medium peer-checked:text-foreground"></span>
                   </label>
                 </template>
                 <span class="h-6 animate-pulse rounded-md bg-muted"></span><span class="h-6 animate-pulse rounded-md bg-muted"></span>
@@ -200,12 +211,6 @@
 
         <!-- toolbar -->
         <div class="flex flex-wrap items-center gap-2 rounded-xl border border-border bg-card p-2 shadow-xs sm:gap-3">
-          <button type="button" data-filter-toggle aria-controls="filtry" class="group/tog inline-flex h-9 items-center gap-2 rounded-lg border border-input bg-background px-3 text-sm font-medium shadow-xs transition-colors hover:bg-muted aria-expanded:bg-muted lg:hidden">
-            <svg class="size-4" viewBox="0 0 256 256" fill="none" stroke="currentColor" stroke-width="20" stroke-linecap="round" aria-hidden="true"><path d="M40 80h176M72 128h112M104 176h48"/></svg>
-            Filtry
-            <span data-filter-active-count class="grid min-w-5 place-items-center rounded-full bg-muted px-1.5 font-mono text-[11px] leading-5 text-muted-foreground group-aria-expanded/tog:bg-background">0</span>
-          </button>
-
           <p class="px-1 text-sm text-muted-foreground" aria-live="polite">
             <span data-result-count class="font-mono font-medium text-foreground tabular-nums">9</span>
             <span data-result-label>produktů</span>
@@ -229,7 +234,7 @@
               <div class="relative border-r border-border bg-muted sm:aspect-[4/3] sm:border-r-0 sm:border-b">
                 <div class="absolute inset-0 bg-[radial-gradient(circle_at_30%_20%,white,transparent_60%),linear-gradient(to_bottom,var(--color-muted),white)]" aria-hidden="true"></div>
                 <div class="absolute inset-0 [background-image:radial-gradient(var(--color-border)_1px,transparent_1px)] [background-size:14px_14px] opacity-70" aria-hidden="true"></div>
-                <div data-art="band" class="relative size-full p-2 transition-transform duration-300 group-hover:scale-[1.04] sm:p-5">
+                <div data-art="band" aria-hidden="true" class="relative size-full p-2 transition-transform duration-300 group-hover:scale-[1.04] sm:p-5">
                   <div class="size-full animate-pulse rounded-lg bg-muted"></div>
                 </div>
                 <span data-field="material" class="absolute left-2 top-2 hidden rounded-md border border-border bg-background/90 px-2 py-0.5 text-xs font-medium shadow-xs sm:inline-flex sm:left-3 sm:top-3"></span>

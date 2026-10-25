@@ -111,9 +111,10 @@
         <a href="#" class="grid size-11 place-items-center rounded-[2px] text-ink transition-colors duration-150 hover:bg-paper focus-visible:outline-2 focus-visible:outline-signal" aria-label="Hledat">
           <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
         </a>
-        <a href="kosik.html" class="relative grid size-11 place-items-center rounded-[2px] text-ink transition-colors duration-150 hover:bg-paper focus-visible:outline-2 focus-visible:outline-signal" aria-label="Košík">
+        <a href="kosik.html" class="relative grid size-11 place-items-center rounded-[2px] text-ink transition-colors duration-150 hover:bg-paper focus-visible:outline-2 focus-visible:outline-signal">
+          <span class="sr-only">Košík, počet položek:</span>
           <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" aria-hidden="true"><path d="M5 8h14l-1.2 12H6.2L5 8Z"/><path d="M9 8V6a3 3 0 0 1 6 0v2"/></svg>
-          <span class="absolute right-0.5 top-0.5 grid h-5 min-w-5 place-items-center rounded-[2px] bg-signal px-1 font-mono text-[0.7rem] font-medium text-white"><span data-cart-count>0</span><span class="sr-only"> položek</span></span>
+          <span class="absolute right-0.5 top-0.5 grid h-5 min-w-5 place-items-center rounded-[2px] bg-signal px-1 font-mono text-[0.7rem] font-medium text-white"><span data-cart-count>0</span></span>
         </a>
         <details class="group relative lg:hidden">
           <summary class="grid size-11 cursor-pointer list-none place-items-center rounded-[2px] text-ink hover:bg-paper focus-visible:outline-2 focus-visible:outline-signal [&::-webkit-details-marker]:hidden" aria-label="Menu kategorií">
@@ -253,7 +254,7 @@
             <a data-field="url" href="index.html"
                class="group relative flex flex-col rounded-[2px] border border-rule bg-bone transition-colors duration-200 hover:border-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-signal before:absolute before:right-0 before:top-0 before:z-10 before:border-b before:border-l before:border-rule before:bg-bone before:px-2.5 before:py-1.5 before:font-mono before:text-[0.72rem] before:tracking-[0.04em] before:text-mute before:content-[attr(data-sku)]">
               <div class="hex-field relative aspect-[3/2] overflow-hidden border-b border-rule transition-colors duration-200 group-hover:bg-paper sm:aspect-[4/3]">
-                <div data-art="band" class="absolute inset-0 p-5 transition-transform duration-300 ease-out group-hover:scale-[1.04] sm:p-6"></div>
+                <div data-art="band" aria-hidden="true" class="absolute inset-0 p-5 transition-transform duration-300 ease-out group-hover:scale-[1.04] sm:p-6"></div>
                 <span data-field="material" class="absolute left-0 top-0 border-b border-r border-rule bg-bone px-2.5 py-1.5 font-mono text-[0.72rem] uppercase tracking-[0.08em] text-ink"></span>
               </div>
               <span class="block h-1.5 bg-[var(--strap)]" aria-hidden="true"></span>

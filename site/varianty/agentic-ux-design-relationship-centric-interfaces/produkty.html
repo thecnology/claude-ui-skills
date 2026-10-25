@@ -55,7 +55,8 @@
           </span>
           <span class="sm:hidden">Paměť</span>
         </a>
-        <a href="kosik.html" class="relative grid size-10 place-items-center rounded-full text-ink-soft hover:bg-card hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-moss" aria-label="Košík">
+        <a href="kosik.html" class="relative grid size-10 place-items-center rounded-full text-ink-soft hover:bg-card hover:text-ink focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-moss">
+          <span class="sr-only">Košík, počet položek:</span>
           <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M5 7h14l-1.2 13H6.2L5 7Z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg>
           <span data-cart-count class="absolute -right-0.5 -top-0.5 grid size-5 place-items-center rounded-full bg-clay text-[10px] font-semibold text-white">0</span>
         </a>
@@ -173,12 +174,12 @@
                 <p class="text-sm font-semibold">Barva</p>
                 <p class="text-[11px] text-ink-soft mem-none:hidden"><span class="inline-block size-2 rounded-full bg-memo align-middle ring-1 ring-ink/30"></span> = už jste kupovala</p>
               </div>
-              <div data-filter-options class="mt-2 grid grid-cols-2 gap-x-2 gap-y-1">
+              <div data-filter-options class="mt-2 grid grid-cols-2 gap-x-2 gap-y-1 lg:grid-cols-1">
                 <template>
                   <label class="group relative flex cursor-pointer items-center gap-2 rounded-xl px-1.5 py-1 transition hover:bg-paper has-[:checked]:bg-paper has-[:checked]:ring-1 has-[:checked]:ring-ink">
                     <input data-option type="checkbox" class="peer sr-only">
                     <span data-option-swatch class="relative size-6 shrink-0 rounded-full bg-[var(--sw)] ring-1 ring-ink/15 ring-offset-2 ring-offset-card peer-checked:ring-2 peer-checked:ring-ink peer-focus-visible:outline-2 peer-focus-visible:outline-offset-4 peer-focus-visible:outline-moss"></span>
-                    <span data-option-label class="min-w-0 truncate text-[11px] font-medium tracking-wide text-ink-soft peer-checked:text-ink"></span>
+                    <span data-option-label class="min-w-0 break-words leading-tight text-[11px] font-medium tracking-wide text-ink-soft peer-checked:text-ink"></span>
                     <span class="absolute left-5 top-0.5 hidden size-2.5 rounded-full bg-memo ring-2 ring-card group-data-[mine]:block mem-none:hidden" aria-hidden="true"></span>
                   </label>
                 </template>
@@ -211,7 +212,7 @@
             <a data-field="url" href="index.html" class="group flex flex-col overflow-hidden rounded-3xl border border-line bg-card transition hover:-translate-y-0.5 hover:border-ink/30 hover:shadow-xl hover:shadow-ink/5 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-moss">
               <div class="relative aspect-[4/3] overflow-hidden border-b border-line bg-[color-mix(in_oklab,var(--strap)_12%,#fffcf6)]">
                 <div class="absolute inset-0 bg-[radial-gradient(rgb(29_41_36/.08)_1.2px,transparent_1.4px)] bg-[length:18px_18px]" aria-hidden="true"></div>
-                <div data-art="band" class="absolute inset-0 p-5 transition duration-500 group-hover:scale-[1.04] group-hover:-rotate-2"></div>
+                <div data-art="band" aria-hidden="true" class="absolute inset-0 p-5 transition duration-500 group-hover:scale-[1.04] group-hover:-rotate-2"></div>
                 <span data-field="material" class="absolute left-3 top-3 rounded-full bg-card/90 px-2.5 py-1 font-mono text-[10px] font-medium uppercase tracking-[.14em] text-ink shadow-sm ring-1 ring-line"></span>
               </div>
               <div class="flex flex-1 flex-col p-4 sm:p-5">
@@ -273,7 +274,13 @@
 
     let mem;
     try { mem = JSON.parse(localStorage.getItem(KEY)) || demo; } catch (e) { mem = demo; }
-    const colors = (mem.colors || []).map((c) => c.name).filter(Boolean);
+    if (typeof mem !== 'object') mem = demo;
+    if (typeof mem.name !== 'string') mem.name = null;
+    if (!mem.project || typeof mem.project.title !== 'string') mem.project = null;
+    // Uložená data jsou nedůvěryhodná: bereme jen barvy, které katalog zná.
+    const colors = (Array.isArray(mem.colors) ? mem.colors : [])
+      .map((c) => c && c.name)
+      .filter((n, i, all) => window.HEXA && HEXA.colors.some((x) => x.name === n) && all.indexOf(n) === i);
     const known = !!(mem.name || colors.length || mem.project);
 
     function paint() {
@@ -291,17 +298,24 @@
         $('[data-rel-text]').textContent = 'Nic si o vás nepamatujeme. Až u nás nakoupíte, nabídneme vám tu vaše barvy a rozpracované projekty – jen v tomto prohlížeči.';
         return;
       }
-      if (mem.name) $('[data-rel-title]').textContent = `Vítejte zpět, ${mem.name === 'Klára' ? 'Kláro' : mem.name}.`;
+      $('[data-rel-title]').textContent = mem.name ? `Vítejte zpět, ${mem.name === 'Klára' ? 'Kláro' : mem.name}.` : 'Vítejte zpět.';
       $('[data-rel-text]').textContent = mem.project
         ? `Minule jste rozpracovala projekt „${mem.project.title}“. Vaše oblíbené barvy máte níže po ruce – jedním klepnutím podle nich vyfiltrujete katalog.`
         : 'Vaše oblíbené barvy máte níže po ruce – jedním klepnutím podle nich vyfiltrujete katalog.';
-      const hex = (n) => ((window.HEXA && HEXA.colors.find((c) => c.name === n)) || {}).hex || '#999';
-      $('[data-rel-colors]').innerHTML = colors.map((n) => `<li><button type="button" data-mem-color="${n}" aria-pressed="false" class="flex items-center gap-2 rounded-full border border-paper/25 py-1 pl-1 pr-3 font-medium transition hover:bg-paper/10 aria-pressed:border-memo aria-pressed:bg-memo aria-pressed:text-ink"><span class="size-5 rounded-full ring-1 ring-paper/40" style="background:${hex(n)}"></span>${n}</button></li>`).join('');
+      $('[data-rel-colors]').replaceChildren(...colors.map((n) => {
+        const li = document.createElement('li');
+        li.innerHTML = '<button type="button" data-mem-color aria-pressed="false" class="flex items-center gap-2 rounded-full border border-paper/25 py-1 pl-1 pr-3 font-medium transition hover:bg-paper/10 aria-pressed:border-memo aria-pressed:bg-memo aria-pressed:text-ink"><span class="size-5 rounded-full ring-1 ring-paper/40"></span></button>';
+        const btn = li.firstChild;
+        btn.dataset.memColor = n;
+        btn.firstChild.style.background = HEXA.colors.find((c) => c.name === n).hex;
+        btn.append(n);
+        return li;
+      }));
     }
 
     // Zvýraznit „vaše“ barvy ve filtru a synchronizovat stav rychlých filtrů.
     function sync() {
-      $$('input[name="filter-color"]').forEach((i) => {
+      $$('[data-filter=color] input[data-option]').forEach((i) => {
         const label = i.closest('label');
         if (label) label.toggleAttribute('data-mine', colors.includes(i.value));
         $$(`[data-mem-color="${CSS.escape(i.value)}"]`).forEach((b) => b.setAttribute('aria-pressed', String(i.checked)));
@@ -315,7 +329,7 @@
       document.addEventListener('click', (e) => {
         const chip = e.target.closest('[data-mem-color]');
         if (chip) {
-          const input = $(`input[name="filter-color"][value="${CSS.escape(chip.dataset.memColor)}"]`);
+          const input = $$('[data-filter=color] input[data-option]').find((i) => i.value === chip.dataset.memColor);
           if (input) input.click(); // nativní klik → change → hexa.js přefiltruje
         }
         if (e.target.closest('[data-filter-reset]')) setTimeout(sync);

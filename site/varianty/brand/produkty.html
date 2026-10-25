@@ -54,6 +54,7 @@
     }
     @layer base {
       :focus-visible { outline: 2px solid var(--color-rez); outline-offset: 3px; }
+      .on-dark :focus-visible { outline-color: #fff; }
       html { scroll-behavior: smooth; }
       @media (prefers-reduced-motion: reduce) {
         html { scroll-behavior: auto; }
@@ -93,12 +94,19 @@
         <button type="button" class="grid size-11 place-items-center rounded-full hover:bg-ink/5" aria-label="Hledat">
           <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
         </button>
-        <a href="kosik.html" class="relative flex h-11 items-center gap-2 rounded-full bg-ink pl-4 pr-3 text-len hover:bg-ink/85" aria-label="Košík, počet položek">
+        <a href="kosik.html" class="relative flex h-11 items-center gap-2 rounded-full bg-ink pl-4 pr-3 text-len hover:bg-ink/85">
+          <span class="sr-only">Košík, počet položek:</span>
           <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 7h12l-1 13H7L6 7Z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg>
           <span data-cart-count class="grid h-6 min-w-6 place-items-center rounded-full bg-signal px-1.5 font-mono text-xs font-semibold text-ink">0</span>
         </a>
       </div>
     </div>
+    <nav aria-label="Hlavní (mobil)" class="mx-auto flex max-w-7xl gap-6 overflow-x-auto px-4 pb-3 text-[15px] font-medium text-ink/75 sm:px-6 md:hidden">
+      <a href="produkty.html" aria-current="page" class="shrink-0 text-ink underline decoration-signal decoration-[3px] underline-offset-[6px]">Produkty</a>
+      <a href="#" class="shrink-0 hover:text-ink">Komponenty</a>
+      <a href="#" class="shrink-0 hover:text-ink">Hotová výbava</a>
+      <a href="#" class="shrink-0 hover:text-ink">Návody z dílny</a>
+    </nav>
   </header>
 
   <main id="obsah" class="mx-auto max-w-7xl px-4 pb-20 sm:px-6">
@@ -169,7 +177,7 @@
 
               <fieldset data-filter="width" class="py-5">
                 <legend class="tag float-left mb-3 w-full text-ink">Šířka</legend>
-                <div data-filter-options class="clear-left grid grid-cols-4 gap-2 lg:grid-cols-2 xl:grid-cols-4">
+                <div data-filter-options class="clear-left grid grid-cols-4 gap-2 lg:grid-cols-2">
                   <template>
                     <label class="cursor-pointer select-none rounded-xl bg-len px-2 py-2.5 text-center font-mono text-sm font-semibold ring-2 ring-ink/15 transition hover:ring-ink has-[:checked]:bg-ink has-[:checked]:text-len has-[:checked]:ring-ink has-[:focus-visible]:outline-2 has-[:focus-visible]:outline-offset-2 has-[:focus-visible]:outline-rez">
                       <input data-option type="checkbox" class="sr-only">
@@ -271,7 +279,7 @@
   </main>
 
   <!-- Patička -->
-  <footer class="bg-ink text-len">
+  <footer class="on-dark bg-ink text-len">
     <div class="mx-auto max-w-7xl px-4 pb-10 pt-14 sm:px-6">
       <div class="grid gap-10 md:grid-cols-12">
         <div class="md:col-span-5">

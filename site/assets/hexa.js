@@ -408,10 +408,12 @@
    * do kterého hexa.js vygeneruje volby z katalogu (materiál v pořadí katalogu, šířky
    * vzestupně, barvy v pořadí palety). Vzhled volby určuje nepovinná
    * <template> uvnitř [data-filter-options] s jedním kořenem (typicky <label>):
-   *     <input data-option type="checkbox|radio">  hexa.js doplní name, value, id
+   *     <input data-option type="checkbox|radio">  hexa.js doplní value, id a name="filter-<skupina>"
+   *                                (kořenem šablony může být i sám input)
    *     [data-option-label]        popisek („HEXA“, „16 mm“, „GOLD“)
    *     [data-option-swatch]       dostane CSS proměnnou --sw = barva (jen skupina color)
    *   Bez šablony vznikne prostý <label><input type="checkbox"> popisek</label>.
+   *   Kořen každé volby dostane title = popisek (celý název i u zkráceného textu).
    *   U radio skupiny hexa.js přidá na začátek volbu „Vše“ (value="").
    *   Volby v rámci skupiny se sčítají (OR), mezi skupinami platí AND.
    *   URL ?material=<klíč> (hexa, biothane, pawtex, kuze) předvolí materiál, neznámá hodnota se ignoruje.
@@ -428,7 +430,9 @@
    * [data-filter-reset]            tlačítko: zruší všechny filtry (řazení zůstane)
    * [data-filter-toggle]           tlačítko na mobilu: přepne aria-expanded na sobě a
    *                                data-open="true|false" na [data-filter-panel]
-   *                                (panel stylujte např. hidden data-[open=true]:block lg:block)
+   *                                (panel stylujte např. hidden data-[open=true]:block lg:block).
+   *                                Escape panel zavře; když byl fokus uvnitř panelu, přejde
+   *                                na první [data-filter-toggle] mimo panel.
    */
 
   const SORTS = [
@@ -487,7 +491,8 @@
     if (!box || !filterGroups[key]) return;
     const tpl = box.querySelector('template');
     const proto = tpl && tpl.content.firstElementChild;
-    const type = (proto && proto.querySelector('input[data-option], input') || {}).type === 'radio' ? 'radio' : 'checkbox';
+    const probe = proto && (proto.matches('input') ? proto : proto.querySelector('input[data-option], input'));
+    const type = (probe || {}).type === 'radio' ? 'radio' : 'checkbox';
     const opts = filterGroups[key].options();
     if (type === 'radio') opts.unshift({ value: '', label: 'Vše' });
     box.querySelectorAll(':scope > :not(template)').forEach((el) => el.remove());
@@ -509,6 +514,8 @@
       input.checked = type === 'radio' && o.value === '';
       const label = el.matches('label') ? el : el.querySelector('label');
       if (label && !label.contains(input)) label.htmlFor = id;
+      // Celý popisek i při zkráceném zobrazení (truncate) v bublině.
+      el.title = o.label;
       [el, ...$$('[data-option-label]', el)].filter((x) => x.hasAttribute('data-option-label')).forEach((x) => (x.textContent = o.label));
       [el, ...$$('[data-option-swatch]', el)].filter((x) => x.hasAttribute('data-option-swatch')).forEach((x) => {
         if (o.hex) x.style.setProperty('--sw', o.hex);
@@ -586,12 +593,28 @@
         render();
       }
       const toggle = e.target.closest('[data-filter-toggle]');
-      if (toggle) {
-        const open = toggle.getAttribute('aria-expanded') !== 'true';
-        $$('[data-filter-toggle]').forEach((t) => t.setAttribute('aria-expanded', String(open)));
-        $$('[data-filter-panel]').forEach((p) => p.setAttribute('data-open', String(open)));
-      }
+      if (toggle) setPanel(toggle.getAttribute('aria-expanded') !== 'true');
     });
+    document.addEventListener('keydown', (e) => {
+      const panel = $$('[data-filter-panel]').find((p) => p.getAttribute('data-open') === 'true');
+      if (e.key === 'Escape' && panel) setPanel(false);
+    });
+
+    function setPanel(open) {
+      const panels = $$('[data-filter-panel]');
+      // Zavírací tlačítko uvnitř panelu zmizí i s fokusem – fokus vrátíme na tlačítko mimo panel.
+      const focusInside = !open && panels.some((p) => p.contains(document.activeElement));
+      $$('[data-filter-toggle]').forEach((t) => t.setAttribute('aria-expanded', String(open)));
+      panels.forEach((p) => p.setAttribute('data-open', String(open)));
+      if (focusInside) {
+        const outside = $$('[data-filter-toggle]').find((t) => !panels.some((p) => p.contains(t)));
+        if (outside) {
+          outside.focus({ preventScroll: true });
+          // Po sbalení panelu může tlačítko skončit mimo okno nebo pod lepivou hlavičkou.
+          outside.scrollIntoView({ block: 'center' });
+        }
+      }
+    }
 
     render();
   }

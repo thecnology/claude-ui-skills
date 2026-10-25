@@ -79,12 +79,19 @@
         <a href="produkty.html?material=pawtex" class="px-3 py-2 hover:bg-ink hover:text-paper">PawTex</a>
       </nav>
       <div class="ml-auto flex items-center gap-2">
-        <a href="kosik.html" class="relative flex h-11 items-center gap-2 border-2 border-ink bg-ink px-3 font-bold text-paper shadow-[3px_3px_0_var(--strap)] hover:-translate-y-0.5" aria-label="Košík, počet položek">
+        <a href="kosik.html" class="relative flex h-11 items-center gap-2 border-2 border-ink bg-ink px-3 font-bold text-paper shadow-[3px_3px_0_var(--strap)] hover:-translate-y-0.5">
+          <span class="sr-only">Košík, počet položek:</span>
           <svg class="size-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true"><path d="M6 7h12l-1 13H7L6 7Z"/><path d="M9 7a3 3 0 0 1 6 0"/></svg>
           <span data-cart-count class="tabular-nums">0</span>
         </a>
       </div>
     </div>
+    <nav aria-label="Hlavní menu (mobil)" class="mx-auto flex max-w-[1360px] gap-1 overflow-x-auto px-4 pb-3 text-sm font-semibold uppercase tracking-wide sm:px-8 lg:hidden">
+      <a href="produkty.html" aria-current="page" class="shrink-0 bg-ink px-3 py-2 text-paper">Produkty</a>
+      <a href="produkty.html?material=biothane" class="shrink-0 px-3 py-2 hover:bg-ink hover:text-paper">BioThane</a>
+      <a href="produkty.html?material=hexa" class="shrink-0 px-3 py-2 hover:bg-ink hover:text-paper">Hexagon</a>
+      <a href="produkty.html?material=pawtex" class="shrink-0 px-3 py-2 hover:bg-ink hover:text-paper">PawTex</a>
+    </nav>
   </header>
 
   <main id="obsah">
@@ -143,7 +150,7 @@
                 <span class="flex items-end justify-between gap-2 font-display text-[clamp(1.75rem,4vw,2.75rem)] uppercase leading-none">Kůže <span aria-hidden="true" class="text-2xl transition group-hover:translate-x-1">→</span></span>
               </a>
             </li>
-          </div>
+          </ul>
         </div>
       </div>
       <!-- Barevný pruh -->
@@ -170,9 +177,9 @@
               Filtry
               <span class="grid min-w-6 place-items-center bg-sticker px-1.5 text-base leading-6 text-ink"><span data-filter-active-count>0</span></span>
             </button>
-            <label class="relative flex min-h-12 flex-1 items-center border-2 border-ink bg-white sm:flex-none">
+            <label class="relative flex min-h-12 flex-1 items-center border-2 border-ink bg-white sm:flex-none has-[select:focus-visible]:outline-3 has-[select:focus-visible]:outline-offset-3 has-[select:focus-visible]:outline-ink">
               <span class="pl-3 pr-1 text-xs font-bold uppercase tracking-wider text-ink/70">Řadit</span>
-              <select data-sort class="min-h-11 w-full cursor-pointer appearance-none bg-transparent py-2 pl-1 pr-10 font-display text-lg uppercase tracking-wide outline-none sm:w-auto"></select>
+              <select data-sort class="min-h-11 w-full cursor-pointer appearance-none bg-transparent py-2 pl-1 pr-10 font-display text-lg uppercase tracking-wide focus-visible:outline-none sm:w-auto"></select>
               <svg class="pointer-events-none absolute right-3 size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
             </label>
           </div>
@@ -181,7 +188,7 @@
         <!-- Filtry -->
         <aside id="filtry" data-filter-panel aria-label="Filtry" class="hidden data-[open=true]:block lg:col-start-1 lg:row-span-2 lg:row-start-1 lg:block">
           <div class="border-2 border-ink bg-white lg:sticky lg:top-24">
-            <div class="flex items-center justify-between gap-3 border-b-2 border-ink bg-ink px-5 py-3 text-white">
+            <div class="on-dark flex items-center justify-between gap-3 border-b-2 border-ink bg-ink px-5 py-3 text-white">
               <p class="font-display text-2xl uppercase tracking-wide">Filtry</p>
               <button type="button" data-filter-reset class="text-sm font-bold uppercase tracking-wider underline underline-offset-4 hover:text-sticker">Zrušit vše</button>
             </div>
@@ -212,12 +219,12 @@
 
             <fieldset data-filter="color" class="px-5 py-5">
               <legend class="float-left mb-3 w-full font-display text-xl uppercase tracking-wide">Barva</legend>
-              <div data-filter-options class="clear-left grid grid-cols-[repeat(auto-fill,minmax(2.75rem,1fr))] gap-2">
+              <div data-filter-options class="clear-left grid grid-cols-[repeat(auto-fill,minmax(4rem,1fr))] gap-2">
                 <template>
                   <label class="group relative block cursor-pointer">
                     <input data-option type="checkbox" class="peer sr-only">
                     <span data-option-swatch aria-hidden="true" class="relative block aspect-square border-2 border-ink/20 bg-[var(--sw)] transition group-hover:-translate-y-0.5 group-hover:border-ink peer-checked:border-ink peer-checked:shadow-[3px_3px_0_#121212] peer-checked:after:absolute peer-checked:after:inset-1.5 peer-checked:after:border-2 peer-checked:after:border-white peer-checked:after:content-[''] peer-focus-visible:outline-3 peer-focus-visible:outline-offset-2 peer-focus-visible:outline-ink"></span>
-                    <span data-option-label class="mt-1 block truncate text-center text-[10px] font-bold uppercase leading-tight tracking-wide text-ink/70 peer-checked:text-ink"></span>
+                    <span data-option-label class="mt-1 block break-words text-center text-[10px] font-bold uppercase leading-tight tracking-wide text-ink/70 peer-checked:text-ink"></span>
                   </label>
                 </template>
               </div>

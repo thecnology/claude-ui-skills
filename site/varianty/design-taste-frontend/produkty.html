@@ -59,6 +59,7 @@
     @layer base {
       ::selection { background: var(--color-moss); color: #fff; }
       :focus-visible { outline: 3px solid var(--color-moss); outline-offset: 3px; }
+      .on-dark :focus-visible { outline-color: var(--color-sand); }
     }
 
     @media (prefers-reduced-motion: no-preference) {
@@ -80,7 +81,7 @@
 <body class="bg-sand font-sans text-body text-ink antialiased">
   <a href="#vypis" class="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:bg-sand focus:px-4 focus:py-3 focus:text-ink">Přeskočit na výpis produktů</a>
 
-  <header class="bg-night text-sand">
+  <header class="on-dark bg-night text-sand">
     <div class="flex items-center justify-between gap-6 px-page pt-5 pb-3 text-small font-medium lg:pt-7">
       <a href="domu.html" class="text-body font-semibold tracking-tight">Popruhárna</a>
       <nav aria-label="Hlavní navigace" class="flex items-center gap-5 sm:gap-8">
@@ -98,7 +99,7 @@
 
   <main>
     <!-- ================= TITULEK A FILTRY: vzorník jako filtr barev ================= -->
-    <section aria-labelledby="titulek" class="bg-night pb-8 text-sand lg:pb-10">
+    <section aria-labelledby="titulek" class="on-dark bg-night pb-8 text-sand lg:pb-10">
       <nav aria-label="Drobečková navigace" class="px-page text-small text-dim">
         <ol class="flex flex-wrap items-center gap-x-2 gap-y-1">
           <li><a href="domu.html" class="hover:text-sand hover:underline">Domů</a></li>
@@ -156,7 +157,7 @@
           <legend class="px-page text-small text-dim">Barva <span class="text-dim/80">· vyberte jednu i víc</span></legend>
           <div data-filter-options class="no-scrollbar mt-3 flex snap-x snap-mandatory scroll-px-page items-end gap-2 overflow-x-auto px-page pb-1 lg:gap-1.5 lg:overflow-visible">
             <template>
-              <label class="group relative flex w-[3.6rem] shrink-0 cursor-pointer snap-start flex-col justify-end gap-2 text-left select-none lg:w-auto lg:min-w-0 lg:flex-1">
+              <label class="group relative flex w-[4rem] shrink-0 cursor-pointer snap-start flex-col justify-end gap-2 text-left select-none lg:w-auto lg:min-w-0 lg:flex-1">
                 <input data-option type="checkbox" class="peer sr-only">
                 <span data-option-swatch aria-hidden="true" class="block h-24 w-full origin-bottom scale-y-[.72] bg-(--sw) brightness-[.7] hexgrain transition duration-500 ease-(--ease-expo) group-hover:scale-y-[.84] group-hover:brightness-100 peer-checked:scale-y-100 peer-checked:brightness-100 peer-focus-visible:outline-3 peer-focus-visible:outline-offset-4 peer-focus-visible:outline-sand lg:h-32"></span>
                 <span data-option-label class="block h-[2.6em] text-small leading-tight lowercase text-dim transition-colors duration-200 first-letter:uppercase group-hover:text-sand peer-checked:font-medium peer-checked:text-sand lg:h-[6.4em] lg:rotate-180 lg:self-center lg:whitespace-nowrap lg:[writing-mode:vertical-rl]"></span>
@@ -184,7 +185,7 @@
         <template data-product-card>
           <a data-field="url" href="index.html" class="group grid grid-cols-[42%_minmax(0,1fr)] items-start gap-x-4 outline-offset-4 sm:block">
             <span class="relative block aspect-square overflow-hidden bg-sand-2 transition-colors duration-300 group-hover:bg-sand-3 sm:aspect-[5/4]">
-              <span data-art="band" class="block size-full p-3 transition-transform duration-700 ease-(--ease-expo) group-hover:scale-[1.06] group-hover:-rotate-2 sm:p-6"></span>
+              <span data-art="band" aria-hidden="true" class="block size-full p-3 transition-transform duration-700 ease-(--ease-expo) group-hover:scale-[1.06] group-hover:-rotate-2 sm:p-6"></span>
             </span>
             <span class="block min-w-0 sm:mt-4">
               <span class="flex items-center gap-2 text-small text-muted">
@@ -210,7 +211,7 @@
           <button type="button" data-filter-reset class="mt-8 inline-flex min-h-13 items-center justify-center bg-moss px-7 text-body font-medium text-white transition-[background-color,transform] duration-150 hover:bg-moss-strong active:scale-[.97]">Zrušit filtry</button>
         </div>
         <div class="hidden aspect-[4/3] bg-sand p-6 [--strap:#8d9196] lg:col-span-4 lg:col-start-9 lg:block">
-          <div data-art="roll" class="size-full"></div>
+          <div data-art="roll" aria-hidden="true" class="size-full"></div>
         </div>
       </div>
     </section>
