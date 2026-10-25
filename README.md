@@ -20,7 +20,7 @@ složku `site/`, nic se nesestavuje.
 
 ```
 site/
-  index.html                 přehled a prohlížeč všech variant (seznam VARIANTY)
+  index.html                 přehled a prohlížeč všech variant (seznamy VARIANTY a STRANKY)
   assets/hexa.js             sdílená data produktu, barvy, SVG ilustrace a interakce
   varianty/<skill>/index.html   jedna stránka = jeden skill
 nginx/default.conf

@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Detail produktu · porovnání UI skillů</title>
+  <title>Stránky e-shopu · porovnání UI skillů</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -17,9 +17,9 @@
   <header class="border-b border-zinc-200 bg-white">
     <div class="mx-auto max-w-7xl px-4 py-6 sm:px-6">
       <div>
-        <p class="text-xs font-semibold uppercase tracking-wider text-zinc-500">Prototyp · HEXA voděodolný popruh 20 mm</p>
-        <h1 class="mt-1 text-2xl font-bold tracking-tight text-zinc-900">Detail produktu – co z něj udělal který UI skill</h1>
-        <p class="mt-1 text-sm text-zinc-500">Každá stránka je výstup právě jednoho skillu. Zadání bylo pro všechny stejné, styl jen Tailwind CSS.</p>
+        <p class="text-xs font-semibold uppercase tracking-wider text-zinc-500">Prototyp e-shopu Popruhárna · popruhy BioThane, Pawtex, HEXA</p>
+        <h1 class="mt-1 text-2xl font-bold tracking-tight text-zinc-900">Stránky e-shopu – co z nich udělal který UI skill</h1>
+        <p class="mt-1 text-sm text-zinc-500">Každá varianta je výstup právě jednoho skillu. Zadání každé stránky bylo pro všechny stejné, styl jen Tailwind CSS.</p>
       </div>
     </div>
   </header>
@@ -30,15 +30,17 @@
     <p class="mt-10 text-sm text-zinc-500">
       Nová varianta = nová složka <code class="rounded bg-zinc-200 px-1.5 py-0.5 text-zinc-700">site/varianty/&lt;skill&gt;/index.html</code>
       a jeden řádek v seznamu <code class="rounded bg-zinc-200 px-1.5 py-0.5 text-zinc-700">VARIANTY</code> v tomto souboru.
+      Nová stránka = soubor ve složce každé varianty a jeden řádek v seznamu <code class="rounded bg-zinc-200 px-1.5 py-0.5 text-zinc-700">STRANKY</code>.
     </p>
   </main>
 
   <!-- Prohlížeč jedné varianty -->
   <div id="viewer" hidden class="fixed inset-0 z-50 flex flex-col bg-zinc-900">
-    <div class="flex items-center gap-3 border-b border-zinc-800 px-4 py-2 text-sm text-zinc-300">
-      <button type="button" id="close" class="rounded-md px-2 py-1 hover:bg-zinc-800 hover:text-white">← Přehled</button>
-      <nav id="tabs" class="flex gap-1 overflow-x-auto"></nav>
-      <div class="ml-auto flex items-center gap-1">
+    <div class="flex flex-wrap items-center gap-x-3 gap-y-2 border-b border-zinc-800 px-4 py-2 text-sm text-zinc-300 xl:flex-nowrap">
+      <button type="button" id="close" class="shrink-0 whitespace-nowrap rounded-md px-2 py-1 hover:bg-zinc-800 hover:text-white">← Přehled</button>
+      <nav id="tabs" class="order-last flex basis-full gap-1 overflow-x-auto xl:order-none xl:basis-auto" aria-label="Varianta"></nav>
+      <nav id="pages" class="flex min-w-0 max-w-full gap-0.5 overflow-x-auto rounded-lg bg-zinc-800 p-0.5 xl:shrink-0" aria-label="Stránka"></nav>
+      <div class="ml-auto flex shrink-0 items-center gap-1 whitespace-nowrap">
         <button type="button" data-device="390" class="rounded-md px-2 py-1 hover:bg-zinc-800 aria-pressed:bg-zinc-700 aria-pressed:text-white">Mobil</button>
         <button type="button" data-device="820" class="rounded-md px-2 py-1 hover:bg-zinc-800 aria-pressed:bg-zinc-700 aria-pressed:text-white">Tablet</button>
         <button type="button" data-device="1440" class="rounded-md px-2 py-1 hover:bg-zinc-800 aria-pressed:bg-zinc-700 aria-pressed:text-white">Desktop</button>
@@ -105,6 +107,11 @@
       },
     ];
 
+    // Stránky, které má každá varianta ve své složce. První je detail produktu (index.html).
+    const STRANKY = [
+      { soubor: 'index.html', nazev: 'Detail' },
+    ];
+
     const PREVIEW_W = 1440, PREVIEW_H = 1000;
     const grid = document.getElementById('grid');
     const viewer = document.getElementById('viewer');
@@ -113,21 +120,25 @@
 
     function card(v) {
       const url = `/varianty/${v.slug}/`;
-      return `<article class="group overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-zinc-200 transition hover:shadow-lg">
-        <a href="#${v.slug}" class="relative block aspect-[1440/1000] overflow-hidden bg-zinc-50" aria-label="Prohlédnout ${v.skill}">
+      return `<article class="group flex flex-col overflow-hidden rounded-2xl bg-white shadow-sm ring-1 ring-zinc-200 transition hover:shadow-lg">
+        <a href="#${v.slug}/${STRANKY[0].soubor}" class="relative block aspect-[1440/1000] overflow-hidden bg-zinc-50" aria-label="Prohlédnout ${v.skill}">
           <iframe src="${url}" title="${v.skill}" loading="lazy" tabindex="-1" scrolling="no"
             class="pointer-events-none absolute left-0 top-0 origin-top-left" style="width:${PREVIEW_W}px;height:${PREVIEW_H}px" data-scale></iframe>
         </a>
-        <div class="flex items-start justify-between gap-4 p-5">
+        <div class="flex flex-1 items-start justify-between gap-4 p-5">
           <div>
             <h2 class="font-semibold text-zinc-900">${v.skill}</h2>
             <p class="mt-1 text-sm text-zinc-500">${v.popis}</p>
           </div>
           <div class="flex shrink-0 gap-2 text-sm">
-            <a href="#${v.slug}" class="rounded-lg bg-zinc-900 px-3 py-1.5 font-medium text-white hover:bg-zinc-700">Prohlédnout</a>
+            <a href="#${v.slug}/${STRANKY[0].soubor}" class="rounded-lg bg-zinc-900 px-3 py-1.5 font-medium text-white hover:bg-zinc-700">Prohlédnout</a>
             <a href="${url}" target="_blank" rel="noopener" class="rounded-lg px-3 py-1.5 font-medium text-zinc-600 ring-1 ring-zinc-200 hover:bg-zinc-50">↗</a>
           </div>
         </div>
+        <nav class="flex flex-wrap items-center gap-1.5 border-t border-zinc-100 px-5 py-3 text-sm" aria-label="Stránky varianty ${v.skill}">
+          <span class="mr-1 text-xs font-semibold uppercase tracking-wider text-zinc-400">Stránky</span>
+          ${STRANKY.map((s) => `<a href="#${v.slug}/${s.soubor}" class="rounded-md px-2.5 py-1 font-medium text-zinc-700 ring-1 ring-zinc-200 hover:bg-zinc-50 hover:text-zinc-900">${s.nazev}</a>`).join('')}
+        </nav>
       </article>`;
     }
 
@@ -152,16 +163,68 @@
       document.querySelectorAll('[data-device]').forEach((b) => b.setAttribute('aria-pressed', String(Number(b.dataset.device) === w)));
     }
 
+    // Přepínač stránek má smysl až od dvou stránek; jinak by vypadal jako druhá vybraná varianta.
+    const pages = document.getElementById('pages');
+    pages.hidden = STRANKY.length < 2;
+    pages.innerHTML = STRANKY.map((s) =>
+      `<a data-soubor="${s.soubor}" class="whitespace-nowrap rounded-md px-3 py-1 text-zinc-400 hover:text-white aria-[current=page]:bg-zinc-700 aria-[current=page]:text-white">${s.nazev}</a>`
+    ).join('');
+
+    // Hash #slug/soubor.html; starší #slug (bez stránky) otevře detail.
+    function parseHash() {
+      let hash = location.hash.slice(1);
+      try { hash = decodeURIComponent(hash); } catch { /* neplatné %-kódování: hash bereme tak, jak je */ }
+      const [slug, soubor] = hash.split('/');
+      return {
+        v: VARIANTY.find((x) => x.slug === slug),
+        s: STRANKY.find((x) => x.soubor === soubor) || STRANKY[0],
+      };
+    }
+
+    // Cesta stránky právě načtené v iframe (stejný origin), adresář = index.html.
+    function framePath() {
+      try {
+        const p = frame.contentWindow.location.pathname;
+        return p.endsWith('/') ? p + 'index.html' : p;
+      } catch { return null; }
+    }
+
+    // Kam iframe právě míří: poslední nastavené src, po načtení skutečná cesta stránky.
+    let frameTarget = null;
+
     function route() {
-      const v = VARIANTY.find((x) => x.slug === location.hash.slice(1));
+      const { v, s } = parseHash();
       viewer.hidden = !v;
       document.body.style.overflow = v ? 'hidden' : '';
       if (!v) return;
-      const url = `/varianty/${v.slug}/`;
-      if (frame.getAttribute('src') !== url) frame.setAttribute('src', url);
+      const url = `/varianty/${v.slug}/${s.soubor}`;
+      if (frameTarget !== url) { frameTarget = url; frame.setAttribute('src', url); }
       document.getElementById('open-new').href = url;
-      document.querySelectorAll('#tabs a').forEach((a) => a.setAttribute('aria-current', a.dataset.slug === v.slug ? 'page' : 'false'));
+      document.querySelectorAll('#tabs a').forEach((a) => {
+        a.href = `#${a.dataset.slug}/${s.soubor}`;
+        a.setAttribute('aria-current', a.dataset.slug === v.slug ? 'page' : 'false');
+      });
+      document.querySelectorAll('#pages a').forEach((a) => {
+        a.href = `#${v.slug}/${a.dataset.soubor}`;
+        a.setAttribute('aria-current', a.dataset.soubor === s.soubor ? 'page' : 'false');
+      });
     }
+
+    // Proklik uvnitř iframe na jinou stránku ze seznamu: hash, přepínače i „Otevřít ↗“ jdou za ním.
+    frame.addEventListener('load', () => {
+      frameTarget = framePath();
+      const m = frameTarget?.match(/^\/varianty\/([^/]+)\/([^/]+)$/);
+      if (viewer.hidden || !m) return;
+      if (!VARIANTY.some((x) => x.slug === m[1]) || !STRANKY.some((x) => x.soubor === m[2])) return;
+      const hash = `#${m[1]}/${m[2]}`;
+      if (location.hash !== hash) { history.replaceState(null, '', hash); route(); }
+    });
+
+    // Klik na už vybranou variantu/stránku nezmění hash; iframe, který mezitím odešel jinam, se tak vrátí.
+    ['tabs', 'pages'].forEach((id) => document.getElementById(id).addEventListener('click', (e) => {
+      const a = e.target.closest('a');
+      if (a && a.hash === location.hash) route();
+    }));
 
     document.querySelectorAll('[data-device]').forEach((b) => b.addEventListener('click', () => setDevice(Number(b.dataset.device))));
     document.getElementById('close').addEventListener('click', () => { history.pushState('', '', location.pathname); route(); });
