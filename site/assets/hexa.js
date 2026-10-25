@@ -44,6 +44,158 @@
     { name: 'ICE BLUE', hex: '#cdeaf5' },
   ];
 
+  const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
+
+  /* ---------- Katalog ---------- */
+
+  const VAT = 1.21;
+  const round2 = (n) => Math.round((n + Number.EPSILON) * 100) / 100;
+  const withoutVat = (n) => round2(n / VAT);
+
+  const MATERIALS = { biothane: 'BioThane', pawtex: 'Pawtex', hexa: 'HEXA', kuze: 'Kůže' };
+  const allColors = colors.map((c) => c.name);
+
+  function item(sku, name, material, width, price, colorNames, featured = false) {
+    return {
+      sku, name, material, materialName: MATERIALS[material], width,
+      price, priceNoVat: withoutVat(price), colors: colorNames, url: 'index.html', featured,
+    };
+  }
+
+  // Pořadí = řazení „Doporučené“.
+  const catalog = [
+    item(product.sku, product.name, 'hexa', 20, product.price, allColors, true),
+    item('HEXA-25', 'HEXA voděodolný popruh 25 mm', 'hexa', 25, 59, allColors),
+    item('BT-16', 'BioThane Beta 16 mm', 'biothane', 16, 39, ['BLACK', 'RED', 'BLUE', 'ORANGE', 'PINKY', 'YELLOW', 'GREEN']),
+    item('BT-19', 'BioThane Beta 19 mm', 'biothane', 19, 45, ['BLACK', 'RED', 'BLUE', 'ORANGE', 'GOLD', 'GREEN', 'PETROL']),
+    item('BT-25', 'BioThane Beta 25 mm', 'biothane', 25, 55, ['BLACK', 'RED', 'BLUE', 'ORANGE', 'OLIVE', 'GRAY'], true),
+    item('PAW-20', 'Pawtex 20 mm', 'pawtex', 20, 35, ['BLACK', 'GRAY', 'PASTEL PINK', 'PASTEL BLUE', 'PASTEL GREEN', 'LEVANDULE', 'ICE BLUE'], true),
+    item('PAW-25', 'Pawtex 25 mm', 'pawtex', 25, 42, ['BLACK', 'GRAY', 'PASTEL PINK', 'PASTEL BLUE', 'LILA']),
+    item('KUZE-20', 'Kožený řemen 20 mm', 'kuze', 20, 89, ['BROWN', 'BRANDY', 'BLACK'], true),
+    item('KUZE-25', 'Kožený řemen 25 mm', 'kuze', 25, 109, ['BROWN', 'BRANDY', 'BLACK']),
+  ];
+
+  /* ---------- Košík (localStorage, sdílený mezi stránkami i záložkami) ---------- */
+
+  const CART_KEY = 'popruharna-cart-v1';
+  const CART_EVENT = 'hexa:cart';
+  const MAX_QTY = 500;
+  const clampQty = (q) => Math.max(1, Math.min(MAX_QTY, Math.round(Number(q) || 1)));
+  const findProduct = (sku) => catalog.find((p) => p.sku === sku);
+
+  // Když localStorage nejde číst nebo zapsat, košík žije aspoň v paměti do obnovení stránky.
+  let cartFallback = [];
+  let storageBroken = false;
+
+  // Uložená data jsou nedůvěryhodná: neznámé SKU/barvy zahodit, množství oříznout, duplicity sloučit.
+  function sanitize(raw) {
+    const out = [];
+    if (!Array.isArray(raw)) return out;
+    raw.forEach((l) => {
+      const p = l && findProduct(l.sku);
+      if (!p || !p.colors.includes(l.color)) return;
+      const qty = clampQty(l.qty);
+      const same = out.find((x) => x.sku === l.sku && x.color === l.color);
+      if (same) same.qty = Math.min(MAX_QTY, same.qty + qty);
+      else out.push({ sku: l.sku, color: l.color, qty });
+    });
+    return out;
+  }
+
+  function loadCart() {
+    if (storageBroken) return sanitize(cartFallback);
+    let raw;
+    try {
+      raw = localStorage.getItem(CART_KEY);
+    } catch (e) {
+      return sanitize(cartFallback);
+    }
+    if (raw == null) return [];
+    try {
+      return sanitize(JSON.parse(raw));
+    } catch (e) {
+      return [];
+    }
+  }
+
+  function refreshCartBadges() {
+    const n = loadCart().length;
+    $$('[data-cart-count]').forEach((el) => (el.textContent = n));
+  }
+
+  function cartChanged(source) {
+    refreshCartBadges();
+    document.dispatchEvent(new CustomEvent(CART_EVENT, { detail: { source, cart } }));
+  }
+
+  function saveCart(lines) {
+    cartFallback = lines;
+    try {
+      localStorage.setItem(CART_KEY, JSON.stringify(lines));
+    } catch (e) {
+      storageBroken = true; // plné nebo zakázané úložiště
+    }
+    cartChanged('local');
+  }
+
+  const cart = {
+    key: CART_KEY,
+    event: CART_EVENT,
+    max: MAX_QTY,
+
+    // Vrací { sku, color, qty, clamped } nebo null pro neznámé SKU/barvu.
+    add(sku, color, qty = 1) {
+      const p = findProduct(sku);
+      if (!p || !p.colors.includes(color)) return null;
+      const lines = loadCart();
+      const add = Math.max(1, Math.round(Number(qty) || 1));
+      let line = lines.find((l) => l.sku === sku && l.color === color);
+      if (!line) lines.push((line = { sku, color, qty: 0 }));
+      const sum = line.qty + add;
+      line.qty = Math.min(MAX_QTY, sum);
+      saveCart(lines);
+      return { sku, color, qty: line.qty, clamped: sum > MAX_QTY };
+    },
+
+    setQty(sku, color, qty) {
+      const lines = loadCart();
+      const line = lines.find((l) => l.sku === sku && l.color === color);
+      if (!line) return null;
+      line.qty = clampQty(qty);
+      saveCart(lines);
+      return line.qty;
+    },
+
+    remove(sku, color) {
+      saveCart(loadCart().filter((l) => !(l.sku === sku && l.color === color)));
+    },
+
+    clear() {
+      saveCart([]);
+    },
+
+    // Řádky doplněné o produkt, barvu (hex) a cenu řádku s DPH.
+    lines() {
+      return loadCart().map((l) => {
+        const p = findProduct(l.sku);
+        const c = colors.find((x) => x.name === l.color);
+        return { sku: l.sku, color: l.color, qty: l.qty, product: p, hex: c.hex, total: round2(l.qty * p.price) };
+      });
+    },
+
+    // Mezisoučet s DPH, bez DPH (= součet / 1,21 na haléře), DPH = rozdíl, počet řádků.
+    totals() {
+      const lines = cart.lines();
+      const total = round2(lines.reduce((s, l) => s + l.total, 0));
+      const totalNoVat = withoutVat(total);
+      return { total, totalNoVat, vat: round2(total - totalNoVat), count: lines.length };
+    },
+  };
+
+  window.addEventListener('storage', (e) => {
+    if (e.key === CART_KEY || e.key === null) cartChanged('storage');
+  });
+
   function formatCzk(n) {
     const decimals = Number.isInteger(n) ? 0 : 2;
     return n.toLocaleString('cs-CZ', { minimumFractionDigits: decimals, maximumFractionDigits: 2 }) + ' Kč';
@@ -188,8 +340,7 @@
 
   /* ---------- Interakce ---------- */
 
-  const state = { color: colors[0], qty: 1, cart: 0 };
-  const $$ = (sel, root = document) => Array.from(root.querySelectorAll(sel));
+  const state = { color: colors[0], qty: 1 };
 
   function setColor(c) {
     state.color = c;
@@ -242,6 +393,7 @@
     $$('[data-price]').forEach((el) => (el.textContent = formatCzk(product.price)));
     $$('[data-price-novat]').forEach((el) => (el.textContent = formatCzk(product.priceNoVat)));
     $$('[data-color-count]').forEach((el) => (el.textContent = colors.length));
+    refreshCartBadges();
 
     document.addEventListener('click', (e) => {
       const t = e.target;
@@ -265,9 +417,9 @@
       }
 
       if (t.closest('[data-add-to-cart]')) {
-        state.cart += 1;
-        $$('[data-cart-count]').forEach((el) => (el.textContent = state.cart));
-        toast(`Přidáno do košíku: ${state.qty} m · ${state.color.name} · ${formatCzk(state.qty * product.price)}`);
+        const added = cart.add(product.sku, state.color.name, state.qty);
+        const limit = added && added.clamped ? ` (v košíku max. ${MAX_QTY} m)` : '';
+        toast(`Přidáno do košíku: ${state.qty} m · ${state.color.name} · ${formatCzk(state.qty * product.price)}${limit}`);
       }
 
       const tab = t.closest('[data-tab]');
@@ -282,7 +434,7 @@
     $$('[data-thumb]').forEach((x, i) => x.setAttribute('aria-current', String(i === 0)));
   }
 
-  window.HEXA = { product, colors, art, formatCzk, setColor };
+  window.HEXA = { product, colors, catalog, cart, art, formatCzk, setColor };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', init);
   else init();
 })();
